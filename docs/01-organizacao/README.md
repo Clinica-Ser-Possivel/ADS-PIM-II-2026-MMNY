@@ -1,0 +1,10 @@
+- Nome da organização: CLÍNICA SER POSSÍVEL
+- Característica: clínica de psicologia de pequeno porte com somente uma unidade (sem filiais)
+- Ramo de atuação: atendimento psicológico do público Infanto-Juvenil
+- Missão: Promover o desenvolvimento emocional, cognitivo e comportamental de crianças e adolescentes por meio de um atendimento psicológico ético, acolhedor e baseado em evidências científicas. Buscamos compreender as singularidades de cada paciente, oferecendo suporte especializado tanto no acompanhamento terapêutico quanto em avaliações psicológicas e neuropsicológicas precisas, fortalecendo o vínculo entre a clínica, a família e a escola para garantir o bem-estar integral do jovem.
+- Principais serviços prestados: Acompanhamento psicológico; Psicoterapias individual e em grupo; Orientação parental; Avaliações psicológicas e neuropsicológicas
+- Estrutura organizacional: Recepcionista; Psicólogos (x); Assistente administrativo; Psicólogo RT
+- Principais processos de negócios: Atendimento ao cliente; cadastramento de novo paciente; agendamento e cancelamento de consulta com avisos; cobrança; registro de sessão/prontuário; ...
+- Público-alvo: crianças a partir de 5 anos, adolescentes e jovens adultos
+- Problemas identificados: controle manual de toda operação; perda de documentos confidenciais; dificuldade em buscar históricos (considerando a exigência de 5 anos de guarda de prontuário de acordo com CFP); risco de vazamento de conteúdos sensíveis...
+- Justificativa da solução proposta: um sistema informatizado garante segurança dos dados pessoais e sensíveis do paciente em conformidade com a Resolução CFP nº 010/2005 do Código de Ética Profissional do Psicólogo e com a LGPD. Seu histórico de atendimento e/ou avaliações e o acompanhamento promove agilidade e praticidade nos processos diários
