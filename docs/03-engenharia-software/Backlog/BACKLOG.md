@@ -5,7 +5,8 @@ Tabela com requisitos levantados, tarefas técnicas e prioridades.
 
 | ID RF/RNF | Requisito | Tarefa | Descrição Breve | Prioridade |
 
-| **RF01** | Gerenciar Usuários | T01: Cadastrar usuário | Inserir novo colaborador (Admin, Recepção ou Psicólogo) no sistema. | Alta |
+| **RF01** | Gerenciar Usuários | T01: Cadastrar usuário | Inserir novo colaborador (Admin, Recepção ou Psicólogo) no sistema. | Alta |  
+
 | **RF01** | Gerenciar Usuários | T02: Efetuar login | Autenticar usuário através de matrícula e senha com validação de perfil. | Alta |
 | **RF01** | Gerenciar Usuários | T03: Gerenciar permissões | Restringir o acesso a prontuários apenas ao Psicólogo de referência. | Alta |
 | **RF01** | Gerenciar Usuários | T04: Inativar usuário | Alterar o status do colaborador para inativo sem excluir o histórico do banco. | Média |
