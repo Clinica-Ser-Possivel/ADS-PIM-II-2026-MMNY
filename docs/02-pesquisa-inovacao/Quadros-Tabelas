@@ -1,0 +1,11 @@
+/table
+
+<h3>|_Código_| _Problema identificado_ |_Consequências para Clinica_|</h3>
+|:----|:----:|----:|
+ 
+|P1|	Cadastro de pacientes sem verificação de duplicidade; o nome, isoladamente, é um critério frágil por admitir grafias divergentes | Pacientes com mais de um registro e histórico fragmentado |   
+|P2|	Agenda dos psicólogos sem consulta centralizada de disponibilidade | Conflitos de horário e sobreposição de pacientes |
+|P3|	Cancelamentos e reagendamentos sem registro de justificativa e sem lembretes sistemáticos | Faltas, horários ociosos e ausência de dados para análise |
+|P4|	Acesso às evoluções do prontuário não restrito ao psicólogo responsável | Risco de violação do sigilo profissional |	   
+|P5|	Tratamento de dados pessoais de menores de idade sem vínculo claro com o responsável legal | Risco de descumprimento da legislação de proteção de dados |
+
