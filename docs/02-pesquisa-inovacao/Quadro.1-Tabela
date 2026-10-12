@@ -1,8 +1,7 @@
 ### Quadro 1 – Problemas identificados
 | **Código** | **Problema identificado** | **Consequência para a clínica** |
 |:-------|:----------------------|:----------------------------|
-| P1 | Cadastro de pacientes sem verificação de duplicidade; o nome, isoladamente, é um critério frágil por admitir grafias divergentes | Pacientes com mais de um registro e histórico fragmentado |
+| P1 | Cadastro de pacientes sem verificação | Pacientes com mais de um registro e histórico fragmentado |
 | P2 | Agenda dos psicólogos sem consulta centralizada de disponibilidade | Conflitos de horário e sobreposição de pacientes |
-| P3 | Cancelamentos e reagendamentos sem registro de justificativa e sem lembretes sistemáticos | Faltas, horários ociosos e ausência de dados para análise |
-| P4 | Acesso às evoluções do prontuário não restrito ao psicólogo responsável | Risco de violação do sigilo profissional |
-| P5 | Tratamento de dados pessoais de menores de idade sem vínculo claro com o responsável legal | Risco de descumprimento da legislação de proteção de dados |
+| P3 | Acesso às evoluções do prontuário não restrito ao psicólogo responsável | Risco de violação do sigilo profissional e do Paciente |
+| P4 | Tratamento de dados pessoais de menores de idade sem vínculo claro com o responsável legal | Risco de descumprimento da legislação de proteção de dados |
