@@ -1,5 +1,5 @@
 ### Quadro 1 – Problemas identificados
-| Código | Problema identificado | Consequência para a clínica |
+| **Código** | **Problema identificado** | **Consequência para a clínica** |
 |:-------|:----------------------|:----------------------------|
 | P1 | Cadastro de pacientes sem verificação de duplicidade; o nome, isoladamente, é um critério frágil por admitir grafias divergentes | Pacientes com mais de um registro e histórico fragmentado |
 | P2 | Agenda dos psicólogos sem consulta centralizada de disponibilidade | Conflitos de horário e sobreposição de pacientes |
