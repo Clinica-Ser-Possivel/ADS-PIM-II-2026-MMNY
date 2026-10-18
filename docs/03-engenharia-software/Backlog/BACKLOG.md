@@ -1,7 +1,6 @@
-# 📋 Product Backlog - Clínica Ser Possível
+#  Product Backlog - Clínica Ser Possível
 
-## 🚀 Requisitos Funcionais (RF)
-Descrevem as funcionalidades e ações que o sistema deve executar para o usuário.
+##  Requisitos Funcionais (RF)
 
 | Épico / Módulo | ID | Requisito Funcional | Descrição | Prioridade |
 | :--- | :--- | :--- | :--- | :--- |
@@ -22,8 +21,7 @@ Descrevem as funcionalidades e ações que o sistema deve executar para o usuár
 
 ---
 
-## ⚙️ Requisitos Não Funcionais (RNF)
-Descrevem as restrições, premissas de qualidade e requisitos técnicos do sistema.
+##  Requisitos Não Funcionais (RNF)
 
 | Categoria | ID | Requisito Técnico | Descrição | Prioridade |
 | :--- | :--- | :--- | :--- | :--- |
