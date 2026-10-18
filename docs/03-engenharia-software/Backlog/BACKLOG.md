@@ -15,6 +15,8 @@
 | | RF03.2 | Registrar anotação privada | Criar campo de anotações pessoais do psicólogo (sigiloso, apenas para o profissional). | Alta |
 | | RF03.3 | Registrar evolução técnica | Criar campo da evolução técnica oficial que compõe o prontuário do paciente. | Alta |
 | | RF03.4 | Anexar documentos | Permitir upload e armazenamento de laudos, testes e relatórios escolares em PDF. | Média |
+| | RF03.5 | Consultar prontuário | Buscar e visualizar todo o histórico de evoluções, anotações e documentos do paciente. | Alta |
+| | RF03.6 | Inserir Avaliação Psicológica | Registrar dados, testes e resultados referentes ao processo de avaliação psicológica do paciente. | Alta |
 | **4. Agendamento** | RF04.1 | Agendar consulta | Registrar nova consulta selecionando paciente, psicólogo, data e horário. | Alta |
 | | RF04.2 | Remarcar ou cancelar | Permitir alterar a data/horário de um agendamento ou efetuar cancelamento. | Alta |
 | | RF04.3 | Visualizar agenda | Exibir a grade de horários diária/semanal filtrada pelo psicólogo logado. | Média |
