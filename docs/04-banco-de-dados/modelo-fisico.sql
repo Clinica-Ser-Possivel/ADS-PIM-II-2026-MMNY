@@ -1,0 +1,63 @@
+-- Banco de Dados - Clinica Ser Possivel
+-- SGBD: Microsoft SQL Server
+
+CREATE TABLE USUARIO (
+    id_usuario INT IDENTITY(1,1) PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    perfil VARCHAR(20) NOT NULL,
+    CONSTRAINT CK_USUARIO_PERFIL CHECK (perfil IN ('ADMIN', 'RECEPCAO', 'PACIENTE', 'PSICOLOGO'))
+);
+
+CREATE TABLE PACIENTE (
+    id_paciente INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE,
+    data_nascimento DATE,
+    telefone VARCHAR(20),
+    email VARCHAR(100),
+    endereco VARCHAR(200),
+    CONSTRAINT FK_PACIENTE_USUARIO FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+);
+
+CREATE TABLE PSICOLOGO (
+    id_psicologo INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NOT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
+    registro_profissional VARCHAR(30) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    email VARCHAR(100),
+    CONSTRAINT FK_PSICOLOGO_USUARIO FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+);
+
+CREATE TABLE CONSULTA (
+    id_consulta INT IDENTITY(1,1) PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_psicologo INT NOT NULL,
+    data_consulta DATE NOT NULL,
+    horario TIME NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'AGENDADA',
+    CONSTRAINT FK_CONSULTA_PACIENTE FOREIGN KEY (id_paciente) REFERENCES PACIENTE(id_paciente),
+    CONSTRAINT FK_CONSULTA_PSICOLOGO FOREIGN KEY (id_psicologo) REFERENCES PSICOLOGO(id_psicologo),
+    CONSTRAINT CK_CONSULTA_STATUS CHECK (status IN ('AGENDADA', 'REALIZADA', 'CANCELADA'))
+);
+
+CREATE TABLE PRONTUARIO (
+    id_prontuario INT IDENTITY(1,1) PRIMARY KEY,
+    id_paciente INT NOT NULL UNIQUE,
+    data_criacao DATE NOT NULL DEFAULT (CONVERT(DATE, GETDATE())),
+    CONSTRAINT FK_PRONTUARIO_PACIENTE FOREIGN KEY (id_paciente) REFERENCES PACIENTE(id_paciente)
+);
+
+CREATE TABLE EVOLUCAO (
+    id_evolucao INT IDENTITY(1,1) PRIMARY KEY,
+    id_prontuario INT NOT NULL,
+    id_psicologo INT NOT NULL,
+    data_evolucao DATE NOT NULL DEFAULT (CONVERT(DATE, GETDATE())),
+    descricao VARCHAR(1000) NOT NULL,
+    CONSTRAINT FK_EVOLUCAO_PRONTUARIO FOREIGN KEY (id_prontuario) REFERENCES PRONTUARIO(id_prontuario),
+    CONSTRAINT FK_EVOLUCAO_PSICOLOGO FOREIGN KEY (id_psicologo) REFERENCES PSICOLOGO(id_psicologo)
+);
+
+-- Fim do script de criacao das tabelas.
