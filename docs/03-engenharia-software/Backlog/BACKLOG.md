@@ -20,7 +20,7 @@ Descrevem as funcionalidades e ações que o sistema deve executar para o usuár
 | | RF03.6 | Inserir Avaliação Psicológica | Registrar dados, testes e resultados referentes ao processo de avaliação psicológica do paciente. | Média |
 | **4. Agendamento** | RF04.1 | Agendar consulta | Registrar nova consulta selecionando paciente, psicólogo, data e horário. | Alta |
 | | RF04.2 | Remarcar ou cancelar | Permitir alterar a data/horário de um agendamento ou efetuar cancelamento. | Alta |
-| | RF04.3 | Visualizar agenda | Exibir a grade de horários diária/semanal filtrada pelo psicólogo logado. | Média |
+| | RF04.3 | Visualizar agenda | Permitir a consulta dos agendamentos por data e profissional, respeitando o perfil de acesso: o psicólogo visualiza seus próprios atendimentos, enquanto a recepção e o administrador podem consultar as agendas dos profissionais da clínica. | Média |
 
 ---
 
