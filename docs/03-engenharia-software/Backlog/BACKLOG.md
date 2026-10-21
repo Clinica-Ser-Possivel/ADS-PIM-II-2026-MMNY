@@ -12,11 +12,11 @@ Descrevem as funcionalidades e ações que o sistema deve executar para o usuár
 | **2. Gestão de Pacientes** | RF02.1 | Cadastrar paciente e responsável | Registrar dados do paciente infanto-juvenil e do seu responsável legal. | Alta |
 | | RF02.2 | Consultar dados cadastrais | Permitir a busca e visualização dos dados cadastrais de pacientes e responsáveis por nome ou CPF. | Média |
 | | RF02.3 | Atualizar dados | Alterar dados de contato e endereço de pacientes e responsáveis. | Média |
-| **3. Prontuário Eletrônico** | RF03.1 | Selecionar formato da sessão | Permitir escolher modalidade (online, presencial) e formato no início do registro. | Média |
+| **3. Prontuário Eletrônico** | RF03.1 | Registrar modalidade do atendimento | Permitir ao psicólogo identificar se o atendimento foi realizado na modalidade presencial ou online durante o registro da sessão. | Média |
 | | RF03.2 | Registrar anotação privada | Criar campo de anotações pessoais do psicólogo (sigiloso, apenas para o profissional). | Alta |
 | | RF03.3 | Registrar evolução técnica | Criar campo da evolução técnica oficial que compõe o prontuário do paciente. | Alta |
 | | RF03.4 | Anexar documentos | Permitir upload e armazenamento de laudos, testes e relatórios escolares em PDF. | Média |
-| | RF03.5 | Consultar prontuário | Buscar e visualizar todo o histórico de evoluções, anotações e documentos do paciente. | Alta |
+| | RF03.5 | Consultar prontuário | Permitir ao psicólogo autorizado consultar o histórico de evoluções técnicas e documentos clínicos do paciente, mantendo as anotações privadas acessíveis exclusivamente ao profissional que as registrou. | Alta |
 | | RF03.6 | Inserir Avaliação Psicológica | Registrar dados, testes e resultados referentes ao processo de avaliação psicológica do paciente. | Média |
 | **4. Agendamento** | RF04.1 | Agendar consulta | Registrar nova consulta selecionando paciente, psicólogo, data e horário. | Alta |
 | | RF04.2 | Remarcar ou cancelar | Permitir alterar a data/horário de um agendamento ou efetuar cancelamento. | Alta |
