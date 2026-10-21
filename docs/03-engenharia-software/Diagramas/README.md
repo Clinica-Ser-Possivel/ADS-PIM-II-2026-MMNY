@@ -7,7 +7,7 @@ ATORES
 **Recepção** Assistente responsável por agendamentos e recepção de pacientes.  
 CASOS DE USO  
 *Cadastrar usuário -- Permite registrar novos colaboradores no sistema.  
-*Efetuar login -- Permite a autenticação segura do usuário através de e-mail e senha.  
+*Efetuar login -- Permite a autenticação segura do usuário através de matricula e senha.  
 *Gerenciar permissões -- Permite alterar o perfil e níveis de acesso (LGPD/CFP).  
 
 ---
