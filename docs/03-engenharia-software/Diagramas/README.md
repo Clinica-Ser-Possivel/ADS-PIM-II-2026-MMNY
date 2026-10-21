@@ -31,7 +31,7 @@ CASOS DE USO
 *Registro de evolução da sessão -- Registro das anotações clínicas e acompanhamento do tratamento.  
 *Inserir Avaliação Psicológica -- Registro dos resultados de testes psicológicos/neuropsicológicos e laudos.  
 *Anexar documentos ou relatórios -- Permite anexar relatórios escolares, pareceres médicos e termos assinados.  
-*Consultar prontuário -- Acesso restrito ao histórico clínico do paciente.  
+*Consultar prontuário -- Permitir ao psicólogo autorizado consultar o histórico de evoluções técnicas e documentos clínicos do paciente, mantendo as anotações privadas acessíveis exclusivamente ao profissional que as registrou.  
 
 ---
 
