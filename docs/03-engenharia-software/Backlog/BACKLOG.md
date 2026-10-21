@@ -31,5 +31,5 @@ Descrevem as restrições, premissas de qualidade e requisitos técnicos do sist
 | :--- | :--- | :--- | :--- | :--- |
 | **Segurança e LGPD** | RNF01 | Criptografia e Acesso | Implementar mecanismos de proteção de dados e controle estrito de acesso aos prontuários. | Alta |
 | **Guarda Temporal** | RNF02 | Controle de Retenção | Garantir a integridade e guarda temporal do banco de dados e prontuários por no mínimo 5 anos. | Alta |
-| **Usabilidade** | RNF03 | Interface de Usuário | Desenvolver telas limpas e responsivas para agilizar o atendimento, dispensando o uso de manual. | Média |
+| **Usabilidade** | RNF03 | Interface de Usuário | O sistema deverá apresentar menus textuais organizados, opções numeradas e mensagens claras de orientação e validação, permitindo que os usuários executem as funcionalidades por meio do terminal de maneira intuitiva. | Média |
 | **Desempenho** | RNF04 | Otimização de Consultas | Garantir tempo de resposta inferior a 2 segundos nas pesquisas de banco de dados e gravações. | Média |
