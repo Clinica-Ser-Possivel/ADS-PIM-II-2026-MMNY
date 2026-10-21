@@ -19,7 +19,7 @@ ATORES
 **Recepção** Assistente responsável pelo registro e atualização de dados de pacientes e responsáveis.  
 CASOS DE USO  
 *Cadastrar paciente e responsável -- Permite registrar os dados do paciente e vinculá-lo ao seu responsável legal.  
-*Consultar histórico do paciente -- Permite pesquisar e visualizar a ficha cadastral do paciente e contatos.  
+*Consultar dados cadastrais — Permite pesquisar e visualizar as informações cadastrais dos pacientes e seus responsáveis legais, sem acesso aos registros clínicos.
 *Atualizar dados do paciente -- Permite alterar informações cadastrais e observações administrativas.  
 
 ---
