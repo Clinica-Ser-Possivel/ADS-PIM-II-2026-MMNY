@@ -1,33 +1,11 @@
-### Objetivo Geral
+## Objetivo Geral
 
-- O sistema proposto tem como objetivo ser intuitivo e seguro, para uma gestão mais unificada, estável e ágil.
+Desenvolver um sistema de gestão para clínicas de psicologia que seja intuitivo, seguro e estável, unificando agendamentos, prontuários e controle de acesso em uma única plataforma, em conformidade com a LGPD e as resoluções do CFP.
 
-#### Dividido em 3 camadas:
+## Objetivos Específicos
 
- **Interface** 
+1. **Interface intuitiva e eficiente:** oferecer um calendário dinâmico com status das consultas por cores e um editor de prontuário com autossalvamento, bloqueio por inatividade e separação entre anotações restritas e documentos ao paciente.
 
-- Uma apresentação prática e autoexplicativa, permitindo que o usuário interaja de maneira natural e eficiente, sem a necessidade de um aprendizado. Facilitando a navegação e a realização de agendamentos.
-*Calendário Dinâmico: Visualização por data e psicologo, com sinalização por cores para status das consultas (Agendada, Confirmada, Em Atendimento, Concluída, Cancelada).
-*Editor de Prontuário Clínico: Interface de texto com recursos de autossalvamento automático, bloqueio por inatividade e separação entre anotações clínicas restritas e documentos emitidos ao paciente.
+2. **Regras de negócio que garantam segurança e integridade:** validar conflitos de horários, enviar lembretes automáticos por e-mail, restringir o acesso ao prontuário ao psicólogo responsável, manter o histórico versionado e imutável e aplicar controle de acesso por perfil (Administrador, Recepcionista e Psicólogo).
 
- **Regras de Negócio** 
-
-*Validação de Conflitos: Impede sobreposição de horários para um mesmo profissional ou sala de atendimento.
-*Notificações Automatizadas: Disparo automático de lembretes via e-mail.
-*Controle de Privacidade do Prontuário: Aplicação estrita de privacidade em que apenas o psicólogo responsável (ou equipe autorizada mediante consentimento formal) tem visibilidade do conteúdo do prontuário.
-*Histórico e Imutabilidade: Registro temporal de alterações com preservação de versões anteriores para assegurar a integridade do histórico clínico.
-*Controle de Acesso Baseado em Funções: Garantia de que cada perfil (Administrador, Recepcionista e Psicólogo) acesse estritamente o conjunto de dados necessário para sua atuação.
-
- **Dados** 
-
-*Base de Dados Principal: Utilização de banco de dados relacional para gerenciar cadastros, metadados de agendamentos, permissões
-*Rotina de Backup: Realização diária de backups automatizados com criptografia e armazenamento redundante em locais geograficamente distintos.
-*Conformidade com Retenção Legal: Implementação de políticas automatizadas para a guarda de prontuários pelo período exigido pelo CFP (no mínimo 5 anos) e estratégias para expurgo seguro após o período legal, quando aplicável.
-*Conformidade Legal: Total alinhamento com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018) e com as resoluções vigentes do Conselho Federal de Psicologia para prestação de serviços e guarda de documentos.
-
----
-
-### Objetivo Específicos
-
-
-
+3. **Dados protegidos e em conformidade legal:** usar banco relacional, realizar backups diários criptografados e redundantes, e aplicar políticas de retenção (mínimo de 5 anos, conforme o CFP) com expurgo seguro, em alinhamento com a LGPD (Lei nº 13.709/2018).
