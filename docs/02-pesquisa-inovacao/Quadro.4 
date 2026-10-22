@@ -1,0 +1,24 @@
+## 5. Análise de Trabalhos Relacionados
+
+| Solução | Limitações |
+|---|---|
+| **Prontuário em papel** | Risco de perda, extravio e vazamento; sem histórico de alterações; busca lenta. |
+| **Planilhas (Excel/Sheets)** | Sem controle de acesso por perfil; sem versionamento; fáceis de apagar ou alterar por engano; conformidade com a LGPD frágil. |
+| **Sistemas genéricos de gestão de clínicas** | Complexos, com módulos desnecessários; custo elevado para clínicas pequenas; nem sempre seguem as normas éticas da psicologia. |
+
+### ✅ Posicionamento do nosso sistema
+
+Um sistema **enxuto**, focado na rotina de uma clínica de psicologia, que une agenda e prontuário com sigilo ético e conformidade legal desde o projeto, com baixo custo de adoção.
+
+---
+
+## 6. Justificativa Científica da Solução
+
+A transição do meio físico e desorganizado para o digital estruturado é viável e necessária pelos seguintes motivos:
+
+- **Menos erros operacionais:** a validação automática de conflitos e os lembretes reduzem falhas e faltas.
+- **Conformidade técnica e legal:** controle de acesso por função, histórico imutável, backups criptografados e retenção automatizada atendem à LGPD e ao CFP.
+- **Melhor fluxo de atendimento:** a informação fica centralizada e disponível apenas para quem tem permissão, sem retrabalho.
+- **Base na Engenharia de Software:** arquitetura em camadas, modelagem UML e desenvolvimento ágil são práticas consolidadas, que reduzem o risco do projeto e facilitam sua evolução.
+
+---
