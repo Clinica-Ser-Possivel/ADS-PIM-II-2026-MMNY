@@ -1,7 +1,31 @@
-### Quadro 3 – Relação entre ciclo científico e ciclo ágil
-| **Ciclo científico** | **Ciclo ágil (Scrum)** | **Aplicação na Clínica Ser Possível**|
-|:-----------------|:-------------------|:---------------------------------|
-| Pergunta	| Item do Product Backlog |	Ex.: como evitar conflito de horários no agendamento?	|
-| Hipótese |	Incremento planejado na sprint | Ex.: a consulta de disponibilidade reduz sobreposições	|  
-| Experimento |	Entrega para usuários reais |	Demonstração do protótipo à recepção e aos psicólogos	|
-| Conclusão | Decisão na Sprint Review e na Retrospective | Manter, ajustar ou descartar a funcionalidade |
+
+## 3. Metodologia Utilizada
+
+O trabalho combina **pesquisa bibliográfica** (normas do CFP, LGPD e Engenharia de Software) e **pesquisa aplicada**, que resulta em um protótipo funcional.
+
+| Etapa | Descrição |
+|---|---|
+| **Metodologia ágil (Scrum)** | Entregas curtas e incrementais, divididas em sprints, com revisão contínua. |
+| **Modelagem UML** | Diagramas de casos de uso elaborados no **Astah**, para levantar requisitos e definir os perfis (Administrador, Recepcionista e Psicólogo). |
+| **Arquitetura em 3 camadas** | Separação entre interface, regras de negócio e dados, o que facilita manutenção e testes. |
+| **Implementação em linguagem C** | Prototipação estruturada das regras principais, como validação de conflitos e controle de acesso. |
+
+---
+
+## 4. Fundamentação Bibliográfica
+
+### 📋 Prontuário e registro documental
+
+A **Resolução CFP nº 001/2009** torna obrigatório o registro documental da prestação de serviços psicológicos, em papel ou informatizado, com caráter sigiloso. A guarda é de no mínimo **5 anos**, podendo ser ampliada nos casos previstos em lei. Os CRPs também orientam que **prontuários** sejam guardados por no mínimo **20 anos** a partir do último registro, por analogia à Lei nº 13.787/2018.
+
+### 🔒 Sigilo e proteção de dados
+
+O **Código de Ética Profissional do Psicólogo** (Resolução CFP nº 010/2005) e a **LGPD** (Lei nº 13.709/2018) tratam os dados de saúde como sensíveis, exigindo base legal, finalidade clara e medidas de segurança. A **Resolução CFP nº 006/2019** trata da elaboração de documentos psicológicos.
+
+### 🏗️ Arquitetura e engenharia de software
+
+- **Sommerville** e **Pressman** sustentam as práticas de requisitos, modelagem e qualidade de software.
+- **Fowler** descreve a arquitetura em camadas, que separa responsabilidades e facilita a evolução do sistema.
+- **Schwaber e Sutherland** definem o Scrum, usado para organizar o desenvolvimento.
+
+---
