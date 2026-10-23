@@ -1,6 +1,7 @@
+
 # Diagramas de Casos de Uso (UML)
 
-Este documento apresenta os atores e os casos de uso do sistema de gerenciamento da Clínica Ser Possível, organizados de acordo com os requisitos funcionais definidos no Product Backlog.
+Este documento apresenta os atores e os casos de uso do sistema de gerenciamento da **Clínica Ser Possível**, organizados de acordo com os requisitos funcionais definidos no Product Backlog.
 
 Os diagramas representam as funcionalidades disponíveis para cada perfil de usuário, considerando suas responsabilidades e as regras de acesso às informações cadastrais e clínicas.
 
@@ -10,7 +11,7 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 ### ATORES
 
-**Administrador (Admin)** — Responsável pelo cadastro, inativação e gerenciamento das permissões de acesso dos colaboradores. Também poderá autorizar encaminhamentos internos de pacientes, sem acesso ao conteúdo clínico dos prontuários.
+**Administrador (Admin)** — Responsável pelo cadastro, inativação e gerenciamento das permissões de acesso dos colaboradores. Não possui acesso ao conteúdo clínico dos prontuários.
 
 **Psicólogo(a)** — Profissional responsável pelos atendimentos clínicos, com acesso aos prontuários dos pacientes vinculados ao seu acompanhamento, respeitando as permissões e o sigilo profissional.
 
@@ -22,17 +23,18 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 - **RF01.2 — Efetuar login:** Permite a autenticação dos usuários por meio de matrícula e senha, com identificação do perfil e aplicação das respectivas permissões.
 
-- **RF01.3 — Gerenciar permissões:** Permite controlar o acesso às funcionalidades e aos prontuários conforme o perfil do usuário e o vínculo do psicólogo com o paciente. O vínculo inicial é estabelecido a partir do agendamento, e o acesso aos registros técnicos poderá ser atualizado mediante encaminhamento interno autorizado pelo psicólogo responsável ou administrador.
+- **RF01.3 — Gerenciar permissões:** Permite definir e controlar o acesso às funcionalidades do sistema conforme o perfil cadastrado. O acesso do psicólogo ao prontuário depende de seu vínculo com o paciente.
 
 - **RF01.4 — Inativar usuário:** Permite ao administrador alterar o status de um colaborador para inativo, impedindo novos acessos sem excluir seu histórico de registros.
 
 ### REGRAS DE ACESSO
 
+- O administrador é responsável pelo cadastro, gerenciamento das permissões e inativação dos usuários.
+- Os perfis de acesso são definidos no momento do cadastro do colaborador.
 - A recepção e o psicólogo possuem acesso apenas às funcionalidades autorizadas para seus respectivos perfis.
-- O administrador gerencia as permissões, mas não possui acesso ao conteúdo clínico dos prontuários.
-- O psicólogo responsável pode consultar os registros clínicos dos pacientes vinculados ao seu atendimento.
-- Em caso de encaminhamento interno, o novo psicólogo recebe acesso aos registros técnicos necessários à continuidade do tratamento.
-- As anotações privadas permanecem acessíveis exclusivamente ao profissional que as registrou.
+- O administrador não possui acesso ao conteúdo clínico dos prontuários.
+- O psicólogo autorizado pode consultar os registros clínicos dos pacientes vinculados ao seu atendimento.
+- Usuários inativos não poderão realizar novos acessos ao sistema.
 
 ---
 
@@ -63,38 +65,25 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 ---
 
-## RF03 — Prontuário Eletrônico e Avaliação Psicológica
+## RF03 — Prontuário Eletrônico
 
 ### ATORES
 
-**Psicólogo(a)** — Responsável pelo registro das informações clínicas, evoluções técnicas, avaliações psicológicas, documentos e anotações privadas. Também poderá registrar e autorizar encaminhamentos dos pacientes sob sua responsabilidade.
-
-**Administrador (Admin)** — Poderá registrar e autorizar encaminhamentos internos entre psicólogos, sem acesso às evoluções clínicas, avaliações, documentos sigilosos ou anotações privadas.
+**Psicólogo(a)** — Profissional responsável pelo registro das evoluções técnicas dos atendimentos e pela consulta aos prontuários dos pacientes vinculados ao seu acompanhamento.
 
 ### CASOS DE USO
 
-- **RF03.1 — Registrar modalidade do atendimento:** Permite ao psicólogo identificar, durante o registro da sessão, se o atendimento ocorreu presencialmente ou online.
+- **RF03.1 — Registrar evolução técnica:** Permite ao psicólogo autorizado registrar a evolução técnica oficial do atendimento, compondo o prontuário clínico do paciente.
 
-- **RF03.2 — Registrar anotação privada:** Permite ao psicólogo registrar anotações pessoais relacionadas ao atendimento, acessíveis exclusivamente ao profissional que as produziu, inclusive após eventual encaminhamento do paciente.
-
-- **RF03.3 — Registrar evolução técnica:** Permite ao psicólogo registrar a evolução técnica oficial da sessão, compondo o prontuário clínico do paciente.
-
-- **RF03.4 — Anexar documentos ao prontuário:** Permite ao psicólogo autorizado vincular documentos em formato PDF, como laudos, relatórios escolares e documentos relacionados à avaliação psicológica.
-
-- **RF03.5 — Consultar prontuário:** Permite ao psicólogo autorizado consultar o histórico de evoluções técnicas e documentos clínicos, respeitando as permissões de acesso e preservando a privacidade das anotações de outros profissionais.
-
-- **RF03.6 — Inserir Avaliação Psicológica:** Permite ao psicólogo registrar dados, instrumentos utilizados e resultados relacionados ao processo de avaliação psicológica ou neuropsicológica do paciente.
-
-- **RF03.7 — Encaminhar paciente para outro psicólogo:** Permite ao psicólogo responsável ou ao administrador registrar e autorizar o encaminhamento de um paciente para outro psicólogo da clínica, atualizando o vínculo profissional e concedendo ao novo responsável acesso aos registros técnicos do prontuário, sem disponibilizar as anotações privadas do profissional anterior.
+- **RF03.2 — Consultar prontuário:** Permite ao psicólogo autorizado consultar o histórico de evoluções técnicas registradas no prontuário do paciente.
 
 ### REGRAS DE ACESSO E SIGILO
 
-- Somente psicólogos autorizados podem consultar ou registrar informações clínicas.
-- As anotações privadas são exclusivas do psicólogo que as produziu.
-- O psicólogo que recebe um paciente encaminhado poderá consultar os registros técnicos necessários à continuidade do tratamento.
-- O encaminhamento deverá ser registrado e autorizado pelo psicólogo responsável ou administrador.
-- A autorização administrativa de um encaminhamento não concede ao administrador acesso ao conteúdo clínico do prontuário.
-- Os documentos e registros clínicos deverão respeitar as regras de confidencialidade e proteção de dados aplicáveis.
+- Somente psicólogos autorizados podem registrar evoluções técnicas nos prontuários.
+- O psicólogo poderá consultar os prontuários dos pacientes vinculados ao seu acompanhamento.
+- O administrador e a recepção não possuem acesso ao conteúdo clínico dos prontuários.
+- Os registros clínicos deverão respeitar as regras de confidencialidade e proteção de dados aplicáveis.
+- O sistema deverá restringir o acesso às informações clínicas conforme o perfil e o vínculo profissional com o paciente.
 
 ---
 
@@ -120,6 +109,7 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 - Recepção e Administrador podem agendar, remarcar ou cancelar consultas.
 - O agendamento deverá considerar a disponibilidade do psicólogo.
+- Não deverá ser permitido registrar duas consultas para o mesmo psicólogo na mesma data e horário.
 - Cada psicólogo poderá visualizar sua própria agenda.
 - Recepção e Administrador poderão consultar as agendas dos psicólogos da clínica.
 - O agendamento inicial estabelece o vínculo entre paciente e psicólogo responsável, conforme as regras de gerenciamento de permissões.
@@ -130,8 +120,12 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 Os diagramas de casos de uso representam as interações entre os atores e as funcionalidades do sistema, conforme as regras de negócio estabelecidas para a Clínica Ser Possível.
 
-A aplicação será desenvolvida em linguagem C, com interação por meio do terminal, sem interface gráfica.
+A aplicação será desenvolvida em **linguagem C**, utilizando programação estruturada, com interação exclusivamente por meio do terminal, sem interface gráfica.
 
-As funcionalidades descritas deverão respeitar os níveis de acesso dos usuários, a separação entre informações administrativas e clínicas e a confidencialidade dos registros psicológicos.
+O desenvolvimento utilizará conceitos como estruturas de dados (`struct`), funções, estruturas condicionais, laços de repetição e manipulação de arquivos para organizar e executar as funcionalidades.
+
+As funcionalidades deverão respeitar os níveis de acesso dos usuários, a separação entre informações administrativas e clínicas e a confidencialidade dos registros psicológicos.
+
+O sistema será desenvolvido como um protótipo acadêmico, utilizando dados fictícios para testes e demonstrações.
 
 A representação dos atores e suas associações nos diagramas UML deverá corresponder aos casos de uso documentados neste arquivo e aos requisitos funcionais definidos no Product Backlog.
