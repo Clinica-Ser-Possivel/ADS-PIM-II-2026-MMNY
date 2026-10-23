@@ -23,9 +23,7 @@ Os diagramas representam as funcionalidades disponíveis para cada perfil de usu
 
 - **RF01.2 — Efetuar login:** Permite a autenticação dos usuários por meio de matrícula e senha, com identificação do perfil e aplicação das respectivas permissões.
 
-- **RF01.3 — Gerenciar permissões:** Permite definir e controlar o acesso às funcionalidades do sistema conforme o perfil cadastrado. O acesso do psicólogo ao prontuário depende de seu vínculo com o paciente.
-
-- **RF01.4 — Inativar usuário:** Permite ao administrador alterar o status de um colaborador para inativo, impedindo novos acessos sem excluir seu histórico de registros.
+- **RF01.3 — Inativar usuário:** Permite ao administrador alterar o status de um colaborador para inativo, impedindo novos acessos sem excluir seu histórico de registros.
 
 ### REGRAS DE ACESSO
 
