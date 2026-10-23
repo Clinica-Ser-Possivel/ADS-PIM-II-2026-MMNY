@@ -13,8 +13,8 @@ Descrevem as funcionalidades e ações que o sistema deve executar para o usuár
 | **2. Gestão de Pacientes** | RF02.1 | Cadastrar paciente e responsável | Registrar dados do paciente infanto-juvenil e do seu responsável legal. | Alta |
 | | RF02.2 | Consultar dados cadastrais | Permitir a busca e visualização dos dados cadastrais de pacientes e responsáveis por nome ou CPF. | Média |
 | | RF02.3 | Atualizar dados | Alterar dados de contato e endereço de pacientes e responsáveis. | Média |
-| **3. Prontuário Eletrônico** | RF03.3 | Registrar evolução técnica | Criar campo para registrar a evolução técnica oficial que compõe o prontuário do paciente. | Alta |
-| | RF03.5 | Consultar prontuário | Permitir ao psicólogo autorizado visualizar o histórico de evoluções técnicas do paciente. | Alta |
+| **3. Prontuário Eletrônico** | RF03.1 | Registrar evolução técnica | Criar campo para registrar a evolução técnica oficial que compõe o prontuário do paciente. | Alta |
+| | RF03.2 | Consultar prontuário | Permitir ao psicólogo autorizado visualizar o histórico de evoluções técnicas do paciente. | Alta |
 | **4. Agendamento** | RF04.1 | Agendar consulta | Permitir que a recepção e o administrador registrem uma nova consulta, selecionando paciente, psicólogo, data e horário disponível. | Alta |
 | | RF04.2 | Remarcar ou cancelar | Permitir que a recepção e o administrador alterem a data ou o horário de consultas agendadas ou realizem seu cancelamento, respeitando a disponibilidade do psicólogo. | Alta |
 | | RF04.3 | Visualizar agenda | Permitir a consulta dos agendamentos por data e profissional, respeitando o perfil de acesso: o psicólogo visualiza seus próprios atendimentos, enquanto a recepção e o administrador podem consultar as agendas dos profissionais da clínica. | Média |
