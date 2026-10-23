@@ -9,8 +9,7 @@ Descrevem as funcionalidades e ações que o sistema deve executar para o usuár
 | :--- | :--- | :--- | :--- | :--- |
 | **1. Gerenciar Usuários** | RF01.1 | Cadastrar usuário | Inserir novo colaborador (Administrador, Recepção ou Psicólogo) no sistema. | Alta |
 | | RF01.2 | Efetuar login | Autenticar usuário através de matrícula e senha com validação de perfil. | Alta |
-| | RF01.3 | Gerenciar permissões | Definir no cadastro o perfil (Administrador, Recepção ou Psicólogo) e restringir funcionalidades conforme perfil e vínculo do psicólogo ao paciente. | Alta |
-| | RF01.4 | Inativar usuário | Alterar o status do colaborador para inativo sem apagar seu histórico de registros. | Média |
+| | RF01.3 | Inativar usuário | Alterar o status do colaborador para inativo sem apagar seu histórico de registros. | Média |
 | **2. Gestão de Pacientes** | RF02.1 | Cadastrar paciente e responsável | Registrar dados do paciente infanto-juvenil e do seu responsável legal. | Alta |
 | | RF02.2 | Consultar dados cadastrais | Permitir a busca e visualização dos dados cadastrais de pacientes e responsáveis por nome ou CPF. | Média |
 | | RF02.3 | Atualizar dados | Alterar dados de contato e endereço de pacientes e responsáveis. | Média |
