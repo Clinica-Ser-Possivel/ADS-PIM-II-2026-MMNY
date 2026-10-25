@@ -1,111 +1,136 @@
 # Modelo Lógico — Clínica Ser Possível
 
-## 1. Objetivo
+## 1. Escopo
 
-O modelo lógico organiza os dados da clínica em tabelas relacionadas, definindo seus atributos, chaves primárias (PK) e chaves estrangeiras (FK). A proposta utiliza o modelo relacional, considerando o Microsoft SQL Server como SGBD.
+Este modelo descreve a proposta relacional para a documentação do PIM II. O programa deste semestre será desenvolvido em C com armazenamento em arquivos `.dat`; não haverá integração com SQL Server. Os tipos indicados são de referência para o script físico.
 
 ## 2. Tabela USUARIO
 
-Armazena os dados de acesso ao sistema e o perfil de cada usuário.
+Contém as contas dos colaboradores que podem autenticar no sistema.
 
-| Campo | Tipo sugerido | Restrição |
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_usuario | INT | PK |
-| login | VARCHAR(50) | NOT NULL, UNIQUE |
-| senha_hash | VARCHAR(255) | NOT NULL |
-| perfil | VARCHAR(20) | NOT NULL |
+| matricula | VARCHAR(50) | NOT NULL, UNIQUE; identificador de login |
+| senha_hash | VARCHAR(255) | NOT NULL; hash seguro, nunca senha em texto puro |
+| perfil | VARCHAR(20) | NOT NULL; somente `ADMIN`, `RECEPCAO`, `PSICOLOGO` |
+| ativo | BIT | NOT NULL, padrão 1 |
 
-Os perfis previstos são ADMIN, RECEPCAO, PACIENTE e PSICOLOGO. A senha deve ser armazenada como hash seguro, nunca em texto puro.
+O login deve verificar a matrícula, a senha e se a conta está ativa. A inativação bloqueia novos acessos sem apagar o histórico do colaborador. O perfil é atribuído conforme a função cadastrada, sem configuração individual de permissões.
 
-## 3. Tabela PACIENTE
+## 3. Tabela RESPONSAVEL
 
-Armazena os dados cadastrais dos pacientes.
+Armazena os dados cadastrais do responsável legal.
 
-| Campo | Tipo sugerido | Restrição |
+| Campo | Tipo sugerido | Restrição / regra |
+|---|---|---|
+| id_responsavel | INT | PK |
+| nome | VARCHAR(100) | NOT NULL |
+| cpf | VARCHAR(14) | NULL; UNIQUE filtrado quando informado |
+| telefone | VARCHAR(20) | NULL |
+| email | VARCHAR(100) | NULL |
+| parentesco | VARCHAR(50) | NULL |
+
+Nesta versão, o modelo considera um responsável legal principal por paciente, conforme a redação singular do requisito RF02.1. O grupo deve confirmar essa decisão.
+
+## 4. Tabela PACIENTE
+
+Armazena os dados cadastrais do paciente infantojuvenil.
+
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_paciente | INT | PK |
-| id_usuario | INT | FK, UNIQUE, opcional conforme o cadastro |
+| id_responsavel | INT | FK, NOT NULL |
 | nome | VARCHAR(100) | NOT NULL |
-| cpf | VARCHAR(14) | UNIQUE |
-| data_nascimento | DATE | — |
-| telefone | VARCHAR(20) | — |
-| email | VARCHAR(100) | — |
-| endereco | VARCHAR(200) | — |
+| cpf | VARCHAR(14) | NULL; UNIQUE filtrado quando informado |
+| data_nascimento | DATE | NOT NULL |
+| telefone | VARCHAR(20) | NULL |
+| email | VARCHAR(100) | NULL |
+| endereco | VARCHAR(200) | NULL |
 
-O relacionamento com USUARIO permite vincular o cadastro do paciente à conta de acesso quando o paciente utilizar o sistema.
+O paciente não possui conta de usuário nesta proposta, pois os únicos perfis autenticáveis previstos no backlog são Administrador, Recepção e Psicólogo.
 
-## 4. Tabela PSICOLOGO
+## 5. Tabela PSICOLOGO
 
-Armazena os dados dos profissionais responsáveis pelos atendimentos.
-
-| Campo | Tipo sugerido | Restrição |
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_psicologo | INT | PK |
-| id_usuario | INT | FK, UNIQUE |
+| id_usuario | INT | FK, NOT NULL, UNIQUE |
 | nome | VARCHAR(100) | NOT NULL |
 | registro_profissional | VARCHAR(30) | NOT NULL, UNIQUE |
-| telefone | VARCHAR(20) | — |
-| email | VARCHAR(100) | — |
+| telefone | VARCHAR(20) | NULL |
+| email | VARCHAR(100) | NULL |
 
-## 5. Tabela CONSULTA
+Cada psicólogo está associado a uma conta de usuário. A matrícula e o status ativo/inativo são mantidos em `USUARIO`.
 
-Registra os agendamentos e relaciona o paciente ao psicólogo responsável.
+## 6. Tabela VINCULO_PACIENTE_PSICOLOGO
 
-| Campo | Tipo sugerido | Restrição |
+Registra explicitamente o vínculo profissional que autoriza o acesso clínico.
+
+| Campo | Tipo sugerido | Restrição / regra |
+|---|---|---|
+| id_vinculo | INT | PK |
+| id_paciente | INT | FK, NOT NULL |
+| id_psicologo | INT | FK, NOT NULL |
+| data_inicio | DATE | NOT NULL |
+| data_fim | DATE | NULL |
+| ativo | BIT | NOT NULL, padrão 1 |
+
+Um paciente pode ter vínculos com diferentes psicólogos ao longo do tempo, e um psicólogo pode atender diferentes pacientes. Para um mesmo par paciente-psicólogo, deve existir no máximo um vínculo ativo. O acesso ao prontuário e o registro de evolução exigem vínculo ativo; a existência de consulta, por si só, não concede autorização. A implementação da validação de acesso é responsabilidade da aplicação.
+
+## 7. Tabela CONSULTA
+
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_consulta | INT | PK |
 | id_paciente | INT | FK, NOT NULL |
 | id_psicologo | INT | FK, NOT NULL |
 | data_consulta | DATE | NOT NULL |
-| horario | TIME | NOT NULL |
-| status | VARCHAR(20) | NOT NULL |
+| horario | TIME(0) | NOT NULL |
+| status | VARCHAR(20) | NOT NULL; `AGENDADA`, `REALIZADA` ou `CANCELADA` |
 
-O status poderá representar situações como agendada, realizada ou cancelada, conforme as regras definidas pelo grupo.
+A recepção e o administrador podem agendar, remarcar e cancelar consultas. A remarcação atualiza data e/ou horário da consulta agendada; o cancelamento altera o status para `CANCELADA`. O script impede que um mesmo psicólogo ou paciente tenha duas consultas não canceladas na mesma data e horário. O backlog não especifica a duração da sessão, portanto o modelo não valida sobreposição de intervalos.
 
-## 6. Tabela PRONTUARIO
+## 8. Tabela PRONTUARIO
 
-Representa o prontuário principal de cada paciente.
-
-| Campo | Tipo sugerido | Restrição |
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_prontuario | INT | PK |
 | id_paciente | INT | FK, NOT NULL, UNIQUE |
-| data_criacao | DATE | NOT NULL |
+| data_criacao | DATE | NOT NULL, padrão data atual |
 
-A restrição UNIQUE em id_paciente representa a decisão de manter um prontuário principal por paciente nesta proposta.
+A restrição `UNIQUE` em `id_paciente` estabelece no máximo um prontuário principal por paciente.
 
-## 7. Tabela EVOLUCAO
+## 9. Tabela EVOLUCAO
 
-Armazena os registros relacionados ao acompanhamento psicológico.
-
-| Campo | Tipo sugerido | Restrição |
+| Campo | Tipo sugerido | Restrição / regra |
 |---|---|---|
 | id_evolucao | INT | PK |
 | id_prontuario | INT | FK, NOT NULL |
 | id_psicologo | INT | FK, NOT NULL |
-| data_evolucao | DATE | NOT NULL |
+| data_atendimento | DATE | NOT NULL |
+| data_registro | DATETIME2 | NOT NULL, padrão data/hora atual |
 | descricao | VARCHAR(1000) | NOT NULL |
 
-A descrição poderá conter informações sensíveis. Seu acesso deve ser restrito a profissionais autorizados, com proteção adequada dos dados.
+`data_atendimento` representa o dia da sessão clínica. `data_registro` representa quando a evolução foi lançada no sistema, permitindo distinguir a ocorrência do atendimento do momento do registro. O psicólogo precisa ter vínculo ativo com o paciente do prontuário para consultar ou registrar a evolução.
 
-## 8. Relacionamentos e cardinalidades
+## 10. Relacionamentos e cardinalidades
 
-- USUARIO e PACIENTE: uma conta pode estar vinculada a um cadastro de paciente; o vínculo é opcional enquanto o cadastro não possuir acesso ao sistema.
-- USUARIO e PSICOLOGO: uma conta de acesso está vinculada a um cadastro de psicólogo.
-- PACIENTE e CONSULTA: 1:N — um paciente pode ter várias consultas.
-- PSICOLOGO e CONSULTA: 1:N — um psicólogo pode realizar várias consultas.
-- PACIENTE e PRONTUARIO: 1:1 — cada paciente possui no máximo um prontuário principal nesta proposta.
-- PRONTUARIO e EVOLUCAO: 1:N — um prontuário pode possuir várias evoluções.
-- PSICOLOGO e EVOLUCAO: 1:N — um psicólogo pode registrar várias evoluções.
+- RESPONSAVEL 1:N PACIENTE: um responsável pode estar associado a vários pacientes; cada paciente tem um responsável principal neste escopo.
+- USUARIO 1:0..1 PSICOLOGO: uma conta pode não ser de psicólogo ou estar vinculada a um único cadastro profissional; cada psicólogo possui uma conta.
+- PACIENTE 1:N CONSULTA.
+- PSICOLOGO 1:N CONSULTA.
+- PACIENTE 1:0..1 PRONTUARIO.
+- PRONTUARIO 1:N EVOLUCAO.
+- PSICOLOGO 1:N EVOLUCAO.
+- PACIENTE N:N PSICOLOGO por meio de VINCULO_PACIENTE_PSICOLOGO.
 
-## 9. Normalização
+## 11. Normalização
 
-A separação das informações em tabelas evita repetir os dados completos do paciente e do psicólogo em cada consulta. As chaves estrangeiras permitem relacionar os registros sem duplicar desnecessariamente os dados cadastrais. A estrutura deverá ser validada pelo grupo para confirmar as regras de negócio e as formas normais exigidas na disciplina.
+A separação de usuários, pacientes, responsáveis, psicólogos, consultas, prontuários e evoluções reduz a repetição de dados cadastrais e permite que as relações sejam representadas por chaves estrangeiras. A tabela associativa de vínculo profissional evita repetir informações de paciente e psicólogo e registra o estado da autorização. A forma normal definitiva deve ser validada pelo grupo conforme o conteúdo exigido na disciplina.
 
-## 10. Observações de segurança
+## 12. Segurança e limites
 
-O sistema deverá aplicar permissões de acordo com o perfil de cada usuário. O paciente deve consultar apenas suas próprias consultas; o psicólogo deve acessar apenas os prontuários autorizados; e a recepção deve acessar somente os dados necessários às suas funções. Por envolver dados pessoais e informações de saúde, o projeto deve considerar os requisitos de confidencialidade e proteção de dados.
+Os dados clínicos devem ser acessíveis apenas a psicólogos com vínculo ativo com o paciente. O perfil de administrador não concede automaticamente acesso ao conteúdo da evolução. A recepção e o administrador acessam as funções de agenda conforme o backlog, sem autorização clínica implícita. Devem ser usados exclusivamente dados fictícios no protótipo.
 
-## 11. Próxima etapa
-
-O arquivo `modelo-fisico.sql` apresentará a implementação das tabelas e dos relacionamentos no SQL Server. O DER visual será disponibilizado em `der-clinica.png`.
+A modelagem é documental e não substitui a validação das permissões no programa em C. Não foi criada uma tabela de anotações privadas separada porque esse item não aparece como requisito funcional no Product Backlog fornecido.
