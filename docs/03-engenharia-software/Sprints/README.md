@@ -61,8 +61,8 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Planejamento dos módulos, das estruturas de dados e dos menus.
 - Definição da persistência local e dos cenários de teste.
 
-**Entrega prevista:** diagramas e planejamento técnico da implementação.
-**Situação: Em andamento.**
+**Entrega prevista:** diagramas e planejamento técnico da implementação.  
+**Situação: Em andamento.**  
 **Documentação relacionada:** [Diagramas do sistema](../Diagramas/README.md)
 
 ## Sprint 04 — Implementação de usuários e pacientes
@@ -82,7 +82,7 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Validação dos dados e testes das funcionalidades.
 - Continuidade da modelagem e revisão dos diagramas de sequência.
 
-**Entrega prevista:** módulos de usuários e pacientes com persistência local.
+**Entrega prevista:** módulos de usuários e pacientes com persistência local.  
 **Situação: Iniciada. Em andamento.**
 
 ## Sprint 05 — Implementação de agendamento e prontuário
