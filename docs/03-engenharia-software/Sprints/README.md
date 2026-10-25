@@ -28,6 +28,7 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Organização inicial do projeto e do repositório.
 
 **Entrega prevista:** documentação inicial do projeto.
+**Documentação relacionada:** [Documentação inicial do projeto](docs/01-organizacao/README.md)
 
 ## Sprint 02 — Levantamento e análise de requisitos
 
@@ -44,6 +45,7 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Organização e priorização do Product Backlog.
 
 **Entrega prevista:** Product Backlog e regras de negócio documentadas.
+**Documentação relacionada:** [Product Backlog](../Backlog/BACKLOG.md)
 
 ## Sprint 03 — Modelagem e planejamento técnico
 
@@ -60,6 +62,7 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Definição da persistência local e dos cenários de teste.
 
 **Entrega prevista:** diagramas e planejamento técnico da implementação.
+**Documentação relacionada:** [Diagramas do sistema](../Diagramas/README.md)
 
 ## Sprint 04 — Implementação de usuários e pacientes
 
