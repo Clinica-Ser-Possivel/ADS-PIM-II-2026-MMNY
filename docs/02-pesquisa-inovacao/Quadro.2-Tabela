@@ -1,11 +1,23 @@
-## Objetivo Geral
+# Quadro 2 – Objetivos do projeto
 
-Desenvolver um sistema de gestão para clínicas de psicologia que seja intuitivo, seguro e estável, unificando agendamentos, prontuários e controle de acesso em uma única plataforma, em conformidade com a LGPD e as resoluções do CFP.
+**Objetivo geral**
 
-## Objetivos Específicos
+Desenvolver um sistema básico de gerenciamento para a Clínica Ser Possível, utilizando a linguagem C, com o objetivo de organizar informações de pacientes, responsáveis, usuários, agendamentos e registros de evolução dos atendimentos, contribuindo para uma rotina mais organizada e para o controle de acesso às informações.
 
-1. **Interface intuitiva e eficiente:** oferecer um calendário dinâmico com status das consultas por cores e um editor de prontuário com autossalvamento, bloqueio por inatividade e separação entre anotações restritas e documentos ao paciente.
+**Objetivos específicos**
 
-2. **Regras de negócio que garantam segurança e integridade:** validar conflitos de horários, enviar lembretes automáticos por e-mail, restringir o acesso ao prontuário ao psicólogo responsável, manter o histórico versionado e imutável e aplicar controle de acesso por perfil (Administrador, Recepcionista e Psicólogo).
+| Identificação | Objetivo |
+|---|---|
+| O1 | Desenvolver uma funcionalidade de cadastro e consulta de usuários, com perfis de acesso definidos para administrador, recepção e psicólogo. |
+| O2 | Permitir o cadastro e a consulta de pacientes, incluindo informações de responsáveis quando necessário. |
+| O3 | Implementar o gerenciamento de agendamentos, permitindo registrar, consultar e organizar os horários dos atendimentos. |
+| O4 | Desenvolver uma funcionalidade para registrar e consultar as evoluções dos atendimentos, respeitando as permissões de acesso definidas para cada perfil. |
+| O5 | Utilizar arquivos locais no formato `.dat` para armazenar os dados do sistema. |
+| O6 | Organizar o código em módulos e funções, facilitando a manutenção e a compreensão do programa. |
+| O7 | Realizar testes das funcionalidades implementadas, verificando o funcionamento dos cadastros, consultas, agendamentos e controles de acesso. |
 
-3. **Dados protegidos e em conformidade legal:** usar banco relacional, realizar backups diários criptografados e redundantes, e aplicar políticas de retenção (mínimo de 5 anos, conforme o CFP) com expurgo seguro, em alinhamento com a LGPD (Lei nº 13.709/2018).
+**Delimitação dos objetivos**
+
+Os objetivos estão voltados à construção de um protótipo acadêmico funcional em linguagem C, executado no terminal. Recursos como interface gráfica, envio automático de lembretes, integração com banco de dados externo, acesso pela internet e backup automático não fazem parte do escopo previsto para esta etapa, podendo ser considerados em versões futuras.
+
+Por se tratar de um projeto acadêmico envolvendo informações de saúde, os testes devem utilizar dados fictícios, sem informações reais de pacientes.
