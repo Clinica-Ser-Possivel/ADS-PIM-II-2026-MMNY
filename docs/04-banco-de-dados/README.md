@@ -1,62 +1,76 @@
-# Banco de Dados — Clínica Ser Possível
+# Documentação do Banco de Dados — Clínica Ser Possível
 
-## 1. Objetivo e escopo
+## 1. Apresentação
 
-Esta pasta documenta a modelagem relacional proposta para apoiar os requisitos do sistema da Clínica Ser Possível. A modelagem é uma entrega acadêmica independente: neste semestre, o protótipo será desenvolvido em linguagem C e armazenará os dados localmente em arquivos `.dat`. **Não haverá integração do programa em C com SQL Server nesta etapa.**
+Esta pasta reúne a documentação da estrutura de dados proposta para o sistema Clínica Ser Possível, desenvolvido como projeto acadêmico do curso de Análise e Desenvolvimento de Sistemas.
 
-O modelo deve ser lido em conjunto com o Product Backlog. São considerados os cadastros de colaboradores, pacientes e responsáveis legais, o vínculo profissional que autoriza o acesso clínico, as consultas e as evoluções técnicas. Devem ser usados exclusivamente dados fictícios em documentação, testes e demonstrações.
+O modelo de dados foi elaborado para representar as principais informações relacionadas aos usuários do sistema, pacientes, responsáveis legais, psicólogos, consultas, vínculos profissionais e registros de prontuário.
 
-## 2. SGBD de referência
+**Importante:** o modelo relacional documentado nesta pasta representa uma proposta de estrutura para um banco de dados SQL. O protótipo atual do sistema utiliza a linguagem C e arquivos locais com extensão `.dat`. Portanto, a existência dos modelos e do script SQL não significa que o programa já esteja integrado a um SGBD.
 
-O arquivo `modelo-fisico.sql` apresenta uma implementação de referência para Microsoft SQL Server. O script serve para demonstrar as tabelas, restrições e relacionamentos; não representa o armazenamento utilizado pelo protótipo em C.
+## 2. Arquivos desta documentação
 
-## 3. Entidades e finalidade
+### [Diagrama Entidade-Relacionamento (DER)](der.md)
 
-- **USUARIO:** credenciais, matrícula, perfil fixo e situação ativa/inativa dos colaboradores que acessam o sistema.
-- **PACIENTE:** dados cadastrais do paciente infantojuvenil.
-- **RESPONSAVEL:** dados cadastrais do responsável legal.
-- **PSICOLOGO:** dados profissionais do psicólogo vinculado a uma conta de usuário.
-- **VINCULO_PACIENTE_PSICOLOGO:** vínculo profissional ativo que define quais pacientes podem ter suas informações clínicas acessadas pelo psicólogo.
-- **CONSULTA:** agendamento, paciente, psicólogo, data, horário e situação.
-- **PRONTUARIO:** prontuário principal do paciente.
-- **EVOLUCAO:** evolução técnica, com a data do atendimento separada da data em que o registro foi lançado.
+Apresenta as entidades do sistema, seus atributos e os relacionamentos entre elas. O diagrama serve como representação conceitual das informações necessárias ao domínio do projeto.
 
-## 4. Relacionamentos e cardinalidades
+### [Modelo lógico](modelo-logico.md)
 
-- Um usuário pode estar associado a um cadastro de psicólogo; cada psicólogo deve estar associado a uma conta de usuário.
-- Um paciente pode ter várias consultas; cada consulta pertence a um paciente.
-- Um psicólogo pode ter várias consultas; cada consulta é atribuída a um psicólogo.
-- Cada paciente possui no máximo um prontuário principal; cada prontuário pertence a um paciente.
-- Um prontuário pode conter várias evoluções; cada evolução pertence a um prontuário e identifica o psicólogo autor.
-- Pacientes e psicólogos podem estar relacionados por meio de `VINCULO_PACIENTE_PSICOLOGO`. O vínculo deve estar ativo para autorizar o acesso clínico, independentemente de existir consulta agendada.
-- Nesta versão do escopo, cada paciente é cadastrado com um responsável legal principal. Se o grupo decidir que vários responsáveis legais por paciente são requisito, será necessário alterar o relacionamento para uma associação muitos-para-muitos.
-- O responsável legal é cadastral; o backlog não define uma conta de acesso para o responsável, portanto ele não é um perfil de `USUARIO`.
+Descreve a organização relacional dos dados, incluindo tabelas, atributos, chaves primárias, chaves estrangeiras, cardinalidades e regras de integridade previstas.
 
-## 5. Regras de negócio representadas
+### [Modelo físico SQL](modelo-fisico.sql)
 
-1. Os únicos perfis autenticáveis são `ADMIN`, `RECEPCAO` e `PSICOLOGO`.
-2. O login utiliza matrícula e senha. A conta precisa estar ativa; a senha é representada por um hash, nunca por texto puro.
-3. A inativação de usuário não apaga seu histórico.
-4. A recepção e o administrador podem agendar, remarcar e cancelar consultas. Remarcar significa atualizar data e/ou horário de uma consulta ainda agendada; cancelar altera seu status para `CANCELADA`.
-5. Não se deve permitir que o mesmo psicólogo tenha duas consultas não canceladas na mesma data e horário. O script também evita que o mesmo paciente tenha duas consultas não canceladas no mesmo horário. Como a duração da consulta não está especificada no backlog, a regra cobre igualdade de data e horário, não sobreposição de intervalos.
-6. O psicólogo só pode consultar ou registrar evoluções de pacientes com vínculo profissional ativo. O perfil de administrador, por si só, não autoriza acesso ao conteúdo clínico.
-7. A evolução registra separadamente `data_atendimento` e `data_registro`.
+Contém uma proposta de implementação do modelo relacional em SQL, utilizando a sintaxe de referência do Microsoft SQL Server. O script apresenta a definição das tabelas, os tipos de dados, as restrições e os relacionamentos previstos.
 
-## 6. Arquivos desta pasta
+O script é documental e não está integrado ao protótipo em C neste momento.
 
-- `README.md`: visão geral, escopo e regras principais.
-- `der.md`: Diagrama Entidade-Relacionamento em Mermaid.
-- `modelo-logico.md`: tabelas, atributos, chaves e cardinalidades.
-- `modelo-fisico.sql`: script de referência para SQL Server.
+## 3. Principais entidades
 
-## 7. Segurança e dados pessoais
+O modelo contempla as seguintes entidades:
 
-Informações de saúde são sensíveis. O projeto deve restringir o acesso às informações clínicas, validar permissões antes de operações protegidas e usar somente dados fictícios no protótipo. O modelo documental não substitui uma avaliação de segurança nem a validação das regras pelo grupo.
+- **USUARIO:** dados de acesso e perfil de usuários do sistema.
+- **RESPONSAVEL:** informações do responsável legal associado ao paciente.
+- **PACIENTE:** dados cadastrais dos pacientes.
+- **PSICOLOGO:** informações dos profissionais e sua associação a uma conta de usuário.
+- **VINCULO_PACIENTE_PSICOLOGO:** histórico dos vínculos entre pacientes e psicólogos.
+- **CONSULTA:** agendamentos, horários e situação das consultas.
+- **PRONTUARIO:** registro principal associado ao paciente.
+- **EVOLUCAO:** registros relacionados aos atendimentos e ao prontuário.
 
-## 8. Decisões para confirmar com o grupo
+## 4. Regras de negócio representadas
 
-- **Responsável legal:** este modelo considera um responsável principal por paciente, porque o requisito está redigido no singular. Confirmar se o grupo precisa registrar mais de um.
-- **Conflito de agenda:** o modelo impede igualdade exata de data e horário. A duração da consulta e a regra para sobreposição de horários não foram definidas no backlog.
-- **Login/matrícula:** o campo `matricula` foi adotado como identificador de login, conforme RF01.2.
-- **Vínculo profissional:** o modelo permite registrar/inativar um vínculo psicólogo-paciente; o procedimento operacional de criação desse vínculo precisa ser confirmado pelo grupo.
-- **Registro clínico:** o backlog exige evolução técnica. Não foi criada uma entidade separada para anotações privadas, pois essa funcionalidade não está especificada como requisito funcional no backlog fornecido.
+A documentação considera as seguintes regras:
+
+1. Todo paciente deve possuir um responsável legal cadastrado.
+2. Um paciente pode ter consultas com psicólogos diferentes ao longo do tempo.
+3. A realização da primeira consulta entre um paciente e um psicólogo estabelece o vínculo profissional previsto nas regras do sistema.
+4. O histórico de vínculos deve permitir representar vínculos encerrados e ativos.
+5. Uma consulta possui data, horário de início, horário de término e situação.
+6. Um paciente pode possuir, no máximo, um prontuário no modelo proposto.
+7. Cada evolução está associada a um prontuário e identifica o psicólogo responsável pelo registro.
+
+As regras que dependem do comportamento da aplicação, como a criação automática do vínculo após a primeira consulta realizada e a prevenção de conflitos de horário, precisam ser implementadas e testadas antes de serem consideradas funcionalidades concluídas.
+
+## 5. Relação com o protótipo
+
+O modelo de dados orienta a organização conceitual das informações do projeto, mas não deve ser confundido com a estrutura efetivamente utilizada pelo programa.
+
+No escopo atual documentado:
+
+- o protótipo é desenvolvido em C;
+- os dados são armazenados em arquivos locais `.dat`;
+- o script SQL representa uma proposta de implementação relacional;
+- a integração com Microsoft SQL Server não é declarada como concluída;
+- as restrições descritas no modelo SQL não são automaticamente aplicadas aos arquivos `.dat`.
+
+Assim, qualquer afirmação sobre funcionalidades implementadas deve ser confirmada pela análise do código e pelos testes correspondentes.
+
+## 6. Limitações e evolução futura
+
+A adoção de um banco de dados relacional poderá ser avaliada em etapas futuras do projeto. Essa evolução exigirá, entre outras atividades, integração com o SGBD escolhido, migração dos dados, implementação das regras de integridade, definição de permissões e testes.
+
+O modelo documental, por si só, não comprova segurança adequada para dados clínicos, conformidade legal ou prontidão para uso em um ambiente real de atendimento.
+
+## 7. Conclusão
+
+Os documentos desta pasta apresentam uma visão conceitual, lógica e física proposta para os dados da Clínica Ser Possível. Em conjunto, eles ajudam a manter a estrutura de dados planejada consistente com as entidades e regras de negócio descritas no projeto, sem afirmar que uma integração com banco de dados SQL já tenha sido implementada.
