@@ -1,9 +1,11 @@
-### Quadro 1 – Problemas identificados
-| **Código** | **Problema identificado** | **Consequência para a clínica** |
-|:-------|:----------------------|:----------------------------|
-| P1 | Cadastro de pacientes sem verificação | Pacientes com mais de um registro e histórico fragmentado |
-| P2 | Agenda dos psicólogos sem consulta centralizada de disponibilidade | Conflitos de horário e sobreposição de pacientes |
-| P3 | Acesso às evoluções do prontuário não restrito ao psicólogo responsável | Risco de violação do sigilo profissional e do Paciente |
-| P4 | Tratamento de dados pessoais de menores de idade sem vínculo claro com o responsável legal | Risco de descumprimento da legislação de proteção de dados |
-| P5 | Tratamento dos dados do paciente manualmente | Disfunção na condução dos processos, operação de dados resultando na perda de documentos e historico do paciente. |
- 
+# Quadro 1 – Identificação dos problemas e possíveis impactos
+
+| Identificação | Problema ou situação de risco | Possível impacto |
+|---|---|---|
+| P1 | Cadastro de pacientes sem uma organização centralizada. | Possibilidade de registros duplicados, dificuldade para localizar informações e histórico fragmentado. |
+| P2 | Falta de consulta centralizada dos horários disponíveis dos psicólogos. | Possibilidade de conflitos de horários, agendamentos duplicados e dificuldade na organização da agenda. |
+| P3 | Ausência de uma definição clara de permissões para acessar os registros dos pacientes. | Risco de acesso indevido a informações pessoais e de saúde, comprometendo a privacidade dos pacientes. |
+| P4 | Falta de organização das informações de responsáveis legais, quando necessário, principalmente no atendimento de menores de idade. | Possibilidade de dificuldades na identificação do responsável e no controle das informações relacionadas ao atendimento. |
+| P5 | Dependência de registros manuais e informações distribuídas em diferentes documentos. | Possibilidade de perda de informações, retrabalho e dificuldade para consultar e atualizar os registros. |
+
+**Observação:** Os problemas apresentados são situações que podem ocorrer em processos de organização de uma clínica psicológica. Eles servem como base para o levantamento de necessidades do projeto, não como afirmações de que todos esses problemas foram identificados na Clínica Ser Possível.
