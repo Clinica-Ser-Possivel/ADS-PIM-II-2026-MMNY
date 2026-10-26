@@ -1,31 +1,43 @@
+# Quadro 3 – Metodologia de desenvolvimento
 
-## 3. Metodologia Utilizada
+**Tipo de pesquisa**
 
-O trabalho combina **pesquisa bibliográfica** (normas do CFP, LGPD e Engenharia de Software) e **pesquisa aplicada**, que resulta em um protótipo funcional.
+O projeto possui caráter aplicado, com pesquisa bibliográfica e levantamento de informações para compreender as necessidades relacionadas à organização de uma clínica psicológica. A proposta é utilizar esse conhecimento na construção de um protótipo de sistema.
 
-| Etapa | Descrição |
-|---|---|
-| **Metodologia ágil (Scrum)** | Entregas curtas e incrementais, divididas em sprints, com revisão contínua. |
-| **Modelagem UML** | Diagramas de casos de uso elaborados no **Astah**, para levantar requisitos e definir os perfis (Administrador, Recepcionista e Psicólogo). |
-| **Arquitetura em 3 camadas** | Separação entre interface, regras de negócio e dados, o que facilita manutenção e testes. |
-| **Implementação em linguagem C** | Prototipação estruturada das regras principais, como validação de conflitos e controle de acesso. |
+**Metodologia**
 
----
+O desenvolvimento será organizado em etapas, com divisão das atividades entre os integrantes do grupo e acompanhamento do que precisa ser realizado. A organização será baseada em práticas ágeis, com planejamento das tarefas e revisão do progresso.
 
-## 4. Fundamentação Bibliográfica
+| Etapa | Atividade | Finalidade |
+|---|---|---|
+| 1 | Levantamento de requisitos funcionais e não funcionais. | Identificar as necessidades e definir o que o sistema deverá realizar. |
+| 2 | Pesquisa bibliográfica e documental. | Buscar referências sobre desenvolvimento de sistemas, organização de clínicas e proteção de dados. |
+| 3 | Modelagem do sistema. | Representar os requisitos e o funcionamento proposto por meio de diagramas, utilizando o Astah quando aplicável. |
+| 4 | Organização do projeto. | Separar documentos, requisitos, diagramas e demais materiais em pastas no GitHub. |
+| 5 | Desenvolvimento do protótipo. | Implementar as funcionalidades definidas utilizando a linguagem C e armazenamento local em arquivos `.dat`. |
+| 6 | Testes e revisão. | Verificar o funcionamento das funcionalidades desenvolvidas, corrigir problemas e revisar a documentação. |
 
-### 📋 Prontuário e registro documental
+**Recursos e ferramentas**
 
-A **Resolução CFP nº 001/2009** torna obrigatório o registro documental da prestação de serviços psicológicos, em papel ou informatizado, com caráter sigiloso. A guarda é de no mínimo **5 anos**, podendo ser ampliada nos casos previstos em lei. Os CRPs também orientam que **prontuários** sejam guardados por no mínimo **20 anos** a partir do último registro, por analogia à Lei nº 13.787/2018.
+Para o desenvolvimento e a organização do projeto, estão previstos os seguintes recursos:
 
-### 🔒 Sigilo e proteção de dados
+- Linguagem C para implementação do sistema.
+- GitHub para armazenamento e organização dos arquivos do projeto.
+- Astah para elaboração dos diagramas necessários.
+- Editor de código e compilador compatíveis com a linguagem C.
 
-O **Código de Ética Profissional do Psicólogo** (Resolução CFP nº 010/2005) e a **LGPD** (Lei nº 13.709/2018) tratam os dados de saúde como sensíveis, exigindo base legal, finalidade clara e medidas de segurança. A **Resolução CFP nº 006/2019** trata da elaboração de documentos psicológicos.
+**Cuidados éticos e proteção de dados**
 
-### 🏗️ Arquitetura e engenharia de software
+O projeto considera a importância da privacidade e da proteção das informações dos pacientes. Como o sistema envolve informações relacionadas à saúde, serão considerados os princípios da Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018) e as normas profissionais aplicáveis à Psicologia.
 
-- **Sommerville** e **Pressman** sustentam as práticas de requisitos, modelagem e qualidade de software.
-- **Fowler** descreve a arquitetura em camadas, que separa responsabilidades e facilita a evolução do sistema.
-- **Schwaber e Sutherland** definem o Scrum, usado para organizar o desenvolvimento.
+Os testes acadêmicos deverão utilizar dados fictícios. A proposta de controle de acesso e organização dos registros será tratada nos requisitos do sistema, sem considerar o protótipo como uma solução que, por si só, garante conformidade legal ou segurança completa.
 
----
+**Referências iniciais**
+
+BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD).
+
+CONSELHO FEDERAL DE PSICOLOGIA (CFP). Resolução CFP nº 001/2009. Dispõe sobre a obrigatoriedade do registro documental decorrente da prestação de serviços psicológicos.
+
+CONSELHO FEDERAL DE PSICOLOGIA (CFP). Resolução CFP nº 006/2019. Institui regras para a elaboração de documentos escritos produzidos pela(o) psicóloga(o) no exercício profissional.
+
+As referências deverão ser conferidas e formatadas conforme as orientações acadêmicas do projeto.
