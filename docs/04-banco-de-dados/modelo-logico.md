@@ -1,136 +1,173 @@
 # Modelo Lógico — Clínica Ser Possível
 
-## 1. Escopo
+## 1. Apresentação
 
-Este modelo descreve a proposta relacional para a documentação do PIM II. O programa deste semestre será desenvolvido em C com armazenamento em arquivos `.dat`; não haverá integração com SQL Server. Os tipos indicados são de referência para o script físico.
+Este documento apresenta o modelo lógico relacional proposto para organizar os dados do sistema da Clínica Ser Possível. Ele deriva do Diagrama Entidade-Relacionamento (DER) e descreve tabelas, chaves primárias, chaves estrangeiras e restrições de integridade.
 
-## 2. Tabela USUARIO
+O protótipo acadêmico deste semestre será desenvolvido em linguagem C, executado pelo terminal e utilizará arquivos locais `.dat` para armazenar os dados. Portanto, o modelo lógico é uma referência documental e não representa uma integração com SQL Server ou outro sistema gerenciador de banco de dados nesta entrega.
 
-Contém as contas dos colaboradores que podem autenticar no sistema.
+## 2. Estrutura das tabelas
 
-| Campo | Tipo sugerido | Restrição / regra |
+### 2.1 USUARIO
+
+Armazena as informações de acesso dos usuários do sistema.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_usuario | Inteiro | PK | Identificador do usuário |
+| matricula | Texto | UK, obrigatório | Identificador de acesso único |
+| senha_hash | Texto | Obrigatório no modelo | Representação de senha protegida, prevista para uma implementação segura |
+| perfil | Texto | Obrigatório | Perfil de acesso do usuário |
+| ativo | Booleano | Obrigatório | Indica se a conta está ativa |
+
+Os perfis previstos devem corresponder aos requisitos do projeto, como administrador, recepção e psicólogo.
+
+**Observação:** a presença do campo `senha_hash` no modelo não comprova que o código atual armazene senhas com hash. Isso deverá ser verificado separadamente na implementação em C.
+
+### 2.2 RESPONSAVEL
+
+Armazena os dados do responsável legal associado ao paciente.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_responsavel | Inteiro | PK | Identificador do responsável |
+| nome | Texto | Obrigatório | Nome do responsável |
+| cpf | Texto | UK, obrigatório | CPF do responsável |
+| telefone | Texto | Obrigatório conforme requisitos | Telefone de contato |
+| email | Texto | Opcional, conforme requisitos | E-mail de contato |
+| parentesco | Texto | Obrigatório | Relação com o paciente |
+
+### 2.3 PACIENTE
+
+Armazena os dados cadastrais dos pacientes.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_paciente | Inteiro | PK | Identificador do paciente |
+| id_responsavel | Inteiro | FK, obrigatório | Referência ao responsável legal |
+| nome | Texto | Obrigatório | Nome do paciente |
+| cpf | Texto | UK, obrigatório conforme requisitos | CPF do paciente |
+| data_nascimento | Data | Obrigatório | Data de nascimento |
+| telefone | Texto | Conforme requisitos | Telefone de contato |
+| email | Texto | Opcional, conforme requisitos | E-mail de contato |
+| endereco | Texto | Conforme requisitos | Endereço do paciente |
+
+Cada paciente deverá estar associado a um responsável legal cadastrado, conforme a regra de negócio definida para o projeto.
+
+### 2.4 PSICOLOGO
+
+Armazena os dados profissionais dos psicólogos.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_psicologo | Inteiro | PK | Identificador do psicólogo |
+| id_usuario | Inteiro | FK, UK, obrigatório | Conta de usuário associada |
+| nome | Texto | Obrigatório | Nome do profissional |
+| registro_profissional | Texto | UK, obrigatório | Registro profissional |
+| telefone | Texto | Conforme requisitos | Telefone de contato |
+| email | Texto | Conforme requisitos | E-mail profissional |
+
+Cada cadastro de psicólogo deve estar associado a uma única conta de usuário. Uma conta de usuário poderá estar associada a, no máximo, um cadastro de psicólogo.
+
+### 2.5 VINCULO_PACIENTE_PSICOLOGO
+
+Registra os vínculos profissionais entre pacientes e psicólogos.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_vinculo | Inteiro | PK | Identificador do vínculo |
+| id_paciente | Inteiro | FK, obrigatório | Paciente relacionado |
+| id_psicologo | Inteiro | FK, obrigatório | Psicólogo relacionado |
+| data_inicio | Data | Obrigatório | Data de início do vínculo |
+| data_fim | Data | Opcional | Data de encerramento do vínculo |
+| ativo | Booleano | Obrigatório | Indica se o vínculo está ativo |
+
+**Regra de negócio:** o primeiro agendamento concluído entre um paciente e um psicólogo estabelece o vínculo profissional entre eles.
+
+A operação de criação do vínculo deverá verificar se já existe um vínculo correspondente, evitando registros duplicados. O encerramento deverá atualizar a situação do vínculo e, quando aplicável, registrar a data de término.
+
+As regras para impedir mais de um vínculo ativo para o mesmo paciente e psicólogo deverão ser detalhadas no modelo físico ou na lógica da aplicação.
+
+### 2.6 CONSULTA
+
+Armazena os agendamentos e seus estados.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_consulta | Inteiro | PK | Identificador da consulta |
+| id_paciente | Inteiro | FK, obrigatório | Paciente agendado |
+| id_psicologo | Inteiro | FK, obrigatório | Psicólogo responsável pelo atendimento |
+| data_consulta | Data | Obrigatório | Data do atendimento |
+| horario_inicio | Hora | Obrigatório | Horário previsto para início |
+| horario_fim | Hora | Obrigatório | Horário previsto para término |
+| status | Texto | Obrigatório | Situação do agendamento |
+
+Os valores permitidos para `status` deverão ser definidos nos requisitos, contemplando somente as situações realmente utilizadas pelo sistema.
+
+As regras de validação devem garantir que o horário de término seja posterior ao horário de início e devem considerar possíveis sobreposições de consultas. A simples combinação de data e horário de início não é suficiente para impedir todos os conflitos.
+
+O agendamento inicial pode ocorrer antes da formação do vínculo. Quando uma consulta for concluída, a aplicação deverá verificar se é necessário criar o vínculo correspondente.
+
+### 2.7 PRONTUARIO
+
+Representa o prontuário associado ao paciente.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_prontuario | Inteiro | PK | Identificador do prontuário |
+| id_paciente | Inteiro | FK, UK, obrigatório | Paciente associado |
+| data_criacao | Data | Obrigatório | Data de criação do prontuário |
+
+A restrição de unicidade em `id_paciente` permite, no modelo, no máximo um prontuário por paciente. A criação do prontuário poderá ocorrer posteriormente ao cadastro, conforme o fluxo definido nos requisitos.
+
+### 2.8 EVOLUCAO
+
+Armazena os registros de evolução vinculados ao prontuário.
+
+| Campo | Tipo lógico | Restrições | Descrição |
+|---|---|---|---|
+| id_evolucao | Inteiro | PK | Identificador da evolução |
+| id_prontuario | Inteiro | FK, obrigatório | Prontuário relacionado |
+| id_psicologo | Inteiro | FK, obrigatório | Psicólogo autor do registro |
+| data_atendimento | Data | Obrigatório | Data do atendimento |
+| data_registro | Data e hora | Obrigatório | Data e hora de registro |
+| descricao | Texto | Obrigatório | Conteúdo da evolução |
+
+O acesso e a alteração das evoluções devem respeitar as permissões definidas para cada perfil. A estrutura do modelo, isoladamente, não implementa controle de acesso nem garante a integridade dos registros.
+
+## 3. Relacionamentos e cardinalidades
+
+| Relacionamento | Cardinalidade | Regra |
 |---|---|---|
-| id_usuario | INT | PK |
-| matricula | VARCHAR(50) | NOT NULL, UNIQUE; identificador de login |
-| senha_hash | VARCHAR(255) | NOT NULL; hash seguro, nunca senha em texto puro |
-| perfil | VARCHAR(20) | NOT NULL; somente `ADMIN`, `RECEPCAO`, `PSICOLOGO` |
-| ativo | BIT | NOT NULL, padrão 1 |
+| RESPONSAVEL — PACIENTE | 1:N | Cada paciente possui um responsável; um responsável pode estar associado a vários pacientes. |
+| USUARIO — PSICOLOGO | 1:0..1 | Uma conta pode estar associada a zero ou um cadastro de psicólogo; cada psicólogo tem uma conta. |
+| PACIENTE — CONSULTA | 1:N | Um paciente pode possuir vários agendamentos. |
+| PSICOLOGO — CONSULTA | 1:N | Um psicólogo pode possuir vários agendamentos. |
+| PACIENTE — PRONTUARIO | 1:0..1 | Um paciente pode possuir zero ou um prontuário. |
+| PRONTUARIO — EVOLUCAO | 1:N | Um prontuário pode conter várias evoluções. |
+| PSICOLOGO — EVOLUCAO | 1:N | Um psicólogo pode registrar várias evoluções. |
+| PACIENTE — VINCULO_PACIENTE_PSICOLOGO | 1:N | Um paciente pode ter vínculos registrados ao longo do tempo. |
+| PSICOLOGO — VINCULO_PACIENTE_PSICOLOGO | 1:N | Um psicólogo pode ter vínculos registrados com vários pacientes. |
 
-O login deve verificar a matrícula, a senha e se a conta está ativa. A inativação bloqueia novos acessos sem apagar o histórico do colaborador. O perfil é atribuído conforme a função cadastrada, sem configuração individual de permissões.
+## 4. Regras de integridade
 
-## 3. Tabela RESPONSAVEL
+O modelo considera as seguintes regras:
 
-Armazena os dados cadastrais do responsável legal.
+1. Cada tabela possui uma chave primária para identificar seus registros.
+2. As chaves estrangeiras representam os relacionamentos entre as tabelas.
+3. Os campos identificados como únicos não devem possuir valores duplicados.
+4. Cada paciente deverá referenciar um responsável legal.
+5. O primeiro agendamento concluído estabelece o vínculo entre paciente e psicólogo, desde que não exista vínculo correspondente já registrado.
+6. Os agendamentos devem respeitar as validações de datas, horários e situações definidas nos requisitos.
+7. Cada prontuário pertence a um único paciente e pode conter várias evoluções.
+8. O acesso às informações clínicas deve considerar as permissões de usuário e as regras de vínculo profissional definidas pelo projeto.
 
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_responsavel | INT | PK |
-| nome | VARCHAR(100) | NOT NULL |
-| cpf | VARCHAR(14) | NULL; UNIQUE filtrado quando informado |
-| telefone | VARCHAR(20) | NULL |
-| email | VARCHAR(100) | NULL |
-| parentesco | VARCHAR(50) | NULL |
+## 5. Limitações e relação com a implementação
 
-Nesta versão, o modelo considera um responsável legal principal por paciente, conforme a redação singular do requisito RF02.1. O grupo deve confirmar essa decisão.
+O modelo lógico descreve uma organização relacional dos dados. No protótipo atual, os registros serão armazenados em arquivos `.dat`, utilizando estruturas e operações implementadas em C.
 
-## 4. Tabela PACIENTE
+Consequentemente, as chaves estrangeiras, as restrições de unicidade e as demais regras relacionais descritas neste documento não serão aplicadas automaticamente por um SGBD. As validações que fizerem parte da entrega deverão ser implementadas na lógica do programa e verificadas por testes.
 
-Armazena os dados cadastrais do paciente infantojuvenil.
+A existência deste modelo não comprova que todas as regras estejam implementadas ou testadas. O estado de cada funcionalidade deverá ser descrito com base no código e nas evidências de teste disponíveis.
 
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_paciente | INT | PK |
-| id_responsavel | INT | FK, NOT NULL |
-| nome | VARCHAR(100) | NOT NULL |
-| cpf | VARCHAR(14) | NULL; UNIQUE filtrado quando informado |
-| data_nascimento | DATE | NOT NULL |
-| telefone | VARCHAR(20) | NULL |
-| email | VARCHAR(100) | NULL |
-| endereco | VARCHAR(200) | NULL |
-
-O paciente não possui conta de usuário nesta proposta, pois os únicos perfis autenticáveis previstos no backlog são Administrador, Recepção e Psicólogo.
-
-## 5. Tabela PSICOLOGO
-
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_psicologo | INT | PK |
-| id_usuario | INT | FK, NOT NULL, UNIQUE |
-| nome | VARCHAR(100) | NOT NULL |
-| registro_profissional | VARCHAR(30) | NOT NULL, UNIQUE |
-| telefone | VARCHAR(20) | NULL |
-| email | VARCHAR(100) | NULL |
-
-Cada psicólogo está associado a uma conta de usuário. A matrícula e o status ativo/inativo são mantidos em `USUARIO`.
-
-## 6. Tabela VINCULO_PACIENTE_PSICOLOGO
-
-Registra explicitamente o vínculo profissional que autoriza o acesso clínico.
-
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_vinculo | INT | PK |
-| id_paciente | INT | FK, NOT NULL |
-| id_psicologo | INT | FK, NOT NULL |
-| data_inicio | DATE | NOT NULL |
-| data_fim | DATE | NULL |
-| ativo | BIT | NOT NULL, padrão 1 |
-
-Um paciente pode ter vínculos com diferentes psicólogos ao longo do tempo, e um psicólogo pode atender diferentes pacientes. Para um mesmo par paciente-psicólogo, deve existir no máximo um vínculo ativo. O acesso ao prontuário e o registro de evolução exigem vínculo ativo; a existência de consulta, por si só, não concede autorização. A implementação da validação de acesso é responsabilidade da aplicação.
-
-## 7. Tabela CONSULTA
-
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_consulta | INT | PK |
-| id_paciente | INT | FK, NOT NULL |
-| id_psicologo | INT | FK, NOT NULL |
-| data_consulta | DATE | NOT NULL |
-| horario | TIME(0) | NOT NULL |
-| status | VARCHAR(20) | NOT NULL; `AGENDADA`, `REALIZADA` ou `CANCELADA` |
-
-A recepção e o administrador podem agendar, remarcar e cancelar consultas. A remarcação atualiza data e/ou horário da consulta agendada; o cancelamento altera o status para `CANCELADA`. O script impede que um mesmo psicólogo ou paciente tenha duas consultas não canceladas na mesma data e horário. O backlog não especifica a duração da sessão, portanto o modelo não valida sobreposição de intervalos.
-
-## 8. Tabela PRONTUARIO
-
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_prontuario | INT | PK |
-| id_paciente | INT | FK, NOT NULL, UNIQUE |
-| data_criacao | DATE | NOT NULL, padrão data atual |
-
-A restrição `UNIQUE` em `id_paciente` estabelece no máximo um prontuário principal por paciente.
-
-## 9. Tabela EVOLUCAO
-
-| Campo | Tipo sugerido | Restrição / regra |
-|---|---|---|
-| id_evolucao | INT | PK |
-| id_prontuario | INT | FK, NOT NULL |
-| id_psicologo | INT | FK, NOT NULL |
-| data_atendimento | DATE | NOT NULL |
-| data_registro | DATETIME2 | NOT NULL, padrão data/hora atual |
-| descricao | VARCHAR(1000) | NOT NULL |
-
-`data_atendimento` representa o dia da sessão clínica. `data_registro` representa quando a evolução foi lançada no sistema, permitindo distinguir a ocorrência do atendimento do momento do registro. O psicólogo precisa ter vínculo ativo com o paciente do prontuário para consultar ou registrar a evolução.
-
-## 10. Relacionamentos e cardinalidades
-
-- RESPONSAVEL 1:N PACIENTE: um responsável pode estar associado a vários pacientes; cada paciente tem um responsável principal neste escopo.
-- USUARIO 1:0..1 PSICOLOGO: uma conta pode não ser de psicólogo ou estar vinculada a um único cadastro profissional; cada psicólogo possui uma conta.
-- PACIENTE 1:N CONSULTA.
-- PSICOLOGO 1:N CONSULTA.
-- PACIENTE 1:0..1 PRONTUARIO.
-- PRONTUARIO 1:N EVOLUCAO.
-- PSICOLOGO 1:N EVOLUCAO.
-- PACIENTE N:N PSICOLOGO por meio de VINCULO_PACIENTE_PSICOLOGO.
-
-## 11. Normalização
-
-A separação de usuários, pacientes, responsáveis, psicólogos, consultas, prontuários e evoluções reduz a repetição de dados cadastrais e permite que as relações sejam representadas por chaves estrangeiras. A tabela associativa de vínculo profissional evita repetir informações de paciente e psicólogo e registra o estado da autorização. A forma normal definitiva deve ser validada pelo grupo conforme o conteúdo exigido na disciplina.
-
-## 12. Segurança e limites
-
-Os dados clínicos devem ser acessíveis apenas a psicólogos com vínculo ativo com o paciente. O perfil de administrador não concede automaticamente acesso ao conteúdo da evolução. A recepção e o administrador acessam as funções de agenda conforme o backlog, sem autorização clínica implícita. Devem ser usados exclusivamente dados fictícios no protótipo.
-
-A modelagem é documental e não substitui a validação das permissões no programa em C. Não foi criada uma tabela de anotações privadas separada porque esse item não aparece como requisito funcional no Product Backlog fornecido.
+Como o projeto envolve dados relacionados à saúde, os testes acadêmicos deverão utilizar dados fictícios. O protótipo não deve ser considerado pronto para uso clínico real sem avaliação técnica, de segurança e dos requisitos legais e profissionais aplicáveis.
