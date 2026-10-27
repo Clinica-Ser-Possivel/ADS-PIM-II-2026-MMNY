@@ -1,32 +1,35 @@
 # Requisitos x Rede e Sistemas Distribuídos
 
-Os requisitos abaixo são os do backlog do grupo (PIM 2). A coluna da direita mostra como a rede e a arquitetura distribuída atendem cada um.
-
-## Regras de Negócio
-
-| ID | Regra de negócio | Como a rede e a arquitetura atendem |
-|---|---|---|
-| RN01 | No cadastro do paciente, o sistema deve verificar duplicidade pelo número do documento de identificação | O servidor consulta o banco pelo documento antes de gravar |
-| RN02 | Nenhuma outra pessoa deve acessar a área de evolução de prontuário | Login, perfis de acesso e logs: só o psicólogo de referência entra |
-| RN03 | O sistema deve impedir agendamentos no mesmo horário para o mesmo psicólogo | O banco trava o horário no momento da reserva (bloqueio transacional) |
+Os requisitos abaixo são os do backlog do grupo (`docs/03-engenharia-software/Backlog/BACKLOG.md`). A tabela mostra o que cada requisito significaria para a rede em uma implantação futura e qual é a situação atual no protótipo. Não foram criados requisitos novos de rede.
 
 ## Requisitos Funcionais
 
-| ID | Requisito | Como a rede e a arquitetura atendem |
-|---|---|---|
-| RF01 | Gerenciamento de usuários e cadastro (cadastrar e editar usuário) | O navegador envia os dados por HTTPS ao servidor, que grava no banco |
-| RF02 | Vínculo psicólogo-paciente (função de associar e regra de autorização) | O módulo de autenticação libera o prontuário só para o psicólogo vinculado |
-| RF03 | Consulta de disponibilidade e agendamento (visual de calendário e agenda com validação de horário) | O servidor lê a agenda no banco, mostra só os horários livres e valida antes de gravar |
-| RF04 | Cancelamento ou reagendamento de sessões, com opção de justificativa | O módulo de agenda atualiza a sessão, libera o horário antigo e guarda a justificativa |
-| RF05 | Confirmação e aviso de sessões (lembrete para psicólogo e pacientes) | O serviço de notificação manda o lembrete por e-mail (SMTP) quando a sessão é marcada, alterada ou está chegando |
-| RFx | Validar novo cadastro (checar duplicidade) | O servidor confere no banco se os dados informados já existem |
+| ID | Requisito | Relação com Redes (proposta futura) | Situação no protótipo |
+|---|---|---|---|
+| RF01.1 | Cadastrar usuário | Em cliente-servidor, o cadastro seria enviado ao servidor por conexão segura | Implementado (parcial), local |
+| RF01.2 | Efetuar login | Autenticação centralizada no servidor, com comunicação cifrada | Implementado, local |
+| RF01.3 | Inativar usuário | A inativação valeria para todos os computadores ao mesmo tempo | Implementado, local |
+| RF02.1 | Cadastrar paciente e responsável | Dados sensíveis exigiriam proteção em trânsito e no armazenamento | Pendente |
+| RF02.2 | Consultar dados cadastrais | Consultas de vários computadores à mesma base | Pendente |
+| RF02.3 | Atualizar dados | Controle de concorrência em edições simultâneas | Pendente |
+| RF03.1 | Registrar evolução técnica | Sigilo da evolução na transmissão e no armazenamento | Pendente |
+| RF03.2 | Consultar prontuário | Acesso restrito ao psicólogo vinculado, validado no servidor | Pendente |
+| RF04.1 | Agendar consulta | O servidor verificaria conflito de horário antes de gravar | Pendente |
+| RF04.2 | Remarcar ou cancelar | Atualização da agenda visível a todos os usuários autorizados | Pendente |
+| RF04.3 | Visualizar agenda | Agenda compartilhada, com visão limitada por perfil | Pendente |
 
 ## Requisitos Não Funcionais
 
-| ID | Requisito | Como a rede e a arquitetura atendem |
-|---|---|---|
-| RNF01 | Segurança: restrição total de acesso às informações confidenciais do prontuário | Login individual, perfis de acesso, HTTPS, firewall e logs |
-| RNF02 | Usabilidade: buscas e agendamentos com poucos cliques para evitar filas | Sistema web, acessado pelo navegador sem precisar instalar nada |
-| RNF03 | Bloqueio transacional: bloquear o horário no momento da reserva | O banco usa transação para que duas pessoas não reservem o mesmo horário |
-| RNFx | Desempenho: verificação de dados no banco em até 3 segundos | Rede cabeada nos computadores principais e banco indexado pelo documento |
-| RNFy | Segurança: todos os dados do banco protegidos por criptografia AES-256 | Dados criptografados no armazenamento (AES-256) e durante o tráfego (HTTPS/TLS) |
+| ID | Requisito | Relação com Redes (proposta futura) | Situação no protótipo |
+|---|---|---|---|
+| RNF01 | Segurança e controle de acesso | Firewall, redes separadas, comunicação cifrada e logs, como recomendação | Parcial: login e perfis; restante é proposta |
+| RNF02 | Persistência local (`.dat`) | Em uma evolução, o armazenamento passaria para um banco central | Atual: arquivos `.dat` locais |
+| RNF03 | Integridade de dados | Backup, transações e controle de concorrência em ambiente compartilhado | Validações a completar e testar |
+| RNF04 | Tempo de resposta (até 3 s, base de até 100 registros) | Em rede, o desempenho dependeria também de latência e capacidade, a medir | Medição pendente |
+
+## Recomendações fora do backlog atual
+
+- Separação entre rede de funcionários e de visitantes.
+- Backup com teste de restauração e registro de acessos.
+- Comunicação cifrada (HTTPS) em uma eventual arquitetura cliente-servidor.
+- Lembretes automáticos de sessão (melhoria futura).
