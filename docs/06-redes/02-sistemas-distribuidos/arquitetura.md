@@ -1,34 +1,54 @@
-# Arquitetura do Sistema Distribuído
+# Arquitetura do Sistema e Possível Evolução Distribuída
 
-## Modelo
-O sistema usa o modelo **cliente-servidor em 3 camadas**. Cada parte fica separada e elas conversam pela rede.
+## 1. Arquitetura atual
 
-| Camada | Componente | O que faz |
+O protótipo da Clínica Ser Possível é desenvolvido em linguagem C, possui interface pelo terminal e utiliza arquivos locais `.dat` para armazenar os registros (`usuarios.dat` em uso; `pacientes.dat`, `agendamentos.dat` e `evolucoes.dat` previstos).
+
+A aplicação reúne as funcionalidades de gerenciamento de usuários, pacientes e responsáveis, agendamentos e prontuários, respeitando as regras de acesso definidas no projeto.
+
+Atualmente, o sistema não possui comunicação entre computadores por rede, aplicação web, API REST ou integração com banco de dados SQL. Por isso, a solução implementada não é considerada um sistema distribuído.
+
+## 2. Proposta de infraestrutura
+
+Considerando uma possível implantação futura na clínica, propõe-se uma rede local com topologia em estrela, utilizando switch, roteador com firewall e computadores destinados às atividades administrativas e clínicas (ver `01-redes/estrutura-da-rede.md`).
+
+A rede de funcionários deverá ser separada da rede de visitantes, com regras de acesso apropriadas.
+
+Essa infraestrutura é uma proposta acadêmica e não representa equipamentos instalados ou uma estrutura verificada na clínica.
+
+## 3. Possível evolução para cliente-servidor
+
+Em uma evolução futura, o sistema poderá ser adaptado para uma arquitetura cliente-servidor em 3 camadas:
+
+| Camada | Componente | O que faria |
 |---|---|---|
-| Apresentação | Navegador (cliente) | Mostra as telas usadas pela recepção, pelos psicólogos e pelo administrativo |
-| Aplicação | Servidor de aplicação (API) | Cuida das regras do sistema: cadastro, agendamento e permissões |
-| Dados | Servidor de banco de dados | Guarda pacientes, psicólogos, sessões e prontuários |
+| Apresentação | Cliente (interface do usuário) | Telas usadas pela recepção, pelos psicólogos e pelo administrador |
+| Aplicação | Servidor de aplicação (API) | Regras de negócio, validação de permissões e agendamentos |
+| Dados | Banco de dados central | Armazenamento de usuários, pacientes, consultas e evoluções |
 
-Existe também um **serviço de notificação**, que manda os lembretes de sessão por e-mail (ou por SMS ou WhatsApp, se a clínica preferir).
+A comunicação entre cliente e servidor poderia utilizar HTTPS e uma API, e o servidor de aplicação acessaria o banco de dados por conexão interna.
 
-## Como as partes conversam
-- O navegador fala com o servidor de aplicação por **HTTPS**, usando uma **API REST** (os dados vão em formato JSON).
-- O servidor de aplicação fala com o banco de dados por uma conexão interna.
-- O servidor de aplicação chama o serviço de notificação quando uma sessão é marcada, cancelada ou está chegando.
+Essa mudança exigiria adaptar a aplicação em C ou desenvolver uma nova interface, criar mecanismos de comunicação pela rede, definir uma API, integrar um banco de dados (o modelo SQL da pasta `04-banco-de-dados` é apenas documental) e implementar controles adicionais de segurança.
 
-## Exemplo: agendar uma consulta
-1. A recepção entra no sistema com seu login.
-2. O sistema busca no banco a agenda do psicólogo de referência.
-3. A recepção escolhe um horário livre.
-4. O servidor confere se não há conflito e grava a sessão.
-5. O serviço de notificação manda o lembrete para o paciente ou responsável e para o psicólogo.
+Esses recursos **não fazem parte da implementação atual** e estão fora do escopo do semestre.
 
-## Características de sistemas distribuídos no projeto
+## 4. Relação com os sistemas distribuídos
 
-| Característica | Como aparece no projeto |
+A arquitetura cliente-servidor é apresentada como uma possibilidade de evolução, permitindo estudar o compartilhamento de recursos, a comunicação entre componentes e os desafios de concorrência, disponibilidade, integridade e segurança.
+
+| Característica | Como apareceria em uma evolução futura |
 |---|---|
-| Compartilhamento de recursos | Todo mundo usa a mesma base de dados central |
-| Transparência | O usuário não precisa saber onde o servidor está |
-| Segurança | Login, permissões e HTTPS |
-| Consistência | Duas pessoas não conseguem marcar o mesmo horário do mesmo psicólogo |
-| Disponibilidade | Backup e nobreak ajudam a evitar paradas |
+| Compartilhamento de recursos | Todos os computadores usariam a mesma base central |
+| Consistência | O servidor impediria dois agendamentos no mesmo horário para o mesmo psicólogo |
+| Segurança | Login, permissões por perfil e comunicação cifrada |
+| Disponibilidade | Backup e nobreak ajudariam a reduzir paradas |
+
+A adoção dessa arquitetura dependeria de planejamento, implementação e testes específicos.
+
+## 5. Limitações
+
+O protótipo atual possui limitações de armazenamento local, concorrência e compartilhamento dos dados entre computadores.
+
+A utilização de arquivos `.dat` não oferece, por si só, mecanismos completos de transação, controle de concorrência e recuperação de falhas.
+
+Por isso, a solução atual possui finalidade acadêmica e utiliza exclusivamente dados fictícios.
