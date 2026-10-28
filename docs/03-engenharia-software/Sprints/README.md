@@ -62,7 +62,7 @@ Desenvolvimento do protótipo acadêmico em linguagem C, com interação pelo te
 - Definição da persistência local e dos cenários de teste.
 
 **Entrega prevista:** diagramas e planejamento técnico da implementação.  
-**Situação: Em andamento. Entrega com atraso**  
+**Situação: Em andamento. (Atrasado)**  
 **Documentação relacionada:** [Diagramas do sistema](../Diagramas/README.md)
 
 ## Sprint 04 — Implementação de usuários e pacientes
