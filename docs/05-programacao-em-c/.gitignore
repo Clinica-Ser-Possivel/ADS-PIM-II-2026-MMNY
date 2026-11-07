@@ -1,0 +1,13 @@
+# Arquivos de dados locais
+*.dat
+
+# Executaveis e arquivos de compilacao
+*.exe
+*.o
+*.obj
+*.pdb
+
+# Configuracoes locais e segredos
+.env
+.env.*
+!.env.example

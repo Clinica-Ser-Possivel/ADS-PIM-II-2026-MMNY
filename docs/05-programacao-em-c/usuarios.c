@@ -3,6 +3,48 @@
 #include "usuarios.h"
 #include <errno.h>
 
+int buscarUsuarioPorMatricula(const Usuario *usuarioLogado,
+                             int matricula,
+                             Usuario *usuarioEncontrado) {
+    /* Valida os argumentos e as permissoes antes de acessar o arquivo. */
+    if (usuarioLogado == NULL || usuarioEncontrado == NULL ||
+        matricula <= 0 || usuarioLogado->matricula <= 0 ||
+        usuarioLogado->ativo != 1 || usuarioLogado->perfil < 1 ||
+        usuarioLogado->perfil > 3) {
+        return 0;
+    }
+
+    if (usuarioLogado->perfil == 3 && matricula != usuarioLogado->matricula) {
+        return 0;
+    }
+
+    FILE *arquivo = fopen("usuarios.dat", "rb");
+    if (arquivo == NULL) {
+        return -1;
+    }
+
+    Usuario usuario;
+    while (1) {
+        size_t lidos = fread(&usuario, 1, sizeof usuario, arquivo);
+        if (lidos != sizeof usuario) {
+            /* Um registro incompleto tambem indica erro no arquivo. */
+            int erro = ferror(arquivo) || lidos != 0;
+            int fechou = fclose(arquivo);
+            return erro || fechou != 0 ? -1 : 0;
+        }
+
+        if (usuario.matricula == matricula) {
+            if (fclose(arquivo) != 0) {
+                return -1;
+            }
+            /* Remove todo o campo de senha antes de entregar o cadastro. */
+            memset(usuario.senha, 0, sizeof usuario.senha);
+            *usuarioEncontrado = usuario;
+            return 1;
+        }
+    }
+}
+
 int efetuarLogin(int matricula, const char *senha, Usuario *usuarioLogado) {
     FILE *arquivo = fopen("usuarios.dat", "rb");
 
