@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -97,6 +98,7 @@ static int horarioValido(const char *horario) {
 
     return 1;
 }
+
 /* Gera o proximo ID disponivel para um agendamento. */
 static int gerarProximoId(int *proximoId) {
     FILE *arquivo;
@@ -153,6 +155,10 @@ static int horarioDisponivel(const char *data,
     Agendamento atual;
     size_t bytes;
 
+    if (!dataValida(data) || !horarioValido(horario)) {
+        return 0;
+    }
+
     arquivo = fopen(ARQUIVO_AGENDAMENTOS, "rb");
 
     if (arquivo == NULL) {
@@ -167,7 +173,7 @@ static int horarioDisponivel(const char *data,
            == sizeof(Agendamento)) {
 
         if (atual.id != idIgnorado &&
-            atual.status == 1 &&
+            atual.situacao == 1 &&
             strcmp(atual.data, data) == 0 &&
             strcmp(atual.horario, horario) == 0) {
 
