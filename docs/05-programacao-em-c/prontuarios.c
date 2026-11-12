@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,46 +10,50 @@
 
 #define ARQUIVO_EVOLUCOES "evolucoes.dat"
 
-/*
- * Verifica se a data esta no formato DD/MM/AAAA
- * e se representa uma data valida no calendario.
- */
+/* =====================================================
+   FUNCOES AUXILIARES
+   ===================================================== */
+
+/* Valida uma data no formato DD/MM/AAAA. */
 static int validarData(const char *data) {
-    if (data == NULL ||
-        memchr(data, '\0', 11) == NULL ||
-        strlen(data) != 10) {
-        return 0;
-    }
-
-    if (data[2] != '/' || data[5] != '/') {
-        return 0;
-    }
-
-    for (int i = 0; i < 10; i++) {
-        if (i != 2 && i != 5 && !isdigit((unsigned char)data[i])) {
-            return 0;
-        }
-    }
-
-    int dia = (data[0] - '0') * 10 + (data[1] - '0');
-    int mes = (data[3] - '0') * 10 + (data[4] - '0');
-
-    int ano = (data[6] - '0') * 1000 +
-              (data[7] - '0') * 100 +
-              (data[8] - '0') * 10 +
-              (data[9] - '0');
-
-    if (ano < 1 || mes < 1 || mes > 12 || dia < 1) {
-        return 0;
-    }
+    int dia, mes, ano;
 
     int diasMes[] = {
         31, 28, 31, 30, 31, 30,
         31, 31, 30, 31, 30, 31
     };
 
-    /* Verifica se o ano e bissexto. */
-    if ((ano % 400 == 0) ||
+    if (data == NULL ||
+        memchr(data, '\0', 11) == NULL ||
+        strlen(data) != 10 ||
+        data[2] != '/' ||
+        data[5] != '/') {
+        return 0;
+    }
+
+    for (int i = 0; i < 10; i++) {
+        if (i == 2 || i == 5) {
+            continue;
+        }
+
+        if (!isdigit((unsigned char)data[i])) {
+            return 0;
+        }
+    }
+
+    dia = (data[0] - '0') * 10 + (data[1] - '0');
+    mes = (data[3] - '0') * 10 + (data[4] - '0');
+
+    ano = (data[6] - '0') * 1000 +
+          (data[7] - '0') * 100 +
+          (data[8] - '0') * 10 +
+          (data[9] - '0');
+
+    if (ano < 1900 || mes < 1 || mes > 12 || dia < 1) {
+        return 0;
+    }
+
+    if (ano % 400 == 0 ||
         (ano % 4 == 0 && ano % 100 != 0)) {
         diasMes[1] = 29;
     }
@@ -58,9 +61,7 @@ static int validarData(const char *data) {
     return dia <= diasMes[mes - 1];
 }
 
-/*
- * Verifica se a descricao possui algum conteudo.
- */
+/* Verifica se a descricao possui conteudo e terminacao valida. */
 static int descricaoValida(const char *descricao) {
     if (descricao == NULL ||
         memchr(descricao, '\0', 2000) == NULL) {
@@ -76,18 +77,30 @@ static int descricaoValida(const char *descricao) {
     return 0;
 }
 
+/* Valida um registro lido do arquivo. */
+static int evolucaoValida(const Evolucao *evolucao) {
+    return evolucao != NULL &&
+           evolucao->id > 0 &&
+           evolucao->idPaciente > 0 &&
+           evolucao->matriculaPsicologo > 0 &&
+           validarData(evolucao->data) &&
+           descricaoValida(evolucao->descricao);
+}
+
 /*
  * Carrega todas as evolucoes do arquivo.
  *
  * Retornos:
  *  1 = leitura realizada;
- * -1 = erro de arquivo ou memoria.
+ * -1 = erro de arquivo, memoria ou registro invalido.
  *
- * Se o arquivo ainda nao existir, considera
- * que nao existem evolucoes cadastradas.
+ * Arquivo inexistente significa lista vazia.
  */
 static int carregarEvolucoes(Evolucao **lista,
-                            size_t *quantidade) {
+                             size_t *quantidade) {
+    FILE *arquivo;
+    Evolucao evolucao;
+    size_t capacidade = 0;
 
     if (lista == NULL || quantidade == NULL) {
         return -1;
@@ -96,23 +109,25 @@ static int carregarEvolucoes(Evolucao **lista,
     *lista = NULL;
     *quantidade = 0;
 
-    FILE *arquivo = fopen(ARQUIVO_EVOLUCOES, "rb");
+    arquivo = fopen(ARQUIVO_EVOLUCOES, "rb");
 
     if (arquivo == NULL) {
         return errno == ENOENT ? 1 : -1;
     }
 
-    Evolucao evolucao;
-    size_t capacidade = 0;
-
     while (1) {
-        size_t lidos = fread(&evolucao, 1,
-                             sizeof(Evolucao), arquivo);
+        size_t lidos = fread(
+            &evolucao,
+            1,
+            sizeof(Evolucao),
+            arquivo
+        );
 
         if (lidos == 0) {
             if (ferror(arquivo)) {
                 free(*lista);
                 *lista = NULL;
+                *quantidade = 0;
                 fclose(arquivo);
                 return -1;
             }
@@ -121,23 +136,38 @@ static int carregarEvolucoes(Evolucao **lista,
         }
 
         /* Impede a leitura de registros incompletos. */
-        if (lidos != sizeof(Evolucao)) {
+        if (lidos != sizeof(Evolucao) ||
+            !evolucaoValida(&evolucao)) {
             free(*lista);
             *lista = NULL;
+            *quantidade = 0;
             fclose(arquivo);
             return -1;
         }
 
-        /* Aumenta o espaco da lista quando necessario. */
+        /* Aumenta a capacidade da lista quando necessario. */
         if (*quantidade == capacidade) {
-            size_t novaCapacidade = capacidade == 0
-                ? 10
-                : capacidade * 2;
+            size_t novaCapacidade;
 
-            if (novaCapacidade < capacidade ||
-                novaCapacidade > (size_t)-1 / sizeof(Evolucao)) {
+            if (capacidade == 0) {
+                novaCapacidade = 10;
+            } else {
+                if (capacidade > (size_t)-1 / 2) {
+                    free(*lista);
+                    *lista = NULL;
+                    *quantidade = 0;
+                    fclose(arquivo);
+                    return -1;
+                }
+
+                novaCapacidade = capacidade * 2;
+            }
+
+            if (novaCapacidade >
+                (size_t)-1 / sizeof(Evolucao)) {
                 free(*lista);
                 *lista = NULL;
+                *quantidade = 0;
                 fclose(arquivo);
                 return -1;
             }
@@ -150,6 +180,7 @@ static int carregarEvolucoes(Evolucao **lista,
             if (novaLista == NULL) {
                 free(*lista);
                 *lista = NULL;
+                *quantidade = 0;
                 fclose(arquivo);
                 return -1;
             }
@@ -172,10 +203,7 @@ static int carregarEvolucoes(Evolucao **lista,
     return 1;
 }
 
-/*
- * Transforma DD/MM/AAAA em um numero AAAAMMDD
- * para permitir a organizacao cronologica.
- */
+/* Converte DD/MM/AAAA em AAAAMMDD. */
 static int converterData(const char *data) {
     int dia = (data[0] - '0') * 10 + (data[1] - '0');
     int mes = (data[3] - '0') * 10 + (data[4] - '0');
@@ -188,13 +216,10 @@ static int converterData(const char *data) {
     return ano * 10000 + mes * 100 + dia;
 }
 
-/*
- * Compara duas evolucoes pela data.
- * A ordem sera da mais antiga para a mais recente.
- */
+/* Ordena evolucoes da mais antiga para a mais recente. */
 static int compararEvolucoes(const void *a, const void *b) {
-    const Evolucao *e1 = a;
-    const Evolucao *e2 = b;
+    const Evolucao *e1 = (const Evolucao *)a;
+    const Evolucao *e2 = (const Evolucao *)b;
 
     int data1 = converterData(e1->data);
     int data2 = converterData(e2->data);
@@ -208,43 +233,42 @@ static int compararEvolucoes(const void *a, const void *b) {
     return 0;
 }
 
-/*
- * RF03.1
- * Registra uma evolucao tecnica.
- *
- * Somente o psicologo ativo vinculado ao paciente
- * pode registrar uma evolucao.
- */
+/* =====================================================
+   RF03.1 - REGISTRAR EVOLUCAO
+   ===================================================== */
+
 int registrarEvolucao(const Usuario *usuarioLogado,
                       Evolucao *evolucao) {
+    Paciente paciente;
+    Evolucao *lista = NULL;
+    Evolucao novaEvolucao;
 
-    /* Confere se existe um usuario conectado e ativo. */
+    size_t quantidade = 0;
+
+    int resultado;
+    int maiorId = 0;
+
+    /* Confere os argumentos. */
     if (usuarioLogado == NULL || evolucao == NULL) {
         return 0;
     }
 
-    /* Somente psicologos ativos podem registrar evolucoes. */
+    /* Somente psicologo ativo pode registrar evolucao. */
     if (usuarioLogado->perfil != 3 ||
         usuarioLogado->ativo != 1 ||
         usuarioLogado->matricula <= 0) {
         return 0;
     }
 
-    /* Confere os dados obrigatorios. */
+    /* Valida os dados informados. */
     if (evolucao->idPaciente <= 0 ||
         !validarData(evolucao->data) ||
         !descricaoValida(evolucao->descricao)) {
         return 0;
     }
 
-    Paciente paciente;
-
-    /*
-     * Busca o paciente pelo ID.
-     * A funcao tambem respeita as permissoes do modulo
-     * de pacientes.
-     */
-    int resultado = buscarPacientePorId(
+    /* Localiza o paciente. */
+    resultado = buscarPacientePorId(
         usuarioLogado,
         evolucao->idPaciente,
         &paciente
@@ -258,23 +282,17 @@ int registrarEvolucao(const Usuario *usuarioLogado,
         return 0;
     }
 
-    /*
-     * Confere se o paciente esta vinculado
-     * ao psicologo que esta conectado.
-     */
+    /* Confere o vinculo com o psicologo conectado. */
     if (paciente.matriculaPsicologo != usuarioLogado->matricula) {
         return 0;
     }
 
-    /* Carrega os registros existentes para gerar um ID unico. */
-    Evolucao *lista = NULL;
-    size_t quantidade = 0;
+    /* Carrega as evolucoes para gerar o proximo ID. */
+    resultado = carregarEvolucoes(&lista, &quantidade);
 
-    if (carregarEvolucoes(&lista, &quantidade) != 1) {
+    if (resultado != 1) {
         return -1;
     }
-
-    int maiorId = 0;
 
     for (size_t i = 0; i < quantidade; i++) {
         if (lista[i].id > maiorId) {
@@ -288,65 +306,66 @@ int registrarEvolucao(const Usuario *usuarioLogado,
         return -1;
     }
 
-    /* Prepara uma copia para preservar os dados originais. */
-    Evolucao novaEvolucao = *evolucao;
+    /* Prepara o novo registro sem alterar os dados originais antes da gravacao. */
+    novaEvolucao = *evolucao;
 
-    /* Gera o ID e identifica automaticamente o autor. */
     novaEvolucao.id = maiorId + 1;
     novaEvolucao.matriculaPsicologo = usuarioLogado->matricula;
 
-    /* Abre o arquivo para acrescentar uma nova evolucao. */
+    /* Abre o arquivo para acrescentar a evolucao. */
     FILE *arquivo = fopen(ARQUIVO_EVOLUCOES, "ab");
 
     if (arquivo == NULL) {
         return -1;
     }
 
-    int gravou = fwrite(
+    resultado = fwrite(
         &novaEvolucao,
         sizeof(Evolucao),
         1,
         arquivo
-    );
+    ) == 1;
 
-    int fechou = fclose(arquivo);
+    int erroFechamento = fclose(arquivo);
 
-    if (gravou != 1 || fechou != 0) {
+    if (!resultado || erroFechamento != 0) {
         return -1;
     }
 
-    /* Devolve os dados efetivamente registrados. */
+    /* Devolve os dados gerados ao chamador. */
     *evolucao = novaEvolucao;
 
     return 1;
 }
 
-/*
- * RF03.2
- * Consulta o historico de evolucoes de um paciente.
- *
- * Somente o psicologo vinculado pode consultar
- * o conteudo clinico.
- */
+/* =====================================================
+   RF03.2 - CONSULTAR PRONTUARIO
+   ===================================================== */
+
 int consultarProntuario(const Usuario *usuarioLogado,
                         int idPaciente) {
+    Paciente paciente;
+    Evolucao *lista = NULL;
 
-    /* Confere o usuario conectado. */
+    size_t quantidade = 0;
+
+    int resultado;
+    int encontrou = 0;
+
+    /* Confere os argumentos. */
     if (usuarioLogado == NULL || idPaciente <= 0) {
         return 0;
     }
 
-    /* Administradores e recepcionistas nao acessam prontuarios. */
+    /* Somente psicologo ativo pode consultar prontuario. */
     if (usuarioLogado->perfil != 3 ||
         usuarioLogado->ativo != 1 ||
         usuarioLogado->matricula <= 0) {
         return 0;
     }
 
-    Paciente paciente;
-
-    /* Localiza o paciente pelo identificador. */
-    int resultado = buscarPacientePorId(
+    /* Busca o paciente pelo ID. */
+    resultado = buscarPacientePorId(
         usuarioLogado,
         idPaciente,
         &paciente
@@ -365,23 +384,22 @@ int consultarProntuario(const Usuario *usuarioLogado,
         return 0;
     }
 
-    Evolucao *lista = NULL;
-    size_t quantidade = 0;
+    /* Carrega as evolucoes existentes. */
+    resultado = carregarEvolucoes(&lista, &quantidade);
 
-    /* Carrega as evolucoes salvas. */
-    if (carregarEvolucoes(&lista, &quantidade) != 1) {
+    if (resultado != 1) {
         return -1;
     }
 
-    /* Organiza os registros pela data. */
-    qsort(
-        lista,
-        quantidade,
-        sizeof(Evolucao),
-        compararEvolucoes
-    );
-
-    int encontrou = 0;
+    /* Ordena somente quando existem dois ou mais registros. */
+    if (quantidade > 1) {
+        qsort(
+            lista,
+            quantidade,
+            sizeof(Evolucao),
+            compararEvolucoes
+        );
+    }
 
     printf("\n====================================\n");
     printf("       PRONTUARIO DO PACIENTE\n");
@@ -392,9 +410,8 @@ int consultarProntuario(const Usuario *usuarioLogado,
 
     printf("------------------------------------\n");
 
-    /* Exibe somente as evolucoes do paciente e do psicologo. */
+    /* Exibe somente evolucoes do paciente e do psicologo conectado. */
     for (size_t i = 0; i < quantidade; i++) {
-
         if (lista[i].idPaciente == idPaciente &&
             lista[i].matriculaPsicologo == usuarioLogado->matricula) {
 
