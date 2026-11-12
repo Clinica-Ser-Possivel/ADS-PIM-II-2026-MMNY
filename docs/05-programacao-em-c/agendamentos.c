@@ -11,7 +11,26 @@
 #define ARQUIVO_AGENDAMENTOS "agendamentos.dat"
 #define ARQUIVO_TEMPORARIO "agendamentos.tmp"
 
-static int usuarioPodeGerenciarAgenda(const Usuario *usuarioLogado) 
+/* Verifica se o usuario pode gerenciar a agenda. */
+static int usuarioPodeGerenciarAgenda(const Usuario *usuarioLogado) {
+
+    if (usuarioLogado == NULL) {
+        return 0;
+    }
+
+    if (usuarioLogado->ativo != 1) {
+        return 0;
+    }
+
+    if (usuarioLogado->perfil != 1 &&
+        usuarioLogado->perfil != 2) {
+        return 0;
+    }
+
+    return 1;
+}
+
+/* Verifica se a data informada e valida. */
 static int dataValida(const char *data) {
     int dia, mes, ano;
     int diasNoMes;
@@ -46,22 +65,6 @@ static int dataValida(const char *data) {
     }
 
     if (dia < 1 || dia > diasNoMes) {
-        return 0;
-    }
-
-    return 1;
-}{
-
-    if (usuarioLogado == NULL) {
-        return 0;
-    }
-
-    if (usuarioLogado->ativo != 1) {
-        return 0;
-    }
-
-    if (usuarioLogado->perfil != 1 &&
-        usuarioLogado->perfil != 2) {
         return 0;
     }
 
