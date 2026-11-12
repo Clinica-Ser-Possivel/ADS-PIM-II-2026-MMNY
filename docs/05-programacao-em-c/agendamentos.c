@@ -496,3 +496,207 @@ int remarcarConsulta(const Usuario *usuarioLogado,
 
     return 1;
 }
+
+/* RF04.2 - Cancela uma consulta existente. */
+int cancelarConsulta(const Usuario *usuarioLogado,
+                     int idAgendamento) {
+
+    FILE *original;
+    FILE *temporario;
+
+    Agendamento atual;
+    Agendamento encontrado;
+
+    size_t bytes;
+    int resultado;
+    int cancelado = 0;
+    int erro = 0;
+
+    /* Verifica permissao do usuario. */
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado)) {
+        return 0;
+    }
+
+    /* Verifica se o ID e valido. */
+    if (idAgendamento <= 0) {
+        return 0;
+    }
+
+    /* Localiza o agendamento. */
+    resultado = buscarAgendamentoPorId(
+        idAgendamento,
+        &encontrado
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Impede o cancelamento de consultas ja canceladas. */
+    if (encontrado.situacao != 1) {
+        return 0;
+    }
+
+    /* Abre o arquivo original para leitura. */
+    original = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (original == NULL) {
+        return -1;
+    }
+
+    /* Cria arquivo temporario para atualizacao. */
+    temporario = fopen(ARQUIVO_TEMPORARIO, "wb");
+
+    if (temporario == NULL) {
+        fclose(original);
+        return -1;
+    }
+
+    /* Copia os registros e cancela o agendamento desejado. */
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), original))
+           == sizeof(Agendamento)) {
+
+        if (atual.id == idAgendamento) {
+
+            atual.situacao = 2;
+
+            cancelado = 1;
+        }
+
+        if (fwrite(&atual, sizeof(Agendamento), 1, temporario) != 1) {
+            erro = 1;
+            break;
+        }
+    }
+
+    /* Verifica erros durante a leitura. */
+    if (bytes != 0 || ferror(original)) {
+        erro = 1;
+    }
+
+    /* Fecha os arquivos. */
+    if (fclose(original) != 0) {
+        erro = 1;
+    }
+
+    if (fclose(temporario) != 0) {
+        erro = 1;
+    }
+
+    /* Trata erros e remove o temporario. */
+    if (erro) {
+        remove(ARQUIVO_TEMPORARIO);
+        return -1;
+    }
+
+    /* Verifica se o agendamento foi localizado. */
+    if (!cancelado) {
+        remove(ARQUIVO_TEMPORARIO);
+        return 0;
+    }
+
+    /* Substitui o arquivo original pelo temporario. */
+    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS) != 0) {
+        remove(ARQUIVO_TEMPORARIO);
+        return -1;
+    }
+
+    return 1;
+}
+
+/* RF04.3 - Consulta os agendamentos por data e profissional. */
+int consultarAgenda(const Usuario *usuarioLogado,
+                    const char *data,
+                    int matriculaPsicologo) {
+
+    FILE *arquivo;
+    Agendamento atual;
+
+    size_t bytes;
+    int encontrou = 0;
+
+    /* Verifica se o usuario esta ativo. */
+    if (usuarioLogado == NULL ||
+        usuarioLogado->ativo != 1) {
+        return 0;
+    }
+
+    /* Valida a data e a matricula do psicologo. */
+    if (!dataValida(data) ||
+        matriculaPsicologo <= 0) {
+        return 0;
+    }
+
+    /* Verifica as permissoes de acesso. */
+    if (usuarioLogado->perfil == 3) {
+
+        /* Psicologo consulta somente sua propria agenda. */
+        if (usuarioLogado->matricula != matriculaPsicologo) {
+            return 0;
+        }
+
+    } else if (usuarioLogado->perfil != 1 &&
+               usuarioLogado->perfil != 2) {
+
+        return 0;
+    }
+
+    /* Abre o arquivo de agendamentos. */
+    arquivo = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (arquivo == NULL) {
+        if (errno == ENOENT) {
+            return 0;
+        }
+
+        return -1;
+    }
+
+    /* Percorre os registros procurando os agendamentos. */
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), arquivo))
+           == sizeof(Agendamento)) {
+
+        if (strcmp(atual.data, data) == 0 &&
+            atual.matriculaPsicologo == matriculaPsicologo) {
+
+            printf("\n-----------------------------\n");
+
+            printf("ID do agendamento: %d\n", atual.id);
+            printf("ID do paciente: %d\n", atual.idPaciente);
+            printf("Matricula do psicologo: %d\n",
+                   atual.matriculaPsicologo);
+
+            printf("Data: %s\n", atual.data);
+            printf("Horario: %s\n", atual.horario);
+
+            if (atual.situacao == 1) {
+                printf("Situacao: Agendado\n");
+            } else if (atual.situacao == 2) {
+                printf("Situacao: Cancelado\n");
+            } else {
+                printf("Situacao: Desconhecida\n");
+            }
+
+            encontrou = 1;
+        }
+    }
+
+    /* Verifica erros de leitura. */
+    if (bytes != 0 || ferror(arquivo)) {
+        fclose(arquivo);
+        return -1;
+    }
+
+    /* Verifica erros ao fechar o arquivo. */
+    if (fclose(arquivo) != 0) {
+        return -1;
+    }
+
+    /* Informa se encontrou algum agendamento. */
+    if (!encontrou) {
+        printf("\nNenhum agendamento encontrado para essa data.\n");
+        return 0;
+    }
+
+    return 1;
+}
