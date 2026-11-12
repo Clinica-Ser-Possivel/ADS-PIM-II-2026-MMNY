@@ -1,7 +1,3 @@
-
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -373,6 +369,130 @@ int agendarConsulta(const Usuario *usuarioLogado,
 
     /* Devolve os dados gerados ao chamador. */
     *agendamento = novo;
+
+    return 1;
+}
+
+/* RF04.2 - Remarca uma consulta existente. */
+int remarcarConsulta(const Usuario *usuarioLogado,
+                     int idAgendamento,
+                     const char *novaData,
+                     const char *novoHorario) {
+
+    FILE *original;
+    FILE *temporario;
+
+    Agendamento atual;
+    Agendamento encontrado;
+
+    size_t bytes;
+    int resultado;
+    int alterado = 0;
+    int erro = 0;
+
+    /* Verifica permissao do usuario. */
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado)) {
+        return 0;
+    }
+
+    /* Valida o ID, a data e o horario. */
+    if (idAgendamento <= 0 ||
+        !dataValida(novaData) ||
+        !horarioValido(novoHorario)) {
+        return 0;
+    }
+
+    /* Localiza o agendamento pelo ID. */
+    resultado = buscarAgendamentoPorId(
+        idAgendamento,
+        &encontrado
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Impede a remarcacao de consultas canceladas. */
+    if (encontrado.situacao != 1) {
+        return 0;
+    }
+
+    /* Verifica a disponibilidade do novo horario. */
+    resultado = horarioDisponivel(
+        novaData,
+        novoHorario,
+        encontrado.matriculaPsicologo,
+        idAgendamento
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Abre o arquivo original para leitura. */
+    original = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (original == NULL) {
+        return -1;
+    }
+
+    /* Cria o arquivo temporario para atualizacao. */
+    temporario = fopen(ARQUIVO_TEMPORARIO, "wb");
+
+    if (temporario == NULL) {
+        fclose(original);
+        return -1;
+    }
+
+    /* Copia os registros e altera somente o agendamento desejado. */
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), original))
+           == sizeof(Agendamento)) {
+
+        if (atual.id == idAgendamento) {
+
+            strcpy(atual.data, novaData);
+            strcpy(atual.horario, novoHorario);
+
+            alterado = 1;
+        }
+
+        if (fwrite(&atual, sizeof(Agendamento), 1, temporario) != 1) {
+            erro = 1;
+            break;
+        }
+    }
+
+    /* Verifica erros durante a leitura. */
+    if (bytes != 0 || ferror(original)) {
+        erro = 1;
+    }
+
+    /* Fecha os arquivos. */
+    if (fclose(original) != 0) {
+        erro = 1;
+    }
+
+    if (fclose(temporario) != 0) {
+        erro = 1;
+    }
+
+    /* Trata erros e remove o temporario. */
+    if (erro) {
+        remove(ARQUIVO_TEMPORARIO);
+        return -1;
+    }
+
+    /* Verifica se o registro foi localizado. */
+    if (!alterado) {
+        remove(ARQUIVO_TEMPORARIO);
+        return 0;
+    }
+
+    /* Substitui o arquivo original pelo temporario. */
+    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS) != 0) {
+        remove(ARQUIVO_TEMPORARIO);
+        return -1;
+    }
 
     return 1;
 }
