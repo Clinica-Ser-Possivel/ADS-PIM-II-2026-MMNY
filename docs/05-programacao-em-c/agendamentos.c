@@ -193,3 +193,51 @@ static int horarioDisponivel(const char *data,
 
     return 1;
 }
+
+/* Busca um agendamento pelo seu ID. */
+static int buscarAgendamentoPorId(int id,
+                                  Agendamento *encontrado) {
+    FILE *arquivo;
+    Agendamento atual;
+    size_t bytes;
+
+    if (id <= 0 || encontrado == NULL) {
+        return 0;
+    }
+
+    arquivo = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (arquivo == NULL) {
+        if (errno == ENOENT) {
+            return 0;
+        }
+
+        return -1;
+    }
+
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), arquivo))
+           == sizeof(Agendamento)) {
+
+        if (atual.id == id) {
+            *encontrado = atual;
+
+            if (fclose(arquivo) != 0) {
+                return -1;
+            }
+
+            return 1;
+        }
+    }
+
+    if (bytes != 0 || ferror(arquivo)) {
+        fclose(arquivo);
+        return -1;
+    }
+
+    if (fclose(arquivo) != 0) {
+        return -1;
+    }
+
+    return 0;
+}
+
