@@ -144,3 +144,46 @@ static int gerarProximoId(int *proximoId) {
 
     return 1;
 }
+
+/* Verifica se existe conflito de horario na agenda. */
+static int horarioDisponivel(const char *data,
+                             const char *horario,
+                             int idIgnorado) {
+    FILE *arquivo;
+    Agendamento atual;
+    size_t bytes;
+
+    arquivo = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (arquivo == NULL) {
+        if (errno == ENOENT) {
+            return 1;
+        }
+
+        return -1;
+    }
+
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), arquivo))
+           == sizeof(Agendamento)) {
+
+        if (atual.id != idIgnorado &&
+            atual.status == 1 &&
+            strcmp(atual.data, data) == 0 &&
+            strcmp(atual.horario, horario) == 0) {
+
+            fclose(arquivo);
+            return 0;
+        }
+    }
+
+    if (bytes != 0 || ferror(arquivo)) {
+        fclose(arquivo);
+        return -1;
+    }
+
+    if (fclose(arquivo) != 0) {
+        return -1;
+    }
+
+    return 1;
+}
