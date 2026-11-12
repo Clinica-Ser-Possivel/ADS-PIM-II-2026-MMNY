@@ -97,3 +97,50 @@ static int horarioValido(const char *horario) {
 
     return 1;
 }
+/* Gera o proximo ID disponivel para um agendamento. */
+static int gerarProximoId(int *proximoId) {
+    FILE *arquivo;
+    Agendamento atual;
+    int maiorId = 0;
+    size_t bytes;
+
+    if (proximoId == NULL) {
+        return -1;
+    }
+
+    arquivo = fopen(ARQUIVO_AGENDAMENTOS, "rb");
+
+    if (arquivo == NULL) {
+        if (errno == ENOENT) {
+            *proximoId = 1;
+            return 1;
+        }
+
+        return -1;
+    }
+
+    while ((bytes = fread(&atual, 1, sizeof(Agendamento), arquivo))
+           == sizeof(Agendamento)) {
+
+        if (atual.id > maiorId) {
+            maiorId = atual.id;
+        }
+    }
+
+    if (bytes != 0 || ferror(arquivo)) {
+        fclose(arquivo);
+        return -1;
+    }
+
+    if (fclose(arquivo) != 0) {
+        return -1;
+    }
+
+    if (maiorId == INT_MAX) {
+        return -1;
+    }
+
+    *proximoId = maiorId + 1;
+
+    return 1;
+}
