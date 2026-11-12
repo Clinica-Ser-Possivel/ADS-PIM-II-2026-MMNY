@@ -1,4 +1,7 @@
 
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -150,12 +153,15 @@ static int gerarProximoId(int *proximoId) {
 /* Verifica se existe conflito de horario na agenda. */
 static int horarioDisponivel(const char *data,
                              const char *horario,
+                             int matriculaPsicologo,
                              int idIgnorado) {
     FILE *arquivo;
     Agendamento atual;
     size_t bytes;
 
-    if (!dataValida(data) || !horarioValido(horario)) {
+    if (!dataValida(data) ||
+        !horarioValido(horario) ||
+        matriculaPsicologo <= 0) {
         return 0;
     }
 
@@ -174,6 +180,7 @@ static int horarioDisponivel(const char *data,
 
         if (atual.id != idIgnorado &&
             atual.situacao == 1 &&
+            atual.matriculaPsicologo == matriculaPsicologo &&
             strcmp(atual.data, data) == 0 &&
             strcmp(atual.horario, horario) == 0) {
 
@@ -241,3 +248,131 @@ static int buscarAgendamentoPorId(int id,
     return 0;
 }
 
+/* RF04.1 - Realiza o agendamento de uma consulta. */
+int agendarConsulta(const Usuario *usuarioLogado,
+                    Agendamento *agendamento) {
+
+    FILE *arquivo;
+    Agendamento novo;
+    Paciente paciente;
+    Usuario psicologo;
+    int resultado;
+    int proximoId;
+
+    /* Verifica permissao do usuario. */
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado) ||
+        agendamento == NULL) {
+        return 0;
+    }
+
+    /* Valida os dados principais. */
+    if (agendamento->idPaciente <= 0 ||
+        !dataValida(agendamento->data) ||
+        !horarioValido(agendamento->horario)) {
+        return 0;
+    }
+
+    /* Busca o paciente pelo ID. */
+    resultado = buscarPacientePorId(
+        usuarioLogado,
+        agendamento->idPaciente,
+        &paciente
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Verifica o vinculo com o psicologo. */
+    if (paciente.matriculaPsicologo > 0) {
+
+        novo.matriculaPsicologo = paciente.matriculaPsicologo;
+
+    } else {
+
+        if (agendamento->matriculaPsicologo <= 0) {
+            return 0;
+        }
+
+        novo.matriculaPsicologo = agendamento->matriculaPsicologo;
+    }
+
+    /* Busca e verifica o psicologo. */
+    resultado = buscarUsuarioPorMatricula(
+        usuarioLogado,
+        novo.matriculaPsicologo,
+        &psicologo
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    if (psicologo.perfil != 3 || psicologo.ativo != 1) {
+        return 0;
+    }
+
+    /* Verifica se o horario esta disponivel. */
+    resultado = horarioDisponivel(
+        agendamento->data,
+        agendamento->horario,
+        novo.matriculaPsicologo,
+        -1
+    );
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Gera o ID do novo agendamento. */
+    resultado = gerarProximoId(&proximoId);
+
+    if (resultado != 1) {
+        return resultado;
+    }
+
+    /* Prepara o registro do agendamento. */
+    novo.id = proximoId;
+    novo.idPaciente = agendamento->idPaciente;
+
+    strcpy(novo.data, agendamento->data);
+    strcpy(novo.horario, agendamento->horario);
+
+    novo.situacao = 1;
+
+    /* Estabelece o vinculo no primeiro agendamento. */
+    if (paciente.matriculaPsicologo == 0) {
+
+        resultado = vincularPsicologo(
+            usuarioLogado,
+            paciente.id,
+            novo.matriculaPsicologo
+        );
+
+        if (resultado != 1) {
+            return resultado;
+        }
+    }
+
+    /* Abre o arquivo para adicionar o registro. */
+    arquivo = fopen(ARQUIVO_AGENDAMENTOS, "ab");
+
+    if (arquivo == NULL) {
+        return -1;
+    }
+
+    /* Grava o novo agendamento. */
+    if (fwrite(&novo, sizeof(Agendamento), 1, arquivo) != 1) {
+        fclose(arquivo);
+        return -1;
+    }
+
+    if (fclose(arquivo) != 0) {
+        return -1;
+    }
+
+    /* Devolve os dados gerados ao chamador. */
+    *agendamento = novo;
+
+    return 1;
+}
