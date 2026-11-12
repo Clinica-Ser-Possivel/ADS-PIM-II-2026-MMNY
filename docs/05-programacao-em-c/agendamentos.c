@@ -70,3 +70,30 @@ static int dataValida(const char *data) {
 
     return 1;
 }
+
+/* Verifica se o horario informado e valido. */
+static int horarioValido(const char *horario) {
+    int hora, minuto;
+
+    if (horario == NULL || strlen(horario) != 5) {
+        return 0;
+    }
+
+    if (horario[2] != ':') {
+        return 0;
+    }
+
+    if (sscanf(horario, "%2d:%2d", &hora, &minuto) != 2) {
+        return 0;
+    }
+
+    if (hora < 0 || hora > 23) {
+        return 0;
+    }
+
+    if (minuto < 0 || minuto > 59) {
+        return 0;
+    }
+
+    return 1;
+}
