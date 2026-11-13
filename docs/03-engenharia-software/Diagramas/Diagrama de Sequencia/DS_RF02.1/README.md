@@ -6,7 +6,7 @@ Representar a interação entre o usuário, a interface, as rotinas de gestão e
 
 ## Diagrama
 
-![Diagrama de sequência RF02.1 — Cadastrar paciente e responsável](<DS_RF02.1 - Cadastrar paciente e responsavel.png>)
+![Diagrama de sequência RF02.1 — Cadastrar paciente e responsável](<RF02.1 - Cadastrar paciente e responsavel.png>)
 
 ## Pré-condições
 
