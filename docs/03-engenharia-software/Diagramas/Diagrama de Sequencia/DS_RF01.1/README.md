@@ -6,7 +6,7 @@ Representar a interação entre o usuário, a interface, as rotinas de gestão e
 
 ## Diagrama
 
-![Diagrama de sequência RF01.1 — Cadastrar usuário](<DS_RF01.1 - Cadastrar usuario.png>)
+![Diagrama de sequência RF01.1 — Cadastrar usuário](<RF01.1 - Cadastrar usuario.png>)
 
 ## Pré-condições
 
