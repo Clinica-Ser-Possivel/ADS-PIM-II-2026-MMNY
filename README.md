@@ -86,7 +86,7 @@ O vínculo entre paciente e psicólogo é estabelecido no primeiro agendamento c
 | Programação Estruturada em C | Em andamento |
 | Redes e Sistemas Distribuídos | Em andamento |
 | Direitos Humanos | Em andamento |
-| Validação, vídeo de demonstração e entrega final | Previsto (até 10/11/2026) |
+| Validação, vídeo de demonstração e entrega final | Previsto para 13/11/2026; fechamento a confirmar |
 
 ---
 
@@ -94,10 +94,11 @@ O vínculo entre paciente e psicólogo é estabelecido no primeiro agendamento c
 
 | Integrante | Papel |
 |---|---|
-| **Natalia Cristina Torres** | Product Owner |
-| **Yasmin Silva Bonfim dos Santos** | Scrum Master |
-| **Marcela Bueno dos Santos** | Dev Team |
-| **Maria Victória Vieira Lopes** | Dev Team |
+| **Natalia Cristina Torres** | PO e Dev — usuários |
+| **Yasmin Silva Bonfim dos Santos** | SM e Dev — pacientes e responsáveis |
+| **Marcela Bueno dos Santos** | Dev — prontuários |
+| **Maria Victória Vieira Lopes** | Dev — agendamento |
+| **Giulianna Menezes Paes Landim — RA H9592E5** | Dev — testes, revisão, organização do vídeo e da apresentação; entrada em 25/10/2026 |
 
 ---
 
@@ -131,6 +132,7 @@ docs/
 
 ### Organização
 - [Caracterização da clínica](docs/01-organizacao/README.md)
+- [Equipe e responsabilidades](docs/01-organizacao/EQUIPE.md)
 
 ### Pesquisa e Inovação
 - [Documentação](docs/02-pesquisa-inovacao/README.md)
@@ -146,6 +148,9 @@ docs/
 - [DER](docs/04-banco-de-dados/der.md)
 - [Modelo lógico](docs/04-banco-de-dados/modelo-logico.md)
 - [Modelo físico (SQL)](docs/04-banco-de-dados/modelo-fisico.sql)
+
+### Apresentação
+- [Organização da apresentação de 20 minutos e vídeo](docs/08-apresentacao/README.md)
 
 ### Programação em C
 - [Código-fonte e instruções de execução](docs/05-programacao-em-c/README.md)
@@ -187,4 +192,5 @@ Os detalhes de execução, o primeiro acesso de teste e a divisão dos módulos 
 Campus São José dos Campos  
 Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas  
 PIM II — 2026
+
 
