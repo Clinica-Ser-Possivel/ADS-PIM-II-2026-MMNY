@@ -14,7 +14,7 @@ Os períodos abaixo preservam o planejamento original. A presença de código ou
 | Yasmin Silva Bonfim dos Santos | Scrum Master (SM) e Dev — módulo 2: pacientes e responsáveis |
 | Marcela Bueno dos Santos | Dev — módulo 3: prontuários |
 | Maria Victória Vieira Lopes | Dev — módulo 4: agendamento |
-| Giulianna Menezes Paes Landim — RA H9592E5 | Desenvolvedora (Dev), com foco em testes e revisão |
+| Giulianna Menezes Paes Landim | Desenvolvedora (Dev), com foco em testes e revisão |
 
 ## Autoria e distribuição por módulo
 
