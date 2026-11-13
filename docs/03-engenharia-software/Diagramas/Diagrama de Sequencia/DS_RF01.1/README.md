@@ -1,52 +1,46 @@
-## Diagrama de sequência — RF01.1: Cadastrar usuário
+# Diagrama de sequência — RF01.1: Cadastrar usuário
 
-### Objetivo
+## Objetivo
 
-Representar o cadastro de um novo colaborador no sistema da Clínica Ser Possível, incluindo verificação de permissão, validação dos dados, consulta de matrícula e gravação em arquivo local.
+Representar a interação entre o usuário, a interface, as rotinas de gestão e o acesso aos arquivos para cadastrar usuário no sistema da Clínica Ser Possível.
 
-### Pré-condição
+## Diagrama
 
-O Administrador deve estar autenticado. O cenário apresentado considera que a verificação de permissão autoriza o cadastro.
+![Diagrama de sequência RF01.1 — Cadastrar usuário](<DS_RF01.1 - Cadastrar usuario.png>)
 
-### Participantes
+## Pré-condições
+
+O Administrador deve estar autenticado e autorizado a cadastrar usuários.
+
+## Participantes
 
 | Participante | Responsabilidade |
-| :--- | :--- |
-| Administrador | Solicitar o cadastro e informar os dados do novo colaborador. |
-| form_Entrada | Representar a interação pelo terminal, receber os dados e apresentar mensagens. |
-| GestaoUsuarios | Verificar a permissão, validar os dados e coordenar o cadastro. |
-| ArquivosUsuarios | Consultar matrículas e gravar os usuários em arquivo local `.dat`. |
+| --- | --- |
+| Administrador | Iniciar a operação e fornecer os dados necessários. |
+| `form_Entrada` | Receber os dados e apresentar o resultado ao usuário. |
+| `GestaoUsuarios` | Validar as regras e coordenar a operação. |
+| `ArquivosUsuarios` | Consultar e gravar os dados em arquivos locais. |
 
-### Descrição do fluxo
+## Fluxo representado
 
-1. O Administrador seleciona a opção **Cadastrar usuário**.
-2. O `form_Entrada` solicita à `GestaoUsuarios` a verificação da permissão do usuário conectado.
-3. Após a autorização, o Administrador informa nome, matrícula, senha e função do novo colaborador.
-4. O `form_Entrada` encaminha os dados para `cadastrarUsuario(dados)`.
-5. A `GestaoUsuarios` valida o preenchimento e os formatos dos campos.
-6. Se os dados forem inválidos, o fragmento `break` apresenta uma mensagem de erro e interrompe a tentativa de cadastro.
-7. Se os dados forem válidos, a `GestaoUsuarios` solicita a consulta da matrícula ao `ArquivosUsuarios`.
-8. O primeiro fragmento `alt` separa os resultados da consulta:
-   - **Matrícula encontrada:** retorna o erro de matrícula duplicada, sem realizar o cadastro.
-   - **Matrícula disponível:** prepara o usuário, gerando seu identificador, atribuindo o perfil conforme a função e definindo sua situação como ativa.
-9. A `GestaoUsuarios` solicita a gravação do usuário ao `ArquivosUsuarios`.
-10. O segundo fragmento `alt` trata o resultado da gravação:
-    - **Sucesso:** apresenta a mensagem “Usuário cadastrado com sucesso”.
-    - **Falha:** apresenta a mensagem “Não foi possível salvar o usuário”.
+1. O Administrador seleciona o cadastro e informa nome, matrícula, senha e função.
+2. A gestão verifica a permissão e valida os campos recebidos.
+3. Se os dados forem inválidos, o fragmento `break` interrompe a tentativa e apresenta uma mensagem.
+4. A gestão consulta a matrícula. O fragmento `alt` distingue matrícula duplicada de matrícula disponível.
+5. Com matrícula disponível, o usuário é preparado com perfil conforme a função e situação ativa.
+6. O usuário é salvo em `usuarios.dat`. Outro fragmento `alt` apresenta sucesso ou falha conforme o resultado da gravação.
 
-### Regras representadas
+## Regras e condições
 
-- Somente o Administrador pode cadastrar colaboradores.
-- Dados inválidos impedem a continuidade do cadastro.
-- Não é permitido cadastrar usuários com matrícula duplicada.
-- O perfil é atribuído conforme a função informada.
-- O novo usuário é cadastrado como ativo.
-- O sucesso só é informado após a confirmação da gravação.
+- Somente o Administrador pode cadastrar usuários.
+- Dados inválidos ou matrícula duplicada impedem o cadastro.
+- A confirmação depende da gravação bem-sucedida.
 
-### Resultado esperado
+## Escopo do desenho
 
-O novo usuário fica disponível no arquivo local após a gravação bem-sucedida. Em caso de dados inválidos, matrícula duplicada ou falha de gravação, o sistema informa o problema e não confirma o cadastro.
+O diagrama apresenta o fluxo de sucesso e os principais caminhos de erro, utilizando os fragmentos `break` e `alt`.
 
-### Observação técnica
+## Observação técnica
 
-Os participantes `GestaoUsuarios` e `ArquivosUsuarios` representam responsabilidades das rotinas do programa em C. A interação ocorre pelo terminal, e os dados são persistidos em arquivos locais `.dat`.
+Os participantes representam responsabilidades das rotinas do programa em C. Os nomes com prefixo `form_` representam a interação com o usuário pelo terminal. A persistência utiliza arquivos locais `.dat`.
+
