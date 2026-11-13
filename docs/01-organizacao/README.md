@@ -151,6 +151,8 @@ O protótipo não foi planejado para uso clínico real. Uma eventual utilizaçã
 
 ## 9. Organização e acompanhamento
 
+A [equipe e a divisão de responsabilidades](EQUIPE.md) incluem a implementação dos quatro módulos, os testes, a revisão e a organização dos materiais de apresentação. O [planejamento das sprints](../03-engenharia-software/Sprints/README.md) registra os alinhamentos e as revisões. A [apresentação tem duração de 20 minutos](../08-apresentacao/README.md), com participação de todas as integrantes; as perguntas da banca ocorrem depois.
+
 O desenvolvimento é organizado em requisitos, backlog, diagramas, sprints, implementação e testes.
 
 O Product Backlog é a referência principal para as funcionalidades e regras de negócio. Os diagramas devem representar os mesmos processos, enquanto as sprints registram o planejamento e o andamento das atividades.
@@ -184,3 +186,4 @@ BRASIL. **Lei nº 8.069, de 13 de julho de 1990.** Estatuto da Criança e do Ado
 CONSELHO FEDERAL DE PSICOLOGIA. **Código de Ética Profissional do Psicólogo.** Resolução CFP nº 010/2005. Disponível em: https://site.cfp.org.br/legislacao/. Acesso em: 26 out. 2026.
 
 CONSELHO FEDERAL DE PSICOLOGIA. **Resolução CFP nº 001/2009.** Disponível em: https://site.cfp.org.br/legislacao/. Acesso em: 26 out. 2026.
+
