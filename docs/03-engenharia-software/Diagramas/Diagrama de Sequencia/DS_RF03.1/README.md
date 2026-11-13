@@ -6,7 +6,7 @@ Representar a interação entre o usuário, a interface, as rotinas de gestão e
 
 ## Diagrama
 
-![Diagrama de sequência RF03.1 — Registrar evolução técnica](<DS_RF03.1 - Registrar evolucao tecnica.png>)
+![Diagrama de sequência RF03.1 — Registrar evolução técnica](<RF03.1 - Registrar evolucao tecnica.png>)
 
 ## Pré-condições
 
