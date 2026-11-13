@@ -6,7 +6,7 @@ Representar a interação entre o usuário, a interface, as rotinas de gestão e
 
 ## Diagrama
 
-![Diagrama de sequência RF04.1 — Agendar consulta](<DS_RF04.1 - Agendar consulta.png>)
+![Diagrama de sequência RF04.1 — Agendar consulta](<RF04.1 - Agendar consulta.png>)
 
 ## Pré-condições
 
