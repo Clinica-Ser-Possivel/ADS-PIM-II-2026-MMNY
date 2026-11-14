@@ -66,4 +66,12 @@ int vincularPsicologo(const Usuario *usuarioLogado,
                      int idPaciente,
                      int matriculaPsicologo);
 
+/*
+ * Consulta de apoio ao formulario, sem gravacao.
+ * Exige administrador ou recepcionista ativo e CPF valido.
+ * 1 = disponivel; 0 = duplicado, invalido ou sem permissao;
+ * -1 = falha de arquivo.
+ */
+int cpfPacienteDisponivel(const Usuario *usuarioLogado, const char *cpf);
+
 #endif

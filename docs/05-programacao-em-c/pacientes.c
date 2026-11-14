@@ -7,6 +7,8 @@
 
 #include "pacientes.h"
 #include "usuarios.h"
+#include "arquivos.h"
+#include "validacoes.h"
 
 #define ARQUIVO_PACIENTES "pacientes.dat"
 #define ARQUIVO_TEMPORARIO "pacientes.tmp"
@@ -39,119 +41,6 @@ static int textoValido(const char *texto, size_t tamanho) {
     }
 
     return 0;
-}
-
-/* Valida CPF no formato 000.000.000-00. */
-static int cpfValido(const char *cpf, size_t tamanho) {
-    int digitos[11];
-    int i, soma, resto;
-    int d1, d2;
-
-    if (cpf == NULL || tamanho < 15 ||
-        memchr(cpf, '\0', tamanho) == NULL)
-        return 0;
-
-    if (strlen(cpf) != 14 ||
-        cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-')
-        return 0;
-
-    for (i = 0; i < 14; i++) {
-        if (i == 3 || i == 7 || i == 11)
-            continue;
-
-        if (cpf[i] < '0' || cpf[i] > '9')
-            return 0;
-    }
-
-    digitos[0] = cpf[0] - '0';
-    digitos[1] = cpf[1] - '0';
-    digitos[2] = cpf[2] - '0';
-    digitos[3] = cpf[4] - '0';
-    digitos[4] = cpf[5] - '0';
-    digitos[5] = cpf[6] - '0';
-    digitos[6] = cpf[8] - '0';
-    digitos[7] = cpf[9] - '0';
-    digitos[8] = cpf[10] - '0';
-    digitos[9] = cpf[12] - '0';
-    digitos[10] = cpf[13] - '0';
-
-    for (i = 1; i < 11; i++) {
-        if (digitos[i] != digitos[0])
-            break;
-    }
-
-    if (i == 11)
-        return 0;
-
-    soma = 0;
-
-    for (i = 0; i < 9; i++)
-        soma += digitos[i] * (10 - i);
-
-    resto = soma % 11;
-    d1 = (resto < 2) ? 0 : 11 - resto;
-
-    if (digitos[9] != d1)
-        return 0;
-
-    soma = 0;
-
-    for (i = 0; i < 10; i++)
-        soma += digitos[i] * (11 - i);
-
-    resto = soma % 11;
-    d2 = (resto < 2) ? 0 : 11 - resto;
-
-    return digitos[10] == d2;
-}
-
-/* Verifica se o ano e bissexto. */
-static int anoBissexto(int ano) {
-    return (ano % 400 == 0) ||
-           (ano % 4 == 0 && ano % 100 != 0);
-}
-
-/* Valida data no formato DD/MM/AAAA. */
-static int dataValida(const char *data, size_t tamanho) {
-    int dia, mes, ano;
-    int diasNoMes;
-    int i;
-
-    if (data == NULL || tamanho < 11 ||
-        memchr(data, '\0', tamanho) == NULL)
-        return 0;
-
-    if (strlen(data) != 10 ||
-        data[2] != '/' || data[5] != '/')
-        return 0;
-
-    for (i = 0; i < 10; i++) {
-        if (i == 2 || i == 5)
-            continue;
-
-        if (data[i] < '0' || data[i] > '9')
-            return 0;
-    }
-
-    dia = (data[0] - '0') * 10 + data[1] - '0';
-    mes = (data[3] - '0') * 10 + data[4] - '0';
-    ano = (data[6] - '0') * 1000 +
-          (data[7] - '0') * 100 +
-          (data[8] - '0') * 10 +
-          (data[9] - '0');
-
-    if (ano < 1900 || mes < 1 || mes > 12 || dia < 1)
-        return 0;
-
-    diasNoMes = 31;
-
-    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
-        diasNoMes = 30;
-    } else if (mes == 2) {
-        diasNoMes = anoBissexto(ano) ? 29 : 28;
-    }
-
-    return dia <= diasNoMes;
 }
 
 /* Verifica se um texto contem outro texto, sem diferenciar maiusculas. */
@@ -231,19 +120,24 @@ static int registroValido(const Paciente *paciente) {
            dadosValidos(paciente);
 }
 
-/* Le um registro de paciente com verificacao de integridade. */
-static int lerPaciente(FILE *arquivo, Paciente *paciente) {
+/* Verifica disponibilidade sem gravar nem alterar o cadastro. */
+int cpfPacienteDisponivel(const Usuario *usuario, const char *cpf) {
+    if (!usuarioPodeGerenciar(usuario) || !cpfValido(cpf, 15)) return 0;
+    FILE *arquivo = fopen(ARQUIVO_PACIENTES, "rb");
+    if (arquivo == NULL) return errno == ENOENT ? 1 : -1;
+    Paciente atual;
     size_t lidos;
-
-    lidos = fread(paciente, 1, sizeof(*paciente), arquivo);
-
-    if (lidos == 0)
-        return feof(arquivo) ? 0 : -1;
-
-    if (lidos != sizeof(*paciente))
-        return -1;
-
-    return registroValido(paciente) ? 1 : -1;
+    int duplicado = 0;
+    while ((lidos = fread(&atual, 1, sizeof atual, arquivo)) == sizeof atual) {
+        if (!registroValido(&atual)) {
+            fclose(arquivo);
+            return -1;
+        }
+        if (strcmp(atual.cpf, cpf) == 0) duplicado = 1;
+    }
+    int erro = lidos != 0 || ferror(arquivo);
+    if (fclose(arquivo) != 0) erro = 1;
+    return erro ? -1 : !duplicado;
 }
 
 /*
@@ -282,6 +176,7 @@ int cadastrarPaciente(const Usuario *usuarioLogado,
 
             if (strcmp(atual.cpf, paciente->cpf) == 0) {
                 fclose(arquivo);
+                puts("Paciente ja cadastrado com esse CPF.");
                 return 0;
             }
 
@@ -371,7 +266,9 @@ int consultarPacientes(const Usuario *usuarioLogado,
             continue;
 
         if (contemTexto(atual.nome, busca) ||
-            contemTexto(atual.cpf, busca)) {
+            contemTexto(atual.cpf, busca) ||
+            contemTexto(atual.responsavel.nome, busca) ||
+            contemTexto(atual.responsavel.cpf, busca)) {
 
             printf("\nID: %d\n", atual.id);
             printf("Nome: %s\n", atual.nome);
@@ -379,6 +276,11 @@ int consultarPacientes(const Usuario *usuarioLogado,
             printf("Nascimento: %s\n", atual.dataNascimento);
             printf("Telefone: %s\n", atual.telefone);
             printf("Endereco: %s\n", atual.endereco);
+            printf("Responsavel: %s\n", atual.responsavel.nome);
+            printf("CPF do responsavel: %s\n", atual.responsavel.cpf);
+            printf("Telefone do responsavel: %s\n", atual.responsavel.telefone);
+            printf("Parentesco: %s\n", atual.responsavel.parentesco);
+            printf("Endereco do responsavel: %s\n", atual.responsavel.endereco);
             printf("Psicologo: %d\n",
                    atual.matriculaPsicologo);
 
@@ -401,7 +303,7 @@ int consultarPacientes(const Usuario *usuarioLogado,
 }
 
 /*
- * RF02.3 - Busca paciente pelo ID.
+ * Apoio aos modulos - Busca paciente pelo ID.
  * Psicologo so pode acessar pacientes vinculados a ele.
  */
 int buscarPacientePorId(const Usuario *usuarioLogado,
@@ -490,7 +392,13 @@ static int alterarPaciente(const Usuario *usuarioLogado,
         return 0;
 
     if (modo == 1 &&
-        (dados == NULL || !dadosValidos(dados)))
+        (dados == NULL ||
+         !textoValido(dados->telefone, sizeof(dados->telefone)) ||
+         !textoValido(dados->endereco, sizeof(dados->endereco)) ||
+         !textoValido(dados->responsavel.telefone,
+                      sizeof(dados->responsavel.telefone)) ||
+         !textoValido(dados->responsavel.endereco,
+                      sizeof(dados->responsavel.endereco))))
         return 0;
 
     if (modo == 2 && matriculaPsicologo <= 0)
@@ -524,13 +432,14 @@ static int alterarPaciente(const Usuario *usuarioLogado,
             encontrou = 1;
 
             if (modo == 1) {
-                /*
-                 * Atualiza somente os dados pessoais e
-                 * os dados do responsavel, preservando
-                 * ID e vinculo com o psicologo.
-                 */
-                atual = *dados;
-                atual.id = idPaciente;
+                /* Copia somente os quatro campos permitidos pelo RF02.3.
+                 * Identidade, nascimento, responsavel e vinculo sao preservados. */
+                memcpy(atual.telefone, dados->telefone, sizeof(atual.telefone));
+                memcpy(atual.endereco, dados->endereco, sizeof(atual.endereco));
+                memcpy(atual.responsavel.telefone, dados->responsavel.telefone,
+                       sizeof(atual.responsavel.telefone));
+                memcpy(atual.responsavel.endereco, dados->responsavel.endereco,
+                       sizeof(atual.responsavel.endereco));
             } else {
                 if (atual.matriculaPsicologo != 0) {
                     erro = 2;
@@ -547,7 +456,7 @@ static int alterarPaciente(const Usuario *usuarioLogado,
         }
     }
 
-    if (lidos != 0 || ferror(origem))
+    if (ferror(origem) || (lidos != 0 && erro == 0))
         erro = 1;
 
     if (fclose(origem) != 0)
@@ -561,7 +470,7 @@ static int alterarPaciente(const Usuario *usuarioLogado,
         return erro == 1 ? -1 : 0;
     }
 
-    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_PACIENTES) != 0) {
+    if (!substituirArquivo(ARQUIVO_TEMPORARIO, ARQUIVO_PACIENTES)) {
         remove(ARQUIVO_TEMPORARIO);
         return -1;
     }
@@ -570,7 +479,7 @@ static int alterarPaciente(const Usuario *usuarioLogado,
 }
 
 /*
- * RF02.4 - Atualiza contato do paciente.
+ * RF02.3 - Atualiza contato do paciente.
  * Permitido: administrador e recepcionista.
  */
 int atualizarContatoPaciente(const Usuario *usuarioLogado,
@@ -588,7 +497,7 @@ int atualizarContatoPaciente(const Usuario *usuarioLogado,
 }
 
 /*
- * RF02.5 - Vincula psicologo ao paciente.
+ * Apoio ao RF04.1 - Vincula psicologo ao paciente.
  * Permitido: administrador e recepcionista.
  */
 int vincularPsicologo(const Usuario *usuarioLogado,
