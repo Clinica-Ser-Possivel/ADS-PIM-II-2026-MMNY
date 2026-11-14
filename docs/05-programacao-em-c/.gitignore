@@ -11,3 +11,8 @@
 .env
 .env.*
 !.env.example
+
+# Temporarios de execucao e testes
+*.tmp
+__pycache__/
+clinica-testes-*/

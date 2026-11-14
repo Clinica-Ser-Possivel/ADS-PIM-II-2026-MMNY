@@ -8,6 +8,7 @@
 #include "agendamentos.h"
 #include "pacientes.h"
 #include "usuarios.h"
+#include "arquivos.h"
 
 #define ARQUIVO_AGENDAMENTOS "agendamentos.dat"
 #define ARQUIVO_TEMPORARIO "agendamentos.tmp"
@@ -320,7 +321,7 @@ static int removerAgendamentoPorId(int id) {
         return 0;
     }
 
-    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS) != 0) {
+    if (!substituirArquivo(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS)) {
         remove(ARQUIVO_TEMPORARIO);
         return 0;
     }
@@ -346,14 +347,23 @@ int agendarConsulta(const Usuario *usuarioLogado,
     int resultado;
     int novoId;
 
-    if (!usuarioPodeGerenciarAgenda(usuarioLogado) ||
-        agendamento == NULL)
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado) || agendamento == NULL) {
+        puts("Sem permissao para agendar: entre como Administrador ou Recepcao ativo.");
         return 0;
+    }
 
-    if (agendamento->idPaciente <= 0 ||
-        !dataValida(agendamento->data) ||
-        !horarioValido(agendamento->horario))
+    if (agendamento->idPaciente <= 0) {
+        puts("ID do paciente invalido.");
         return 0;
+    }
+    if (!dataValida(agendamento->data)) {
+        puts("Data invalida. Use DD/MM/AAAA e uma data existente.");
+        return 0;
+    }
+    if (!horarioValido(agendamento->horario)) {
+        puts("Horario invalido. Use HH:MM, de 00:00 a 23:59.");
+        return 0;
+    }
 
     resultado = buscarPacientePorId(
         usuarioLogado,
@@ -361,16 +371,20 @@ int agendarConsulta(const Usuario *usuarioLogado,
         &paciente
     );
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Paciente nao encontrado.");
         return resultado == -1 ? -1 : 0;
+    }
 
     if (paciente.matriculaPsicologo > 0) {
         agendamento->matriculaPsicologo =
             paciente.matriculaPsicologo;
     }
 
-    if (agendamento->matriculaPsicologo <= 0)
+    if (agendamento->matriculaPsicologo <= 0) {
+        puts("Matricula do psicologo invalida.");
         return 0;
+    }
 
     resultado = buscarUsuarioPorMatricula(
         usuarioLogado,
@@ -378,11 +392,19 @@ int agendarConsulta(const Usuario *usuarioLogado,
         &psicologo
     );
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Psicologo nao encontrado. Confira a matricula.");
         return resultado == -1 ? -1 : 0;
+    }
 
-    if (!usuarioValido(&psicologo) || psicologo.perfil != 3)
+    if (psicologo.perfil != 3) {
+        puts("O colaborador informado nao tem perfil de Psicologo.");
         return 0;
+    }
+    if (!usuarioValido(&psicologo)) {
+        puts("Psicologo inativo. Nao e possivel agendar com este profissional.");
+        return 0;
+    }
 
     resultado = horarioDisponivel(
         agendamento->matriculaPsicologo,
@@ -391,8 +413,10 @@ int agendarConsulta(const Usuario *usuarioLogado,
         0
     );
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Horario ocupado. Escolha outra data ou horario.");
         return resultado == 0 ? 0 : -1;
+    }
 
     novoId = gerarProximoId();
 
@@ -428,7 +452,11 @@ int agendarConsulta(const Usuario *usuarioLogado,
         );
 
         if (resultado != 1) {
-            removerAgendamentoPorId(novo.id);
+            if (!removerAgendamentoPorId(novo.id)) {
+                fprintf(stderr, "Falha ao desfazer a consulta %d. "
+                        "Confira os arquivos antes de tentar novamente.\n", novo.id);
+                return -1;
+            }
             return resultado == -1 ? -1 : 0;
         }
     }
@@ -454,21 +482,35 @@ int remarcarConsulta(const Usuario *usuarioLogado,
     int erro = 0;
     int resultado;
 
-    if (!usuarioPodeGerenciarAgenda(usuarioLogado))
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado)) {
+        puts("Sem permissao para alterar a agenda.");
         return 0;
+    }
 
-    if (idAgendamento <= 0 ||
-        !dataValida(novaData) ||
-        !horarioValido(novoHorario))
+    if (idAgendamento <= 0) {
+        puts("ID do agendamento invalido.");
         return 0;
+    }
+    if (!dataValida(novaData)) {
+        puts("Data invalida. Use DD/MM/AAAA e uma data existente.");
+        return 0;
+    }
+    if (!horarioValido(novoHorario)) {
+        puts("Horario invalido. Use HH:MM, de 00:00 a 23:59.");
+        return 0;
+    }
 
     resultado = buscarAgendamentoPorId(idAgendamento, &atual);
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Agendamento nao encontrado. Confira o ID.");
         return resultado == -1 ? -1 : 0;
+    }
 
-    if (atual.situacao != 1)
+    if (atual.situacao != 1) {
+        puts("Esta consulta ja esta cancelada.");
         return 0;
+    }
 
     resultado = horarioDisponivel(
         atual.matriculaPsicologo,
@@ -477,8 +519,10 @@ int remarcarConsulta(const Usuario *usuarioLogado,
         idAgendamento
     );
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Horario ocupado. Escolha outra data ou horario.");
         return resultado == 0 ? 0 : -1;
+    }
 
     origem = fopen(ARQUIVO_AGENDAMENTOS, "rb");
 
@@ -526,7 +570,7 @@ int remarcarConsulta(const Usuario *usuarioLogado,
         return erro ? -1 : 0;
     }
 
-    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS) != 0) {
+    if (!substituirArquivo(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS)) {
         remove(ARQUIVO_TEMPORARIO);
         return -1;
     }
@@ -535,7 +579,7 @@ int remarcarConsulta(const Usuario *usuarioLogado,
 }
 
 /*
- * RF04.3 - Cancelar consulta.
+ * RF04.2 - Cancelar consulta.
  * Permitido: administrador e recepcionista.
  */
 int cancelarConsulta(const Usuario *usuarioLogado,
@@ -548,19 +592,25 @@ int cancelarConsulta(const Usuario *usuarioLogado,
     int erro = 0;
     int resultado;
 
-    if (!usuarioPodeGerenciarAgenda(usuarioLogado))
+    if (!usuarioPodeGerenciarAgenda(usuarioLogado)) {
+        puts("Sem permissao para alterar a agenda.");
         return 0;
+    }
 
     if (idAgendamento <= 0)
         return 0;
 
     resultado = buscarAgendamentoPorId(idAgendamento, &atual);
 
-    if (resultado != 1)
+    if (resultado != 1) {
+        if (resultado == 0) puts("Agendamento nao encontrado. Confira o ID.");
         return resultado == -1 ? -1 : 0;
+    }
 
-    if (atual.situacao != 1)
+    if (atual.situacao != 1) {
+        puts("Esta consulta ja esta cancelada.");
         return 0;
+    }
 
     origem = fopen(ARQUIVO_AGENDAMENTOS, "rb");
 
@@ -607,7 +657,7 @@ int cancelarConsulta(const Usuario *usuarioLogado,
         return erro ? -1 : 0;
     }
 
-    if (rename(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS) != 0) {
+    if (!substituirArquivo(ARQUIVO_TEMPORARIO, ARQUIVO_AGENDAMENTOS)) {
         remove(ARQUIVO_TEMPORARIO);
         return -1;
     }
@@ -616,7 +666,7 @@ int cancelarConsulta(const Usuario *usuarioLogado,
 }
 
 /*
- * RF04.4 - Consultar agenda.
+ * RF04.3 - Consultar agenda.
  *
  * Psicologo: consulta somente a propria agenda.
  * Administrador e recepcionista: podem consultar
