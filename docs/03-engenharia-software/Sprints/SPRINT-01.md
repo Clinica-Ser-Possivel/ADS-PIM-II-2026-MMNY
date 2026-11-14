@@ -2,96 +2,69 @@
 
 [Voltar ao planejamento](README.md)
 
-**Período planejado:** 21/08/2026 a 09/09/2026  
-**Meta:** Compreender o contexto da clínica e definir problema, objetivos e escopo inicial.
+**Período planejado:** 21/08 a 09/09/2026.  
+**Meta:** Definir problema, objetivos, justificativa e escopo do projeto.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Identificação dos registros
+## Origem e precisão do registro
 
-As datas abaixo são propostas de agenda elaboradas em 12/11/2026. A realização, os participantes e as decisões devem ser confirmados pela equipe. O período planejado não é evidência de que o trabalho terminou nessa data.
+Registro consolidado a partir das confirmações de Natalia em 13/11/2026, dos documentos e do histórico do GitHub. A equipe realizava alinhamentos semanais pelo WhatsApp, com referência a sextas ou sábados. Os períodos abaixo são aproximados; os dias exatos dos encontros não foram recuperados. Uma publicação no GitHub não é necessariamente a data da entrega interna ou da criação local.
 
-## Sprint Planning
+## Sprint Planning — planejamento
 
-**Data sugerida:** 21/08/2026  
-**Participantes efetivos:** a confirmar.
+**Referência temporal:** abertura do período da sprint; o dia específico da conversa não foi recuperado.  
+**Equipe nos alinhamentos do período:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes.  
+**Responsabilidades:** Natalia (PO): organização do projeto, definição e registro do escopo; equipe: revisão dos documentos.
 
-### Itens propostos
+### Escopo de trabalho
 
-- Caracterização da clínica fictícia e necessidades.
-- Problema, justificativa e objetivos.
-- Escopo e organização inicial do repositório.
+- Caracterização do cenário fictício da clínica.
+- Definição do problema, dos objetivos e da justificativa.
+- Delimitação do escopo e organização inicial.
 
-**Referência:** [Documentação inicial](../../01-organizacao/README.md).
+O planejamento seguiu os requisitos do [Product Backlog](../Backlog/BACKLOG.md). Não foi relatada mudança importante adicional de escopo nas três primeiras sprints. Os itens incompletos das sprints de código continuaram no período seguinte.
 
-### Critérios de verificação
+## Alinhamentos semanais — WhatsApp
 
-- O problema e os objetivos estão claros e coerentes.
-- O escopo identifica o que será entregue e o que fica fora.
+Todas as integrantes participavam dos encontros do respectivo período. Natalia organizava e registrava as decisões. As linhas são uma síntese reconstruída do acompanhamento do ciclo, sem atribuir reuniões a dias exatos.
 
-### Distribuição de atividades
-
-- Natalia (PO): conduzir a definição do problema, objetivos, escopo e organização do projeto, conforme o planejamento original.
-- Equipe: contribuir com dúvidas e revisão do escopo; participação efetiva a confirmar.
-- Yasmin (SM): facilitação do acompanhamento proposta, sem atribuir implementação de módulos a esta etapa.
-
-- Decisões do Planning e mudanças no escopo: a registrar após confirmação.
-
-## Alinhamentos semanais da equipe
-
-**Proposta de acompanhamento:** datas, integrantes e pautas abaixo organizam a discussão; não são declarações de presença ou de tarefas concluídas. Nos encontros confirmados, preencher avanço real, impedimento e decisão. As datas espaçadas são exemplos de registros, sem representar todas as dailies.
-
-| Data sugerida | Integrante / área | Atividade a acompanhar | Próximo passo proposto | Avanço real, impedimento e decisão |
-| --- | --- | --- | --- | --- |
-| 24/08/2026 | Natalia — PO | Problema e necessidades da clínica | Delimitar objetivos e escopo | A confirmar e registrar |
-| 31/08/2026 | Natalia — PO | Objetivos, justificativa e escopo | Organizar a documentação inicial | A confirmar e registrar |
-| 31/08/2026 | Yasmin — SM | Organização dos alinhamentos propostos | Identificar dúvidas e encaminhamentos | A confirmar e registrar |
-| 04/09/2026 | Natalia — PO | Documentação inicial para apresentação | Revisar coerência antes da Review | A confirmar e registrar |
-
-**Canal e frequência confirmados por Natalia:** WhatsApp, com alinhamentos semanais sobre o andamento do trabalho. Datas exatas, participantes e encaminhamentos de cada conversa: a confirmar.
-
-**Pauta proposta para organizar o registro:** progresso em relação à meta, próximas tarefas, dificuldades e ajustes. Os encontros semanais descritos não equivalem a um histórico de Daily Scrum diária.
-
-**Como completar:** substituir o último campo por um registro breve, como avanço confirmado, dificuldade encontrada e quem realizará a próxima ação. Usar “sem impedimentos” somente quando isso tiver sido informado.
-
-## Sprint Review
-
-**Data sugerida:** 08/09/2026  
-**Realização e participantes:** a confirmar.
-
-### Roteiro proposto
-
-1. Apresentar a meta e os itens trabalhados.
-2. Inspecionar os artefatos e resultados disponíveis.
-3. Verificar os critérios acima e colher feedback.
-4. Registrar itens concluídos e pendências a levar ao backlog.
-
-| Item apresentado | Evidência / versão | Feedback recebido | Decisão e próximo passo |
-| --- | --- | --- | --- |
-| A confirmar | A informar | A registrar | A registrar |
-
-A conclusão do teste local ou o envio de um arquivo não substitui o registro do feedback da equipe.
-
-## Sprint Retrospective
-
-**Data sugerida:** 09/09/2026  
-**Realização e participantes:** a confirmar.
-
-| Tema | Pergunta para a equipe | Registro real |
+| Período de referência | Trabalho acompanhado | Encaminhamento |
 | --- | --- | --- |
-| Acertos | O que ajudou a avançar? | A registrar |
-| Dificuldades | Onde houve retrabalho, dúvidas ou impedimentos? | A registrar |
-| Melhoria | Qual mudança será aplicada no próximo ciclo? | A definir |
-| Acompanhamento | Quem acompanha a ação e até quando? | A definir |
+| 21 a 27/08 | Discussão do problema e das necessidades do cenário. | Delimitar o objetivo do projeto. |
+| 28/08 a 03/09 | Consolidação dos objetivos, justificativa e escopo. | Organizar a documentação inicial. |
+| 04 a 09/09 | Revisão dos documentos pelo grupo. | Encerrar a etapa e iniciar os requisitos. |
 
-### Proposta de melhoria para discussão
+O formato relatado foi semanal; não é apresentado como realização de Daily Scrum todos os dias.
 
-Revisar os artefatos em conjunto e confirmar os critérios antes de avançar para a próxima etapa.
+## Sprint Review — revisão das entregas
 
-Esta proposta ainda não é uma decisão atribuída à equipe.
+**Momento:** encerramento da sprint; dia exato da reunião não recuperado.  
+**Canal:** reunião online pelo WhatsApp.  
+**Participantes:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Encerramento
+### Resultado e entrega
 
-- Data real de conclusão: a confirmar.
-- Entregas verificadas e evidências: a registrar.
-- Pendências transferidas ao backlog: a registrar.
-- Responsável pela atualização desta ata: a definir.
+Documentação inicial concluída até 09/09/2026, sem atraso, conforme confirmado por Natalia.
 
+O grupo revisou a definição do projeto e seguiu com o escopo estabelecido. Não foi relatada mudança importante adicional.
+
+**Evidência:** [documentação ou código relacionado](../../01-organizacao/README.md).
+
+### Continuidade e pendências
+
+Não foram relatadas entregas desta etapa transferidas à sprint seguinte.
+
+## Sprint Retrospective — colaboração e melhorias
+
+**Momento:** parte final da mesma reunião da Review, após a discussão das entregas.  
+**Participantes:** equipe do período identificada acima.  
+**Registro:** Natalia Cristina Torres.
+
+Nas primeiras etapas, Natalia confirmou a continuidade do planejamento, sem relatar mudança importante adicional. Nas Sprints 01 e 02, as entregas foram concluídas no prazo; na Sprint 03, a primeira versão local ficou pronta no prazo e continuou sendo refinada. Não foram fornecidos relatos específicos de dificuldades ou ações de retrospectiva de cada uma dessas três etapas; não são atribuídos problemas ou decisões a reuniões específicas.
+
+## Encerramento e situação
+
+Documentação inicial concluída até 09/09/2026, sem atraso, conforme confirmado por Natalia.
+
+**Continuidade:** Não foram relatadas entregas desta etapa transferidas à sprint seguinte.
