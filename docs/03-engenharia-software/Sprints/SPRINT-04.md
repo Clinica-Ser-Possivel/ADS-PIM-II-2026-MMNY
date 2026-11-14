@@ -1,124 +1,84 @@
-# Sprint 04 — Implementação de usuários e pacientes
+# Sprint 04 — Desenvolvimento de usuários e pacientes
 
 [Voltar ao planejamento](README.md)
 
-**Período planejado:** 20/10/2026 a 27/10/2026  
-**Meta:** Implementar autenticação e cadastros básicos com persistência local.
+**Período planejado:** 20/10 a 27/10/2026.  
+**Meta:** Desenvolver usuários e pacientes com persistência local.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Identificação dos registros
+## Origem e precisão do registro
 
-As datas abaixo são propostas de agenda elaboradas em 12/11/2026. A realização, os participantes e as decisões devem ser confirmados pela equipe. O período planejado não é evidência de que o trabalho terminou nessa data.
+Registro consolidado a partir das confirmações de Natalia em 13/11/2026, dos documentos e do histórico do GitHub. A equipe realizava alinhamentos semanais pelo WhatsApp, com referência a sextas ou sábados. Os períodos abaixo são aproximados; os dias exatos dos encontros não foram recuperados. Uma publicação no GitHub não é necessariamente a data da entrega interna ou da criação local.
 
-## Sprint Planning
+## Sprint Planning — planejamento
 
-**Data sugerida:** 20/10/2026  
-**Participantes efetivos:** a confirmar.
+**Referência temporal:** abertura do período da sprint; o dia específico da conversa não foi recuperado.  
+**Equipe nos alinhamentos do período:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes; Giulianna participa somente a partir de 25/10/2026.  
+**Responsabilidades:** Natalia (PO e Dev): módulo 1 — usuários. Yasmin (SM e Dev): módulo 2 — pacientes e responsáveis. Giulianna: apoio em testes e revisão atribuído somente a partir de 25/10/2026; sua validação individual final está programada para 13/11.
 
-### Itens propostos
+### Escopo de trabalho
 
-- Login, cadastro e inativação de usuários.
+- Login, cadastro, busca e inativação de usuários.
 - Cadastro, consulta e atualização de pacientes e responsáveis.
-- Testes das permissões, duplicação e persistência.
+- Permissões, duplicação e persistência.
 
-**Referência:** [Código em C](../../05-programacao-em-c/).
+O planejamento seguiu os requisitos do [Product Backlog](../Backlog/BACKLOG.md). Não foi relatada mudança importante adicional de escopo nas três primeiras sprints. Os itens incompletos das sprints de código continuaram no período seguinte.
 
-### Critérios de verificação
+## Alinhamentos semanais — WhatsApp
 
-- Login recusa senha incorreta e usuário inativo.
-- CPF duplicado é recusado e o contato pode ser atualizado sem perder o vínculo.
+Todas as integrantes participavam dos encontros do respectivo período. Natalia organizava e registrava as decisões. As linhas são uma síntese reconstruída do acompanhamento do ciclo, sem atribuir reuniões a dias exatos.
 
-### Distribuição de atividades
-
-- **Natalia Cristina Torres (PO e Dev): implementação do módulo 1 — usuários**, incluindo login, cadastro, inativação e busca. Como PO, acompanhar prioridades e coerência com o backlog.
-- **Yasmin Silva Bonfim dos Santos (SM e Dev): implementação do módulo 2 — pacientes e responsáveis**, incluindo cadastro, consulta, atualização de contato e apoio ao vínculo. Como SM, facilitar o acompanhamento.
-- **Giulianna Menezes Paes Landim (Dev, RA H9592E5): testes e revisão atribuídos** aos fluxos de usuários e pacientes **somente a partir de sua entrada em 25/10/2026**; resultados individuais a registrar. Não participou do início desta sprint ou das sprints anteriores.
-- Marcela e Maria Victória: referências para conferir as dependências dos módulos seguintes, quando necessário.
-- A autoria da implementação foi informada por Natalia; a data de conclusão de cada atividade precisa ser confirmada.
-
-- Decisões do Planning e mudanças no escopo: a registrar após confirmação.
-
-## Alinhamentos semanais da equipe
-
-**Proposta de acompanhamento:** datas, integrantes e pautas abaixo organizam a discussão; não são declarações de presença ou de tarefas concluídas. Nos encontros confirmados, preencher avanço real, impedimento e decisão. As datas espaçadas são exemplos de registros, sem representar todas as dailies.
-
-| Data sugerida | Integrante / área | Atividade a acompanhar | Próximo passo proposto | Avanço real, impedimento e decisão |
-| --- | --- | --- | --- | --- |
-| 21/10/2026 | Natalia — PO / Dev de usuários | Login e cadastro de usuários | Conferir matrícula duplicada e permissões | A confirmar e registrar |
-| 21/10/2026 | Yasmin — SM / Dev de pacientes | Cadastro de paciente e responsável | Conferir campos obrigatórios e CPF | A confirmar e registrar |
-| 23/10/2026 | Natalia — PO / Dev de usuários | Inativação de usuários | Testar bloqueio de login e preservação dos registros | A confirmar e registrar |
-| 23/10/2026 | Yasmin — SM / Dev de pacientes | Consulta e atualização cadastral | Conferir preservação de identidade e vínculo | A confirmar e registrar |
-| 26/10/2026 | Giulianna — Dev de testes e revisão | Cenários dos módulos de usuários e pacientes | Registrar falhas e encaminhar a Natalia ou Yasmin | A confirmar e registrar |
-| 26/10/2026 | Natalia e Yasmin — responsáveis pelos módulos | Pendências apontadas na revisão | Priorizar correções e preparar demonstração | A confirmar e registrar |
-
-**Canal e frequência confirmados por Natalia:** WhatsApp, com alinhamentos semanais sobre o andamento do trabalho. Datas exatas, participantes e encaminhamentos de cada conversa: a confirmar.
-
-**Pauta proposta para organizar o registro:** progresso em relação à meta, próximas tarefas, dificuldades e ajustes. Os encontros semanais descritos não equivalem a um histórico de Daily Scrum diária.
-
-**Como completar:** substituir o último campo por um registro breve, como avanço confirmado, dificuldade encontrada e quem realizará a próxima ação. Usar “sem impedimentos” somente quando isso tiver sido informado.
-
-## Sprint Review
-
-**Prática de revisão confirmada no projeto:** reuniões online pelo WhatsApp para apresentar os módulos em funcionamento, receber comentários e combinar correções. Cada responsável corrigia sua parte, com ajuda das colegas quando necessário. A data exata, a participação e os itens apresentados nesta sprint ainda precisam ser confirmados.
-
-**Data sugerida:** 27/10/2026  
-**Realização e participantes:** a confirmar.
-
-### Roteiro proposto
-
-**Apresentação proposta por responsável:** Natalia apresenta usuários; Yasmin apresenta pacientes e responsáveis; Giulianna apresenta os testes que tiver efetivamente realizado.
-
-1. Apresentar a meta e os itens trabalhados.
-2. Inspecionar os artefatos e resultados disponíveis.
-3. Verificar os critérios acima e colher feedback.
-4. Registrar itens concluídos e pendências a levar ao backlog.
-
-| Item apresentado | Evidência / versão | Feedback recebido | Decisão e próximo passo |
-| --- | --- | --- | --- |
-| A confirmar | A informar | A registrar | A registrar |
-
-A conclusão do teste local ou o envio de um arquivo não substitui o registro do feedback da equipe.
-
-## Sprint Retrospective
-
-**Data sugerida:** 27/10/2026 — após a Review  
-**Realização e participantes:** a confirmar.
-
-| Tema | Pergunta para a equipe | Registro real |
+| Período de referência | Trabalho acompanhado | Encaminhamento |
 | --- | --- | --- |
-| Acertos | O que ajudou a avançar? | A registrar |
-| Dificuldades | Onde houve retrabalho, dúvidas ou impedimentos? | A registrar |
-| Melhoria | Qual mudança será aplicada no próximo ciclo? | A definir |
-| Acompanhamento | Quem acompanha a ação e até quando? | A definir |
+| 20 a 24/10 | Natalia: usuários; Yasmin: pacientes e responsáveis. | Conferir campos, acesso e persistência. |
+| 25 a 27/10 | Continuidade dos módulos; entrada de Giulianna em 25/10. | Revisar o resultado disponível e identificar o que continuaria na sprint seguinte. |
 
-### Observações sobre a colaboração
+O formato relatado foi semanal; não é apresentado como realização de Daily Scrum todos os dias.
 
-No acompanhamento geral do projeto, foram relatados atrasos, dúvidas de integração e necessidade de revisar validações e documentação. A equipe tratava os ajustes em reuniões online pelo WhatsApp; cada integrante corrigia sua parte e, em algumas situações, recebia ajuda das colegas.
+## Sprint Review — revisão das entregas
 
-Também foram discutidos o aviso antecipado de atrasos, o pedido de ajuda e a conferência das partes antes da integração. A associação de cada conversa a esta sprint e seus participantes ainda deve ser confirmada.
+**Momento:** encerramento da sprint; dia exato da reunião não recuperado.  
+**Canal:** reunião online pelo WhatsApp.  
+**Participantes:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes; Giulianna participa somente a partir de 25/10/2026.  
+**Organização e registro:** Natalia Cristina Torres.
 
-### Melhorias para acompanhamento
+### Resultado e entrega
 
-- Comunicar possíveis atrasos e dificuldades com antecedência.
-- Solicitar apoio quando houver impedimento.
-- Conferir o módulo antes de compartilhar a versão para integração.
-- Revisar a documentação após as correções.
+Usuários: primeira versão publicada em 26/10/2026, dentro do período. Pacientes e responsáveis: entrega atrasada no início da semana de 09/11/2026, conforme relato de Natalia; publicação em 12/11.
 
-Como propostas adicionais, definir uma próxima ação ao final de cada alinhamento e consultar as responsáveis antes de alterar interfaces compartilhadas. Essas propostas não são registradas como acordos já realizados.
+A Review ocorreu no encerramento da sprint, com o resultado disponível. A parte de usuários estava disponível; o trabalho incompleto de pacientes continuou na sprint seguinte.
 
-**Responsáveis por ações específicas e prazos:** a confirmar.
+**Evidência:** [documentação ou código relacionado](../../05-programacao-em-c/).
 
-**Resultado relatado no projeto:** Natalia relatou que, após os combinados, as integrantes apresentaram resultados e houve melhora no andamento do trabalho. Essa percepção é qualitativa; não foram informadas medidas, datas ou exemplos individuais. A equipe pode acompanhar sua continuidade nas próximas revisões. A associação desse resultado a esta sprint específica permanece a confirmar.
+### Continuidade e pendências
 
-## Encerramento
+Conclusão de pacientes e responsáveis por Yasmin; posterior integração e testes. Não foi informado novo prazo intermediário.
 
-- Data real de conclusão: a confirmar.
-- Entregas verificadas e evidências: a registrar.
-- Pendências transferidas ao backlog: a registrar.
-- Responsável pela atualização desta ata: a definir.
+## Sprint Retrospective — colaboração e melhorias
 
+**Momento:** parte final da mesma reunião da Review, após a discussão das entregas.  
+**Participantes:** equipe do período identificada acima.  
+**Registro:** Natalia Cristina Torres.
 
-## Dificuldades confirmadas no projeto
+No acompanhamento geral do desenvolvimento, Natalia relatou atrasos, dúvidas na integração entre arquivos, dificuldades com CPF e permissões e divergências entre código e documentação. Cada integrante corrigia sua parte e recebia ajuda das colegas quando necessário.
 
-Natalia confirmou atrasos nas entregas, dúvidas de integração entre arquivos .c e .h, dificuldades com CPF e permissões e divergências entre código e documentação. A associação de cada ocorrência a esta sprint e sua data exata permanece a confirmar; este registro não atribui atrasos a integrantes específicos.
+| Ponto discutido | Encaminhamento confirmado | Responsabilidade de acompanhamento |
+| --- | --- | --- |
+| Atrasos de entrega | Avisar dificuldades e possíveis atrasos com antecedência. | Cada responsável comunica sua parte; Natalia registra o encaminhamento. |
+| Dúvidas de integração | Pedir ajuda e colaborar quando necessário. | Responsáveis pelos módulos envolvidos. |
+| Falhas nos testes | Conferir cada parte antes da integração e corrigir os problemas. | Responsável pelo módulo; revisão e reteste conforme atividade atribuída. |
+| Documentação divergente | Revisar os materiais após as correções. | Equipe, com organização de Natalia e revisão atribuída a Giulianna a partir de sua entrada. |
 
-**Encaminhamento confirmado:** Cada integrante corrigia os problemas da sua própria parte; em algumas situações, as colegas ajudavam na resolução. Natalia confirmou essa forma de colaboração. Novos prazos, retestes e decisões de casos específicos ainda precisam ser detalhados.
+**Resultado relatado:** depois dos combinados, as integrantes apresentaram resultados e foi percebida melhora no andamento do trabalho. O relato é qualitativo; não foram fornecidas medidas ou ocorrências datadas para atribuir esse efeito a uma única reunião.
+
+## Encerramento e situação
+
+Usuários: primeira versão publicada em 26/10/2026, dentro do período. Pacientes e responsáveis: entrega atrasada no início da semana de 09/11/2026, conforme relato de Natalia; publicação em 12/11.
+
+**Continuidade:** Conclusão de pacientes e responsáveis por Yasmin; posterior integração e testes. Não foi informado novo prazo intermediário.
+
+## Histórico de entrega do código
+
+- Usuários: [primeira publicação em 26/10](https://github.com/Clinica-Ser-Possivel/ADS-PIM-II-2026-MMNY/commit/8ad860c45b6a534172b8639d4624ce314322c25e), com [atualização em 07/11](https://github.com/Clinica-Ser-Possivel/ADS-PIM-II-2026-MMNY/commit/4d89cb789ec51e97abe407b36bdf3f7784559cd6).
+- Pacientes (Yasmin), prontuários (Marcela) e agendamento (Maria Victória): entrega interna no início da semana de 09/11, segundo Natalia; publicação dos arquivos em 12/11.
+- Integração, testes e correções finais: 12 e 13/11. A revisão e as correções assistidas anteriores foram realizadas por Natalia com apoio da ferramenta; não são atribuídas a Giulianna.
