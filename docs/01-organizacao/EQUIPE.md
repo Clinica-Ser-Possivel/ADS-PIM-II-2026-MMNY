@@ -29,9 +29,9 @@ Natalia informou a entrada de Giulianna em **25/10/2026**. Sua participação co
 - Registrar falhas e apoiar o reteste das correções.
 - Conferir a versão final antes da entrega de 13/11/2026.
 - Organizar o vídeo e os slides, com apresentação compartilhada entre as cinco integrantes e duração total de 20 minutos.
-- A conclusão da validação e dos materiais de apresentação permanece a confirmar.
+- Validação individual e preparação dos materiais programadas para 13/11; a conclusão ainda não foi comunicada.
 
-As responsabilidades foram atribuídas por Natalia nesta conversa. Resultados e participação histórica serão registrados quando confirmados. Veja o [registro de testes e revisão](../03-engenharia-software/Sprints/TESTES-E-REVISAO-GIULIANNA.md).
+As responsabilidades foram atribuídas por Natalia nesta conversa. Os resultados individuais serão registrados após a execução. A participação nos encontros do período posterior a 25/10 foi confirmada por Natalia. Veja o [registro de testes e revisão](../03-engenharia-software/Sprints/TESTES-E-REVISAO-GIULIANNA.md).
 
 ## Trabalho escrito
 
