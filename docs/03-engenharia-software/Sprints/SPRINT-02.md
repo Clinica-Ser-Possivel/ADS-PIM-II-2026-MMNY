@@ -2,99 +2,69 @@
 
 [Voltar ao planejamento](README.md)
 
-**Período planejado:** 10/09/2026 a 29/09/2026  
-**Meta:** Definir requisitos, regras de negócio e prioridades do protótipo.
+**Período planejado:** 10/09 a 29/09/2026.  
+**Meta:** Definir requisitos, regras de acesso e prioridades do backlog.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Identificação dos registros
+## Origem e precisão do registro
 
-As datas abaixo são propostas de agenda elaboradas em 12/11/2026. A realização, os participantes e as decisões devem ser confirmados pela equipe. O período planejado não é evidência de que o trabalho terminou nessa data.
+Registro consolidado a partir das confirmações de Natalia em 13/11/2026, dos documentos e do histórico do GitHub. A equipe realizava alinhamentos semanais pelo WhatsApp, com referência a sextas ou sábados. Os períodos abaixo são aproximados; os dias exatos dos encontros não foram recuperados. Uma publicação no GitHub não é necessariamente a data da entrega interna ou da criação local.
 
-## Sprint Planning
+## Sprint Planning — planejamento
 
-**Data sugerida:** 10/09/2026  
-**Participantes efetivos:** a confirmar.
+**Referência temporal:** abertura do período da sprint; o dia específico da conversa não foi recuperado.  
+**Equipe nos alinhamentos do período:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes.  
+**Responsabilidades:** Natalia (PO): requisitos e prioridades; Yasmin (SM): apoio ao acompanhamento; equipe: revisão das necessidades de cada área.
 
-### Itens propostos
+### Escopo de trabalho
 
-- Levantamento de RF e RNF.
+- Requisitos funcionais e não funcionais.
 - Perfis fixos e regras de acesso.
 - Organização e priorização do Product Backlog.
 
-**Referência:** [Product Backlog](../Backlog/BACKLOG.md).
+O planejamento seguiu os requisitos do [Product Backlog](../Backlog/BACKLOG.md). Não foi relatada mudança importante adicional de escopo nas três primeiras sprints. Os itens incompletos das sprints de código continuaram no período seguinte.
 
-### Critérios de verificação
+## Alinhamentos semanais — WhatsApp
 
-- Requisitos possuem identificadores e descrições verificáveis.
-- Permissões e armazenamento local estão definidos.
+Todas as integrantes participavam dos encontros do respectivo período. Natalia organizava e registrava as decisões. As linhas são uma síntese reconstruída do acompanhamento do ciclo, sem atribuir reuniões a dias exatos.
 
-### Distribuição de atividades
-
-- Natalia (PO): organizar e priorizar o Product Backlog, requisitos e regras de acesso.
-- Yasmin (SM): apoiar a organização dos alinhamentos.
-- Como referências para a revisão técnica proposta: Natalia — usuários; Yasmin — pacientes; Marcela — prontuários; Maria Victória — agendamento.
-- A execução histórica dessas revisões deve ser confirmada pela equipe.
-
-- Decisões do Planning e mudanças no escopo: a registrar após confirmação.
-
-## Alinhamentos semanais da equipe
-
-**Proposta de acompanhamento:** datas, integrantes e pautas abaixo organizam a discussão; não são declarações de presença ou de tarefas concluídas. Nos encontros confirmados, preencher avanço real, impedimento e decisão. As datas espaçadas são exemplos de registros, sem representar todas as dailies.
-
-| Data sugerida | Integrante / área | Atividade a acompanhar | Próximo passo proposto | Avanço real, impedimento e decisão |
-| --- | --- | --- | --- | --- |
-| 14/09/2026 | Natalia — PO | Requisitos e perfis de acesso | Organizar e priorizar o backlog | A confirmar e registrar |
-| 21/09/2026 | Natalia — PO / Dev de usuários | Regras de login e cadastro de colaboradores | Conferir critérios de verificação | A confirmar e registrar |
-| 21/09/2026 | Yasmin — SM / Dev de pacientes | Regras de pacientes e responsáveis | Listar dependências com agenda e prontuário | A confirmar e registrar |
-| 21/09/2026 | Marcela — Dev de prontuários | Regras de evolução e consulta de histórico | Conferir restrições por vínculo | A confirmar e registrar |
-| 21/09/2026 | Maria Victória — Dev de agendamento | Regras de consultas e disponibilidade | Conferir conflitos e cancelamento | A confirmar e registrar |
-| 28/09/2026 | Natalia — PO | Prioridades e critérios do backlog | Preparar itens para discussão na Review | A confirmar e registrar |
-
-**Canal e frequência confirmados por Natalia:** WhatsApp, com alinhamentos semanais sobre o andamento do trabalho. Datas exatas, participantes e encaminhamentos de cada conversa: a confirmar.
-
-**Pauta proposta para organizar o registro:** progresso em relação à meta, próximas tarefas, dificuldades e ajustes. Os encontros semanais descritos não equivalem a um histórico de Daily Scrum diária.
-
-**Como completar:** substituir o último campo por um registro breve, como avanço confirmado, dificuldade encontrada e quem realizará a próxima ação. Usar “sem impedimentos” somente quando isso tiver sido informado.
-
-## Sprint Review
-
-**Data sugerida:** 29/09/2026  
-**Realização e participantes:** a confirmar.
-
-### Roteiro proposto
-
-1. Apresentar a meta e os itens trabalhados.
-2. Inspecionar os artefatos e resultados disponíveis.
-3. Verificar os critérios acima e colher feedback.
-4. Registrar itens concluídos e pendências a levar ao backlog.
-
-| Item apresentado | Evidência / versão | Feedback recebido | Decisão e próximo passo |
-| --- | --- | --- | --- |
-| A confirmar | A informar | A registrar | A registrar |
-
-A conclusão do teste local ou o envio de um arquivo não substitui o registro do feedback da equipe.
-
-## Sprint Retrospective
-
-**Data sugerida:** 29/09/2026 — após a Review  
-**Realização e participantes:** a confirmar.
-
-| Tema | Pergunta para a equipe | Registro real |
+| Período de referência | Trabalho acompanhado | Encaminhamento |
 | --- | --- | --- |
-| Acertos | O que ajudou a avançar? | A registrar |
-| Dificuldades | Onde houve retrabalho, dúvidas ou impedimentos? | A registrar |
-| Melhoria | Qual mudança será aplicada no próximo ciclo? | A definir |
-| Acompanhamento | Quem acompanha a ação e até quando? | A definir |
+| 10 a 16/09 | Levantamento de requisitos e perfis. | Organizar as funcionalidades. |
+| 17 a 23/09 | Discussão das regras e dependências por módulo. | Conferir prioridades e critérios. |
+| 24 a 29/09 | Revisão do backlog. | Seguir para a modelagem. |
 
-### Proposta de melhoria para discussão
+O formato relatado foi semanal; não é apresentado como realização de Daily Scrum todos os dias.
 
-Revisar os artefatos em conjunto e confirmar os critérios antes de avançar para a próxima etapa.
+## Sprint Review — revisão das entregas
 
-Esta proposta ainda não é uma decisão atribuída à equipe.
+**Momento:** encerramento da sprint; dia exato da reunião não recuperado.  
+**Canal:** reunião online pelo WhatsApp.  
+**Participantes:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Encerramento
+### Resultado e entrega
 
-- Data real de conclusão: a confirmar.
-- Entregas verificadas e evidências: a registrar.
-- Pendências transferidas ao backlog: a registrar.
-- Responsável pela atualização desta ata: a definir.
+Requisitos e backlog concluídos até 29/09/2026, sem atraso, conforme confirmado por Natalia.
 
+O grupo revisou os requisitos, os perfis e o backlog e prosseguiu para a modelagem. Não foi relatada mudança importante adicional.
+
+**Evidência:** [documentação ou código relacionado](../Backlog/BACKLOG.md).
+
+### Continuidade e pendências
+
+Não foram relatadas entregas desta etapa transferidas à sprint seguinte.
+
+## Sprint Retrospective — colaboração e melhorias
+
+**Momento:** parte final da mesma reunião da Review, após a discussão das entregas.  
+**Participantes:** equipe do período identificada acima.  
+**Registro:** Natalia Cristina Torres.
+
+Nas primeiras etapas, Natalia confirmou a continuidade do planejamento, sem relatar mudança importante adicional. Nas Sprints 01 e 02, as entregas foram concluídas no prazo; na Sprint 03, a primeira versão local ficou pronta no prazo e continuou sendo refinada. Não foram fornecidos relatos específicos de dificuldades ou ações de retrospectiva de cada uma dessas três etapas; não são atribuídos problemas ou decisões a reuniões específicas.
+
+## Encerramento e situação
+
+Requisitos e backlog concluídos até 29/09/2026, sem atraso, conforme confirmado por Natalia.
+
+**Continuidade:** Não foram relatadas entregas desta etapa transferidas à sprint seguinte.
