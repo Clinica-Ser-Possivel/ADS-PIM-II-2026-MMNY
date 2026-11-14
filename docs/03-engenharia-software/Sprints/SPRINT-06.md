@@ -1,151 +1,97 @@
-# Sprint 06 — Validação, documentação e entrega final
+# Sprint 06 — Integração, validação e entrega final
 
 [Voltar ao planejamento](README.md)
 
-**Período planejado:** 05/11/2026 a 13/11/2026  
-**Meta:** Validar a versão integrada, revisar os documentos e preparar a entrega em 13/11/2026.
+**Período planejado:** 05/11 a 13/11/2026.  
+**Meta:** Juntar os módulos, testar, corrigir, revisar os materiais e preparar a entrega.  
+**Organização e registro:** Natalia Cristina Torres.
 
-## Identificação dos registros
+## Origem e precisão do registro
 
-As datas abaixo são propostas de agenda elaboradas em 12/11/2026. A realização, os participantes e as decisões devem ser confirmados pela equipe. O período planejado não é evidência de que o trabalho terminou nessa data.
+Registro consolidado a partir das confirmações de Natalia em 13/11/2026, dos documentos e do histórico do GitHub. A equipe realizava alinhamentos semanais pelo WhatsApp, com referência a sextas ou sábados. Os períodos abaixo são aproximados; os dias exatos dos encontros não foram recuperados. Uma publicação no GitHub não é necessariamente a data da entrega interna ou da criação local.
 
-## Sprint Planning
+## Sprint Planning — planejamento
 
-**Data sugerida:** 05/11/2026  
-**Participantes efetivos:** a confirmar.
+**Referência temporal:** abertura do período da sprint; o dia específico da conversa não foi recuperado.  
+**Equipe nos alinhamentos do período:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes, além de Giulianna Menezes Paes Landim.  
+**Responsabilidades:** Natalia (PO e Dev): prioridades e usuários. Yasmin (SM e Dev): acompanhamento e pacientes. Marcela: prontuários. Maria Victória: agendamento. Giulianna: validação individual, revisão e organização dos slides e vídeo programadas para 13/11.
 
-### Itens propostos
+### Escopo de trabalho
 
-- Testes integrados e correções.
-- Revisão de documentação, instruções e evidências.
-- Vídeo, apresentação e organização da entrega.
+- Receber as partes atrasadas e conferir a integração.
+- Testes funcionais, permissões, arquivos e mensagens de erro.
+- Revisão documental, vídeo e apresentação de 20 minutos.
 
-**Referência:** [Verificação local de 12/11](evidencias/TESTES-LOCAIS-12-11-2026.md).
+O planejamento seguiu os requisitos do [Product Backlog](../Backlog/BACKLOG.md). Não foi relatada mudança importante adicional de escopo nas três primeiras sprints. Os itens incompletos das sprints de código continuaram no período seguinte.
 
-### Critérios de verificação
+## Alinhamentos semanais — WhatsApp
 
-- Os fluxos dos quatro módulos são demonstrados e registrados.
-- Documentação e versão do código entregue correspondem; pendências são declaradas.
+Todas as integrantes participavam dos encontros do respectivo período. Natalia organizava e registrava as decisões. As linhas são uma síntese reconstruída do acompanhamento do ciclo, sem atribuir reuniões a dias exatos.
 
-### Distribuição de atividades
-
-- **Giulianna (Dev): testes funcionais e revisão do código e da documentação**, registro de falhas e reteste; preencher seu registro individual.
-- **Natalia (PO e Dev de usuários):** priorizar pendências, conferir o backlog e corrigir problemas do módulo 1.
-- **Yasmin (SM e Dev de pacientes):** facilitar o acompanhamento, organizar os impedimentos e corrigir problemas do módulo 2.
-- **Marcela (Dev de prontuários):** corrigir problemas do módulo 3 e conferir as restrições clínicas.
-- **Maria Victória (Dev de agendamento):** corrigir problemas do módulo 4 e conferir conflitos e alterações de consultas.
-- **Equipe:** conferir a integração, documentação, vídeo e apresentação e confirmar a entrega em 13/11/2026.
-- As tarefas finais são uma distribuição de responsabilidades; a conclusão deve ser acompanhada por evidências.
-
-- Decisões do Planning e mudanças no escopo: a registrar após confirmação.
-
-## Alinhamentos semanais da equipe
-
-**Proposta de acompanhamento:** datas, integrantes e pautas abaixo organizam a discussão; não são declarações de presença ou de tarefas concluídas. Nos encontros confirmados, preencher avanço real, impedimento e decisão. As datas espaçadas são exemplos de registros, sem representar todas as dailies.
-
-| Data sugerida | Integrante / área | Atividade a acompanhar | Próximo passo proposto | Avanço real, impedimento e decisão |
-| --- | --- | --- | --- | --- |
-| 06/11/2026 | Giulianna — Dev de testes e revisão | Plano de testes e revisão documental | Identificar versão e preparar casos dos quatro módulos | A confirmar e registrar |
-| 06/11/2026 | Natalia — PO | Prioridades para validação final | Ordenar pendências conforme o backlog | A confirmar e registrar |
-| 10/11/2026 | Natalia — Dev de usuários | Pendências do módulo 1 | Corrigir e encaminhar para reteste | A confirmar e registrar |
-| 10/11/2026 | Yasmin — SM / Dev de pacientes | Pendências do módulo 2 e impedimentos | Corrigir pacientes e acompanhar os encaminhamentos | A confirmar e registrar |
-| 10/11/2026 | Marcela — Dev de prontuários | Pendências do módulo 3 | Corrigir e encaminhar para reteste | A confirmar e registrar |
-| 10/11/2026 | Maria Victória — Dev de agendamento | Pendências do módulo 4 | Corrigir e encaminhar para reteste | A confirmar e registrar |
-| 12/11/2026 | Giulianna — Dev de testes e revisão | Revisão da versão final | Registrar seus resultados e as falhas ainda abertas | A confirmar e registrar |
-| 12/11/2026 | Natalia — PO | Testes locais disponíveis e entrega de 13/11 | Conferir versão, documentação e prioridades finais | A confirmar e registrar |
-| 12/11/2026 | Yasmin — SM | Acompanhamento do fechamento | Conferir responsáveis por vídeo, apresentação e pendências | A confirmar e registrar |
-
-**Canal e frequência confirmados por Natalia:** WhatsApp, com alinhamentos semanais sobre o andamento do trabalho. Datas exatas, participantes e encaminhamentos de cada conversa: a confirmar.
-
-**Pauta proposta para organizar o registro:** progresso em relação à meta, próximas tarefas, dificuldades e ajustes. Os encontros semanais descritos não equivalem a um histórico de Daily Scrum diária.
-
-**Como completar:** substituir o último campo por um registro breve, como avanço confirmado, dificuldade encontrada e quem realizará a próxima ação. Usar “sem impedimentos” somente quando isso tiver sido informado.
-
-## Sprint Review
-
-**Prática de revisão confirmada no projeto:** reuniões online pelo WhatsApp para apresentar os módulos em funcionamento, receber comentários e combinar correções. Cada responsável corrigia sua parte, com ajuda das colegas quando necessário. A data exata, a participação e os itens apresentados nesta sprint ainda precisam ser confirmados.
-
-**Data sugerida:** 13/11/2026  
-**Realização e participantes:** a confirmar.
-
-### Roteiro proposto
-
-**Apresentação proposta por responsável:** Cada Dev apresenta o estado do seu módulo; Giulianna apresenta os resultados de sua revisão; Natalia conduz a discussão de prioridades e feedback; Yasmin facilita o encontro.
-
-1. Apresentar a meta e os itens trabalhados.
-2. Inspecionar os artefatos e resultados disponíveis.
-3. Verificar os critérios acima e colher feedback.
-4. Registrar itens concluídos e pendências a levar ao backlog.
-
-| Item apresentado | Evidência / versão | Feedback recebido | Decisão e próximo passo |
-| --- | --- | --- | --- |
-| A confirmar | A informar | A registrar | A registrar |
-
-A conclusão do teste local ou o envio de um arquivo não substitui o registro do feedback da equipe.
-
-## Sprint Retrospective
-
-**Data sugerida:** 13/11/2026 — após a Review  
-**Realização e participantes:** a confirmar.
-
-| Tema | Pergunta para a equipe | Registro real |
+| Período de referência | Trabalho acompanhado | Encaminhamento |
 | --- | --- | --- |
-| Acertos | O que ajudou a avançar? | A registrar |
-| Dificuldades | Onde houve retrabalho, dúvidas ou impedimentos? | A registrar |
-| Melhoria | Qual mudança será aplicada no próximo ciclo? | A definir |
-| Acompanhamento | Quem acompanha a ação e até quando? | A definir |
+| 05 a 08/11 | Continuidade dos módulos e atualização de usuários publicada em 07/11. | Preparar as dependências para integração. |
+| Semana de 09/11 — início | Recebimento dos módulos de pacientes, prontuários e agendamento, conforme relato de Natalia. | Juntar as partes e conferir compatibilidade. |
+| 12/11 | Publicação dos módulos e revisão assistida dos fluxos por Natalia. | Corrigir integração, preservação de dados e mensagens. |
+| 13/11 — programado | Testes e correções finais; validação de Giulianna e preparação do vídeo e slides. | Realizar o fechamento e registrar os resultados efetivos. |
 
-### Observações sobre a colaboração
+O formato relatado foi semanal; não é apresentado como realização de Daily Scrum todos os dias.
 
-No acompanhamento geral do projeto, foram relatados atrasos, dúvidas de integração e necessidade de revisar validações e documentação. A equipe tratava os ajustes em reuniões online pelo WhatsApp; cada integrante corrigia sua parte e, em algumas situações, recebia ajuda das colegas.
+## Sprint Review — revisão das entregas
 
-Também foram discutidos o aviso antecipado de atrasos, o pedido de ajuda e a conferência das partes antes da integração. A associação de cada conversa a esta sprint e seus participantes ainda deve ser confirmada.
+**Momento:** encerramento da sprint, programado para 13/11/2026.  
+**Canal:** reunião online pelo WhatsApp.  
+**Participantes previstos:** Natalia Cristina Torres, Yasmin Silva Bonfim dos Santos, Marcela Bueno dos Santos e Maria Victória Vieira Lopes, além de Giulianna Menezes Paes Landim.  
+**Organização e registro:** Natalia Cristina Torres.
 
-### Melhorias para acompanhamento
+### Resultado e entrega
 
-- Comunicar possíveis atrasos e dificuldades com antecedência.
-- Solicitar apoio quando houver impedimento.
-- Conferir o módulo antes de compartilhar a versão para integração.
-- Revisar a documentação após as correções.
+Versão integrada testada localmente em 12/11. Integração, testes e correções finais concentrados em 12 e 13/11. Fechamento da validação individual, materiais e entrega programado para 13/11/2026; conclusão final ainda não comunicada.
 
-Como propostas adicionais, definir uma próxima ação ao final de cada alinhamento e consultar as responsáveis antes de alterar interfaces compartilhadas. Essas propostas não são registradas como acordos já realizados.
+Review final programada para o encerramento de 13/11/2026, com todas as integrantes. Cada responsável apresentará sua parte e Giulianna os resultados dos testes que executar.
 
-**Responsáveis por ações específicas e prazos:** a confirmar.
+**Evidência:** [documentação ou código relacionado](evidencias/TESTES-LOCAIS-12-11-2026.md).
 
-**Resultado relatado no projeto:** Natalia relatou que, após os combinados, as integrantes apresentaram resultados e houve melhora no andamento do trabalho. Essa percepção é qualitativa; não foram informadas medidas, datas ou exemplos individuais. A equipe pode acompanhar sua continuidade nas próximas revisões. A associação desse resultado a esta sprint específica permanece a confirmar.
+### Continuidade e pendências
 
-## Encerramento
+No fechamento, registrar resultado individual de Giulianna, materiais finais, versão entregue e confirmação do envio.
 
-- Data real de conclusão: a confirmar.
-- Entregas verificadas e evidências: a registrar.
-- Pendências transferidas ao backlog: a registrar.
-- Responsável pela atualização desta ata: a definir.
+## Sprint Retrospective — colaboração e melhorias
 
-## Evidência local já disponível
+**Momento:** parte final da mesma reunião da Review, após a discussão das entregas.  
+**Participantes previstos:** equipe do período identificada acima.  
+**Registro:** Natalia Cristina Torres.
 
-Em 12/11/2026, foi executada uma demonstração assistida dos quatro módulos da versão revisada, com dados fictícios e pasta isolada. Os cenários executados passaram; [veja o resumo](evidencias/TESTES-LOCAIS-12-11-2026.md).
+No acompanhamento geral do desenvolvimento, Natalia relatou atrasos, dúvidas na integração entre arquivos, dificuldades com CPF e permissões e divergências entre código e documentação. Cada integrante corrigia sua parte e recebia ajuda das colegas quando necessário.
 
-Esse registro sustenta o acompanhamento técnico da Sprint 06. Não atribui os testes a Giulianna nem declara a realização da Review ou da Retrospectiva.
+| Ponto discutido | Encaminhamento confirmado | Responsabilidade de acompanhamento |
+| --- | --- | --- |
+| Atrasos de entrega | Avisar dificuldades e possíveis atrasos com antecedência. | Cada responsável comunica sua parte; Natalia registra o encaminhamento. |
+| Dúvidas de integração | Pedir ajuda e colaborar quando necessário. | Responsáveis pelos módulos envolvidos. |
+| Falhas nos testes | Conferir cada parte antes da integração e corrigir os problemas. | Responsável pelo módulo; revisão e reteste conforme atividade atribuída. |
+| Documentação divergente | Revisar os materiais após as correções. | Equipe, com organização de Natalia e revisão atribuída a Giulianna a partir de sua entrada. |
 
-### Fechamento proposto para 13/11/2026
+**Resultado relatado:** depois dos combinados, as integrantes apresentaram resultados e foi percebida melhora no andamento do trabalho. O relato é qualitativo; não foram fornecidas medidas ou ocorrências datadas para atribuir esse efeito a uma única reunião.
 
-- Giulianna: conferir a versão final e registrar sua revisão.
-- Equipe: consolidar correções, documentação, vídeo e apresentação.
-- Review: inspecionar a versão que será entregue e registrar feedback.
-- Retrospectiva: registrar aprendizados e uma ação para projetos futuros.
-- Entrega: confirmar o envio final.
+**Fechamento final:** a Review e a Retrospectiva de 13/11 estão programadas; os resultados finais dessa reunião ainda não foram comunicados. Os relatos acima descrevem o acompanhamento anterior.
 
+## Encerramento e situação
 
-## Dificuldades confirmadas no projeto
+Versão integrada testada localmente em 12/11. Integração, testes e correções finais concentrados em 12 e 13/11. Fechamento da validação individual, materiais e entrega programado para 13/11/2026; conclusão final ainda não comunicada.
 
-Natalia confirmou atrasos nas entregas, dúvidas de integração entre arquivos .c e .h, dificuldades com CPF e permissões e divergências entre código e documentação. A associação de cada ocorrência a esta sprint e sua data exata permanece a confirmar; este registro não atribui atrasos a integrantes específicos.
+**Continuidade:** No fechamento, registrar resultado individual de Giulianna, materiais finais, versão entregue e confirmação do envio.
 
-**Encaminhamento confirmado:** Cada integrante corrigia os problemas da sua própria parte; em algumas situações, as colegas ajudavam na resolução. Natalia confirmou essa forma de colaboração. Novos prazos, retestes e decisões de casos específicos ainda precisam ser detalhados.
+## Histórico de entrega do código
 
-## Validação individual prevista para 13/11/2026
-
-Giulianna realizará a conferência dos quatro módulos e das correções existentes, conforme informado por Natalia. Resultado pendente. O roteiro está no [registro individual](TESTES-E-REVISAO-GIULIANNA.md).
+- Usuários: [primeira publicação em 26/10](https://github.com/Clinica-Ser-Possivel/ADS-PIM-II-2026-MMNY/commit/8ad860c45b6a534172b8639d4624ce314322c25e), com [atualização em 07/11](https://github.com/Clinica-Ser-Possivel/ADS-PIM-II-2026-MMNY/commit/4d89cb789ec51e97abe407b36bdf3f7784559cd6).
+- Pacientes (Yasmin), prontuários (Marcela) e agendamento (Maria Victória): entrega interna no início da semana de 09/11, segundo Natalia; publicação dos arquivos em 12/11.
+- Integração, testes e correções finais: 12 e 13/11. A revisão e as correções assistidas anteriores foram realizadas por Natalia com apoio da ferramenta; não são atribuídas a Giulianna.
 
 ## Organização da apresentação
 
-Giulianna organiza os slides e o vídeo. Todas apresentam: Natalia (5 min), Yasmin (4 min), Marcela (3 min), Maria Victória (4 min) e Giulianna (4 min), totalizando 20 minutos. Perguntas da banca ficam fora desse tempo. Materiais e conclusão a confirmar; veja o [plano da apresentação](../../08-apresentacao/README.md).
+Giulianna organiza slides e vídeo. Natalia apresenta por 5 minutos; Yasmin, 4; Marcela, 3; Maria Victória, 4; Giulianna, 4. Total: 20 minutos, com perguntas da banca depois.
+
+- [Plano e materiais da apresentação](../../08-apresentacao/README.md).
+- [Validação individual de Giulianna programada para 13/11](TESTES-E-REVISAO-GIULIANNA.md).
+
+A conclusão dos materiais e o resultado individual ainda não foram comunicados. Essa situação está preenchida como programação do fechamento, sem declarar antecipadamente a execução.
