@@ -9,26 +9,26 @@
 
 ## Identificação da versão
 
-- Versão / commit testado: a preencher.
-- Data e ambiente: a preencher.
-- Arquivos revisados: a preencher.
+- Versão programada para conferência: cópia local revisada v2. Ainda não foi comunicado um commit de código final publicado.
+- Execução programada para 13/11/2026 no notebook Windows, com dados fictícios. O resultado da execução individual ainda não foi comunicado.
+- Arquivos previstos na revisão: main.c, usuarios.c/.h, pacientes.c/.h, prontuarios.c/.h, agendamentos.c/.h, tipos.h, arquivos.h, validacoes.h e documentação correspondente.
 
 ## Casos a conferir
 
 | ID | Módulo | Verificação | Resultado esperado | Resultado de Giulianna |
 | --- | --- | --- | --- | --- |
-| T01 | Usuários | Login correto e incorreto | Autorizar apenas credenciais válidas e usuário ativo. | Pendente |
-| T02 | Usuários | Matrícula duplicada e inativação | Recusar duplicação; bloquear novo login do inativo. | Pendente |
-| T03 | Pacientes | CPF inválido e correção | Explicar o erro e repetir somente o campo. | Pendente |
-| T04 | Pacientes | CPF de paciente duplicado | Recusar duplicação, mantendo o formulário. | Pendente |
-| T05 | Pacientes | Consulta por responsável | Localizar e mostrar paciente e responsável. | Pendente |
-| T06 | Pacientes | Atualizar contato | Preservar identidade e vínculo com psicólogo. | Pendente |
-| T07 | Agenda | Primeiro agendamento | Gerar consulta e gravar vínculo com profissional ativo. | Pendente |
-| T08 | Agenda | Psicólogo inativo e conflito | Recusar e mostrar o motivo. | Pendente |
-| T09 | Agenda | Remarcar e cancelar | Atualizar a consulta preservando registros e vínculo. | Pendente |
-| T10 | Prontuário | Evolução e histórico | Registrar autor da sessão e mostrar o histórico. | Pendente |
-| T11 | Acesso | Perfil ou vínculo sem permissão | Bloquear dados e operações restritas. | Pendente |
-| T12 | Persistência | Fechar e reabrir | Manter os registros gravados. | Pendente |
+| T01 | Usuários | Login correto e incorreto | Autorizar apenas credenciais válidas e usuário ativo. | Execução programada para 13/11; resultado não recebido |
+| T02 | Usuários | Matrícula duplicada e inativação | Recusar duplicação; bloquear novo login do inativo. | Execução programada para 13/11; resultado não recebido |
+| T03 | Pacientes | CPF inválido e correção | Explicar o erro e repetir somente o campo. | Execução programada para 13/11; resultado não recebido |
+| T04 | Pacientes | CPF de paciente duplicado | Recusar duplicação, mantendo o formulário. | Execução programada para 13/11; resultado não recebido |
+| T05 | Pacientes | Consulta por responsável | Localizar e mostrar paciente e responsável. | Execução programada para 13/11; resultado não recebido |
+| T06 | Pacientes | Atualizar contato | Preservar identidade e vínculo com psicólogo. | Execução programada para 13/11; resultado não recebido |
+| T07 | Agenda | Primeiro agendamento | Gerar consulta e gravar vínculo com profissional ativo. | Execução programada para 13/11; resultado não recebido |
+| T08 | Agenda | Psicólogo inativo e conflito | Recusar e mostrar o motivo. | Execução programada para 13/11; resultado não recebido |
+| T09 | Agenda | Remarcar e cancelar | Atualizar a consulta preservando registros e vínculo. | Execução programada para 13/11; resultado não recebido |
+| T10 | Prontuário | Evolução e histórico | Registrar autor da sessão e mostrar o histórico. | Execução programada para 13/11; resultado não recebido |
+| T11 | Acesso | Perfil ou vínculo sem permissão | Bloquear dados e operações restritas. | Execução programada para 13/11; resultado não recebido |
+| T12 | Persistência | Fechar e reabrir | Manter os registros gravados. | Execução programada para 13/11; resultado não recebido |
 
 ## Revisão documental
 
@@ -41,11 +41,11 @@
 
 | ID | Como reproduzir | Esperado | Obtido | Responsável pela correção | Reteste |
 | --- | --- | --- | --- | --- | --- |
-| A preencher | A preencher | A preencher | A preencher | A definir | Pendente |
+| Nenhuma ocorrência individual comunicada | Não se aplica antes da execução | Conforme casos acima | Resultado não recebido | Responsável pelo módulo, se houver falha | Após a execução |
 
 ## Conclusão da revisora
 
-Preencher após realizar as verificações: cenários aprovados, falhas abertas e limitações. Os resultados dos testes assistidos já existentes podem ser consultados, mas a conferência individual precisa ser registrada por quem a executar.
+Execução individual programada para 13/11; conclusão ainda não recebida. Após a execução, registrar cenários aprovados, falhas abertas e limitações. Os resultados dos testes assistidos já existentes podem ser consultados, mas a conferência individual precisa ser registrada por quem a executar.
 
 
 ## Roteiro para conferir as correções de integração
