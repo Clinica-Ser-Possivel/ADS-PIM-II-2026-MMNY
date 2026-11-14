@@ -4,7 +4,7 @@
 **Duração da apresentação:** 20 minutos; perguntas da banca fora desse tempo.  
 **Organização dos slides e do vídeo:** Giulianna Menezes Paes Landim — RA H9592E5.  
 **Participação:** todas as integrantes apresentam sua parte.  
-**Situação dos materiais:** preparação prevista; conclusão e arquivos finais a confirmar.
+**Situação dos materiais:** preparação programada para 13/11/2026; conclusão ainda não comunicada.
 
 ## Divisão da apresentação
 
@@ -31,9 +31,9 @@ Sugestão de ensaio: cerca de 19 minutos, reservando uma margem para trocas entr
 
 | Material | Arquivo ou link | Situação |
 | --- | --- | --- |
-| Slides editáveis | A adicionar | Preparação prevista para 13/11/2026 |
-| Slides em PDF | A adicionar | Preparação prevista para 13/11/2026 |
-| Vídeo de demonstração | A adicionar | Preparação prevista para 13/11/2026 |
+| Slides editáveis | Arquivo ou link final ainda não disponibilizado | Preparação programada para 13/11/2026 |
+| Slides em PDF | Arquivo ou link final ainda não disponibilizado | Preparação programada para 13/11/2026 |
+| Vídeo de demonstração | Arquivo ou link final ainda não disponibilizado | Preparação programada para 13/11/2026 |
 
 ## Conferência antes da entrega
 
