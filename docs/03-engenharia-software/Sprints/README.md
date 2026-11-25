@@ -26,7 +26,6 @@
 | [05 — Desenvolvimento de agendamento e prontuário](SPRINT-05.md) | 28/10 a 04/11/2026 | Prontuários e agendamento entregues com atraso no início da semana de 09/11/2026, conforme relato de Natalia, após o prazo de 04/11. Os arquivos foram publicados em 12/11. |
 | [06 — Integração, validação e entrega final](SPRINT-06.md) | 05/11 a 13/11/2026 | Versão integrada testada localmente em 12/11. Integração, testes e correções finais concentrados em 12 e 13/11. Fechamento da validação individual, materiais e entrega programado para 13/11/2026; concluída. |
 
-As entregas internas e as publicações no GitHub são discriminadas nos registros. As primeiras versões locais da modelagem têm como fonte o relato de Natalia; os commits comprovam as datas de publicação. Os atrasos dos módulos foram mantidos no histórico.
 
 ## Organização dos encontros
 
