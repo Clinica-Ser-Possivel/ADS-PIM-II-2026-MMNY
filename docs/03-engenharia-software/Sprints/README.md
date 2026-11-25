@@ -35,8 +35,6 @@
 - **Retrospectiva:** parte final da mesma reunião, voltada às dificuldades e melhorias na colaboração.
 - **Registro:** Natalia organizava e documentava as decisões.
 
-Os registros foram consolidados a partir dos relatos confirmados em 13/11/2026 e do histórico do repositório. Os encontros são documentados por períodos aproximados, sem inventar dias exatos. A prática semanal não é apresentada como Daily Scrum realizada todos os dias.
-
 ## Revisões e aprendizados
 
 Nas primeiras três sprints, o grupo prosseguiu com o planejamento, sem mudança importante adicional relatada. Durante o desenvolvimento, foram relatados atrasos, dúvidas de integração, falhas em validações e permissões e divergências na documentação.
@@ -53,10 +51,3 @@ Cada integrante corrigia sua parte, com ajuda das colegas em algumas situações
 | Apresentação de 20 minutos | Todas as integrantes | Divisão das falas definida; perguntas da banca fora dos 20 minutos. |
 | Review e Retrospectiva final | Equipe; organização de Natalia | Programadas para o fechamento de 13/11; resultado final ainda não comunicado. |
 | Envio da entrega | Equipe | Prazo em 13/11; envio ainda não comunicado. |
-
-- [Roteiro de validação individual](TESTES-E-REVISAO-GIULIANNA.md).
-- [Apresentação, divisão dos tempos e materiais](../../08-apresentacao/README.md).
-
-As situações programadas são registros completos do estado conhecido nesta revisão; não são declarações antecipadas de conclusão.
-
-Referência conceitual: [Guia do Scrum](https://scrumguides.org/scrum-guide.html). O projeto registra a adaptação acadêmica efetivamente relatada, sem declarar conformidade integral com todos os elementos do framework.
