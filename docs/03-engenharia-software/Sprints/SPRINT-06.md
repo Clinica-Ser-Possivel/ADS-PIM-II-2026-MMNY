@@ -4,7 +4,7 @@
 
 **Período planejado:** 05/11 a 13/11/2026.  
 **Meta:** Juntar os módulos, testar, corrigir, revisar os materiais e preparar a entrega.  
-**Organização e registro:** Natalia Cristina Torres.
+**Organização e registro:** Natalia Cristina Torres e Giulianna Menezes Paes Landim. 
 
 ## Origem e precisão do registro
 
