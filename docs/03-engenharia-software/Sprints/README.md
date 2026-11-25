@@ -11,7 +11,7 @@
 | Yasmin Silva Bonfim dos Santos | SM e Dev | Pacientes e responsáveis; facilitação do acompanhamento. |
 | Marcela Bueno dos Santos | Dev | Prontuários e evoluções. |
 | Maria Victória Vieira Lopes | Dev | Agendamento e agenda. |
-| Giulianna Menezes Paes Landim — RA H9592E5 | Dev — testes e revisão | Validação, revisão e organização dos slides e vídeo; entrada em 25/10/2026. |
+| Giulianna Menezes Paes Landim | Dev — testes e revisão | Validação, revisão e organização dos slides e vídeo; entrada em 25/10/2026. |
 
 [Equipe e divisão das contribuições](../../01-organizacao/EQUIPE.md).
 
